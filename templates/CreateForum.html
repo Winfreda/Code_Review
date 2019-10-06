@@ -881,23 +881,7 @@
                                    style="font-family: sans-serif;font-style: italic;color: black; margin-left: 25%;">No
                                     Messages</a>
 
-                                {% comment %}     <a><div style="" class="notification-item">
-                                <img class="profile_img" src="{{ ProfilePic }}"/>
-                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
-                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
-                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
-                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
-                                </div>
-                            </a>
 
-                            <a><div style="margin-top: -20px" class="notification-item">
-                                <img class="profile_img" src="{{ ProfilePic }}"/>
-                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
-                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
-                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
-                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
-                                </div>
-                            </a>{% endcomment %}
 
                             </ul>
 
@@ -1123,17 +1107,6 @@
         for (var i = 0; i < keys.length; i++) {
             countholder++;
         }
-        {% comment %}
-                        countholder--;
-        {% endcomment %}
-
-        {% comment %}database_counter.update({'counter': countholder});
-         /*Creating notification icon*/{% endcomment %}
-
-
-        {% comment %}
-                        html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
-        {% endcomment %}
 
 
         $('#number_of_msg_notifications').html(countholder);
@@ -1209,9 +1182,7 @@
         /*Creating notification icon*/
 
 
-        {% comment %}
-                html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
-        {% endcomment %}
+
 
 
         $('#counter_number_notifications').html(countholder);

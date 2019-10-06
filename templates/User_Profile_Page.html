@@ -907,7 +907,7 @@
 
 
 <script>
-    /* Messaging*/
+    /* Messaging* Notifications/
 
 
     var Message_Notifications_Check = firebase.database().ref().child("Users/{{this_uid}}/Messages_Notifications");/*current user's account*/
@@ -1070,7 +1070,7 @@
 
 
     }
-
+/*Accepting a request notifcation*/
     function Accept_request(sender_id, name, post_id, isAccept, typepost, forum_id_id) {
 
 
@@ -1368,6 +1368,7 @@
         <!--Messaging Implementation-->
         <script>
 
+            /*Displaying the time*/
             const MONTH_NAMES = [
                 'January', 'February', 'March', 'April', 'May', 'June',
                 'July', 'August', 'September', 'October', 'November', 'December'
@@ -1403,7 +1404,7 @@
 
 
             // --- Main function
-            function timeAgo(dateParam) {
+            function timeAgo(dateParam) {  /*Main Function for time conversion*/
 
                 if (!dateParam) {
                     return null;

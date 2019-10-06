@@ -536,23 +536,7 @@
                                    style="font-family: sans-serif;font-style: italic;color: black; margin-left: 25%;">No
                                     Messages</a>
 
-                                {% comment %}     <a><div style="" class="notification-item">
-                                <img class="profile_img" src="{{ ProfilePic }}"/>
-                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
-                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
-                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
-                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
-                                </div>
-                            </a>
 
-                            <a><div style="margin-top: -20px" class="notification-item">
-                                <img class="profile_img" src="{{ ProfilePic }}"/>
-                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
-                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
-                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
-                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
-                                </div>
-                            </a>{% endcomment %}
 
                             </ul>
 
@@ -780,17 +764,7 @@
         for (var i = 0; i < keys.length; i++) {
             countholder++;
         }
-        {% comment %}
-                        countholder--;
-        {% endcomment %}
 
-        {% comment %}database_counter.update({'counter': countholder});
-         /*Creating notification icon*/{% endcomment %}
-
-
-        {% comment %}
-                        html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
-        {% endcomment %}
 
 
         $('#number_of_msg_notifications').html(countholder);
@@ -867,9 +841,7 @@
         /*Creating notification icon*/
 
 
-        {% comment %}
-                html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
-        {% endcomment %}
+
 
 
         $('#counter_number_notifications').html(countholder);
@@ -1279,10 +1251,7 @@
                                                     <div class="cardheader" style="background-image: url(
                                                             {% load staticfiles %}{{ course_uni_pics }});border-radius: 10px; width:280px;"></div>
 
-                                                    {% comment %}
-                                   // var isHearted = "false";
-{% endcomment %}
-                                                    <!--1. KIMONE: If ishearted == false implement the following div + please replace isHearted below with the actual value in the db-->
+                                               <!--1. KIMONE: If ishearted == false implement the following div + please replace isHearted below with the actual value in the db-->
                                                     {% if course_hearted == True or course_hearted == 'True' or course_hearted == 'true' %}
                                                         <div onclick="Like_Unlike_Course('{{ courses_ids }}', '{{ course_hearted }}')"
                                                              class="heartbutton"><span id="{{ courses_ids }}_heart"
@@ -2246,9 +2215,7 @@
 {% endfor %}
 <!--end of modal-->
 
-{% comment %}
-Badges_Celebrations_3
-{% endcomment %}
+
 <script>
 
     //Badge_1_Friend_Finder
@@ -2516,9 +2483,7 @@ Badges_Celebrations_3
     });
 
 </script>
-{% comment %}
-Badges_Celebrations_1
-{% endcomment %}
+
 
 <div id="Celebrations" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -2566,9 +2531,7 @@ Badges_Celebrations_1
     </div>
 </div>
 
-{% comment %}
-Badges_Celebrations_2
-{% endcomment %}
+
 <script>
 
     $('#Celebrations').on('show.bs.modal', function (event) {

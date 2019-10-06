@@ -498,23 +498,7 @@
                                    style="font-family: sans-serif;font-style: italic;color: black; margin-left: 25%;">No
                                     Messages</a>
 
-                                {% comment %}     <a><div style="" class="notification-item">
-                                <img class="profile_img" src="{{ ProfilePic }}"/>
-                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
-                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
-                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
-                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
-                                </div>
-                            </a>
 
-                            <a><div style="margin-top: -20px" class="notification-item">
-                                <img class="profile_img" src="{{ ProfilePic }}"/>
-                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
-                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
-                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
-                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
-                                </div>
-                            </a>{% endcomment %}
 
                             </ul>
 
@@ -526,32 +510,7 @@
                     </ul><!--Dropdown menu Messages--> </a>
                 </li><!--dropdown -->
 
-                {% comment %}<!--REQUESTS NOTIFICATIONS -->
-                <li style="text-decoration: none" class="dropdown"><a id="idLabel" data-toggle="dropdown"
-                                                                      data-target="#" href="#"
-                                                                      onclick="CloseIntroForm(); OpenLogIn();">
 
-                    <div id="">
-                        <span ><span class="glyphicon glyphicon-bell"></span>&nbsp;<span id="counter_number_notifications" class="label label-default"   style="background-color: red;color: white;font-family: Roboto, sans-serif"></span></span>
-
-                    </div>
-
-                    <ul style="text-decoration: none" class="dropdown-menu notifications" role="menu"
-                        aria-labelledby="dLabel">
-
-                        <div class="notifications-wrapper" style="overflow-x: hidden;text-decoration: none">
-                            <!--Notifications Dropdown div-->
-                            <ul id="comment_1"><p style="font-family: sans-serif;font-style: italic;color: black">No
-                                Notifications</p></ul>
-                        </div><!--End of Notifications Dropdown div-->
-
-                        <!--Footer of notification drop down-->
-                        <li class="divider"></li>
-                        <li style="text-align: center"><a href="#"></a></li>
-
-                    </ul> <!--Dropdown menu Notification-->
-                </a>
-                </li><!--dropdown -->{% endcomment %}
 
                 <!--Profile Drop-Down -->
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
@@ -618,7 +577,7 @@
                     return `${day}. ${month} ${year}. at ${hours}:${minutes}`;
                 }
 
-                // --- Main function
+                // --- Main function for displaying time
                 function timeAgo(dateParam) {
 
                     if (!dateParam) {
@@ -735,17 +694,7 @@
                     for (var i = 0; i < keys.length; i++) {
                         countholder++;
                     }
-                    {% comment %}
-                                    countholder--;
-                    {% endcomment %}
 
-                    {% comment %}database_counter.update({'counter': countholder});
-                     /*Creating notification icon*/{% endcomment %}
-
-
-                    {% comment %}
-                                    html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
-                    {% endcomment %}
 
 
                     $('#number_of_msg_notifications').html(countholder);
@@ -777,6 +726,7 @@
 
                 });
 
+                    /* Displaying Request Notificaitons */
 
                 function renderUI_1(obj) {
                     var html = '';
@@ -813,6 +763,9 @@
                     $('#comment').html(html);
                 }
 
+                    /* Number of ntifications counter */
+
+
                 function renderCount_1(obj) {
                     var html = '';
                     var countholder = 0;
@@ -833,6 +786,8 @@
 
 
                 }
+
+                    /*accepting friend requests fromt he navigation bar */
 
                 function Accept_request(sender_id, name, post_id, isAccept, typepost, forum_id_id) {
 
@@ -1165,125 +1120,6 @@
 
                 </div>
                 <!--- actual Posted message block-->
-                {% comment %}<div style="border-style: solid;border-width: 2px;border-color: darkgray" class="messagePost">
-
-                    <div class="panel-heading" style="background-color: #D3D3D3;">
-                        <div class="card-header">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="mr-2" style="display: inline-block; vertical-align: top;">
-                                        <!--styling allows for the image and text to be next to one another-->
-                                        <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
-                                    </div>
-                                    <div class="ml-2" style="display:inline-block;">
-                                        <div class="h5 m-0"><strong> Kirsten Pennington</strong>
-                                        </div>
-                                    </div>
-                                    <div style="margin-left: 50px;margin-top: -10px;font-size: x-small;font-style: italic"
-                                         class=""><i class="fa fa-clock-o"></i> 10 min ago
-                                    </div>
-
-                                    <div class="dropdownmenu"
-                                         style="display: inline-block;margin-left: 97%;color: #666666;position: relative; top: -55px;">
-                                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <!--more options menu-->
-                                            <span class="glyphicon glyphicon-option-vertical"
-                                                  style="color: black;"></span></a>
-
-                                            <ul class="dropdown-menu">
-
-                                                <li onclick="Delete_post('-LjHx7ZqqoTe32nhvFht','-LjR8AlWuZAGc540fM0v')">
-                                                    <a>Direct Message <span
-                                                            class="glyphicon glyphicon glyphicon-comment pull-right"></span></a>
-                                                </li>
-                                                <li class="divider"></li>
-                                                <li><a> Delete Post <span
-                                                        class="fa fa-trash pull-right"></span></a>
-                                                </li>
-                                                <li class="divider"></li>
-                                                <li><a>Report<span
-                                                        class="    glyphicon glyphicon-warning-sign pull-right"></span></a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </div>
-
-                                    <h5 style="color:#e83e8c;margin-left: 50px; margin-top: -10px;font-weight: bold">
-                                        Message Title goes here</h5>
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-                    <br>
-
-
-                    <div class="card-body">
-
-                        <p class="card-text;" style="font-family: sans-serif">
-                            This card is still a dummy, you can use this to test your designs..
-                        </p>
-
-                        <!--this is the image which shows up on a post-->
-
-                        <img  src="https://yt3.ggpht.com/a-/ACSszfFqU21Wtz5ap2GwjaGy7adiyLG6n3_cqlvI9A=s900-mo-c-c0xffffffff-rj-k-no"
-                             style="width:200px; height:200px; margin-left: 30%;" >
-
-
-
-                        <div style="margin-bottom: 0px; margin-left: 530px;font-weight: bold ">
-                            <p onclick="Increase_Likes('-LjHxLAZzrskdrbwxU1z')"
-                               style="color: #e83e8c;display: inline-block;vertical-align: top; font-weight: bold">10
-                                &nbsp;<span class="glyphicon glyphicon-thumbs-up " style="color: #e83e8c; "></span>
-                        </div>
-
-                        <hr style="margin-top: 0px;color: darkgrey">
-                    </div>
-
-
-                    <div style=" margin-top: 0px;">
-                        <!--styling ensures the like and comment are next to one another-->
-
-
-                        <details style="outline: none;">
-
-                            <summary style="color: #e83e8c;text-align: right"> <!--title of the replies collapsible-->
-                                View Replies
-                            </summary>
-
-
-                            <!--Winny add message replies from here-->
-                            <ul>
-                                <a><img class="profile_img"
-                                        src="http://gravatar.com/avatar/0e1e4e5e5c11835d34c0888921e78fd4?s=80"/> Name
-
-                                    <i
-                                            onclick="Delete_comment('-LjHx7ZqqoTe32nhvFht','-LjR8AlWuZAGc540fM0v')"
-                                            class="fa fa-close" style="margin-left: 10px;"></i> </a>
-                                <br><br>
-                                <p style="color: black">Marketing 101, Video Assignment</p>
-
-                                <div>
-
-
-                                    <a id=""><textarea maxlength="200" id="-LjHDWtigiRAkkdKO3gw"
-                                                       style="width: 90%;height: 25px;border-radius: 5px;"></textarea></a>
-                                    <br>
-                                    <button class="buttonbot2" onclick="saveComment('-LjHxLAZzrskdrbwxU1z')"
-                                            style="position: absolute;left: 77%;" type="button">Reply
-                                    </button>
-                                </div>
-
-                                <!--post button-->
-                            </ul>
-
-                        </details><!--end of collapasible--><!--end of collapasible-->
-
-                        <!--Dummy Drop-down for comment_please don't remove-->
-                    </div>
-
-                </div> <!---//Message Post-->
 
 <div style="border-style: solid;border-width: 2px;border-color: darkgray" class="messagePost">
 
@@ -1667,14 +1503,8 @@
         var date_for_post = Date.now();
 
 
-        /* Check for document being uploaded*/
 
-        {% comment %}var isDocument; /* Can either be Image, File or No_File*/
 
-        if (String(AttachFile).valueOf() == String("").valueOf()){upload_document = AttachImage; isDocument="Image"}
-        else {upload_document = AttachFile; isDocument="File"}
-
-        if (upload_document.toString()==""){ isDocument="No_File"}{% endcomment %}
 
         /* Check Complete*/
 
@@ -1896,6 +1726,7 @@
 
     }
 
+    /* Displaying Document, if a post has a document */
     function DisplayDocument(isDocument, document_1) {
 
 
@@ -1903,9 +1734,7 @@
 
         if (String(isDocument).valueOf() == String("Image").valueOf()) {
 
-            {% comment %}
-                        document_display = " <img href=\""+ document_1 +"\" target=\"_blank\" src=\" "+  document_1 +"\" style=\"width:200px; height:200px; margin-left: 30%;\" > ";
-            {% endcomment %}
+
 
 
             document_display = "<a style=\"width:200px; height:200px; margin-left: 30%;\"  href=\"" + document_1 + "\" target=\"_blank\"> \n" +
@@ -1932,14 +1761,15 @@
 
     }
 
+    /* Pop up to view document before uploading */
 
     function display_modal(link_file) {
 
-        {% comment %} document.getElementById("frameView_popup").src =link_file;
+        document.getElementById("frameView_popup").src =link_file;
 
-          $('#fileViewModal').modal('show');{% endcomment %}
+          $('#fileViewModal').modal('show');
 
-        //window.alert("hey");
+
 
 
     }
@@ -2557,9 +2387,7 @@
 </div>
 
 
-{% comment %}
-Badges_Celebrations_3
-{% endcomment %}
+
 <script>
 
     //Badge_1_Friend_Finder
@@ -2827,9 +2655,7 @@ Badges_Celebrations_3
 
 
 </script>
-{% comment %}
-Badges_Celebrations_1
-{% endcomment %}
+
 
 <div id="Celebrations" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -2877,9 +2703,6 @@ Badges_Celebrations_1
     </div>
 </div>
 
-{% comment %}
-Badges_Celebrations_2
-{% endcomment %}
 <script>
 
     $('#Celebrations').on('show.bs.modal', function (event) {

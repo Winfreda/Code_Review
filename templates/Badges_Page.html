@@ -93,6 +93,7 @@
             margin-right: -20px;
 
         }
+
         .profile_img_1 {
             max-width: 50px;
             min-width: 50px;
@@ -796,6 +797,7 @@
         .badgehover:hover .middle {
             opacity: 1;
         }
+
         .badges_plus {
             box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
             background-color: white;
@@ -924,11 +926,13 @@
             </button>
         </div>  <!--navbar-header-->
 
-        <div class="collapse navbar-collapse" id="myNavbar" style="font-family: 'Roboto', sans-serif;"> <!--Navigation bar contents-->
+        <div class="collapse navbar-collapse" id="myNavbar" style="font-family: 'Roboto', sans-serif;">
+            <!--Navigation bar contents-->
 
             <!--Left-side (including search ) of navigation bar-->
             <ul class="nav navbar-nav navbar-left">
-                <li><a onclick="location.href='{% url 'nav_home' %}'"><span class="glyphicon glyphicon-home fa-lg"></span> Home </a></li>
+                <li><a onclick="location.href='{% url 'nav_home' %}'"><span
+                        class="glyphicon glyphicon-home fa-lg"></span> Home </a></li>
                 <li><a onclick="location.href='{% url 'nav_networks' %}'"><span class="fa fa-globe fa-lg"></span>
                     Connections</a></li>
                 <li><a onclick="location.href='{% url 'nav_forums' %}'"><span class="fa fa-comments-o fa-lg"></span>
@@ -956,29 +960,14 @@
 
                     <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
 
-                        <div  class="notifications-wrapper" style="overflow-x: hidden; "> <!--Messages Dropdown div-->
+                        <div class="notifications-wrapper" style="overflow-x: hidden; "> <!--Messages Dropdown div-->
 
                             <ul id="Message_dropdown_notifications" style="">
 
-                                <a class="text-center" style="font-family: sans-serif;font-style: italic;color: black; margin-left: 25%;">No Messages</a>
+                                <a class="text-center"
+                                   style="font-family: sans-serif;font-style: italic;color: black; margin-left: 25%;">No
+                                    Messages</a>
 
-                                {% comment %}     <a><div style="" class="notification-item">
-                                <img class="profile_img" src="{{ ProfilePic }}"/>
-                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
-                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
-                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
-                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
-                                </div>
-                            </a>
-
-                            <a><div style="margin-top: -20px" class="notification-item">
-                                <img class="profile_img" src="{{ ProfilePic }}"/>
-                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
-                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
-                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
-                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
-                                </div>
-                            </a>{% endcomment %}
 
                             </ul>
 
@@ -996,7 +985,9 @@
                                                                       onclick="CloseIntroForm(); OpenLogIn();">
 
                     <div id="">
-                        <span ><span class="glyphicon glyphicon-bell"></span>&nbsp;<span id="counter_number_notifications" class="label label-default"   style="background-color: red;color: white;font-family: Roboto, sans-serif"></span></span>
+                        <span><span class="glyphicon glyphicon-bell"></span>&nbsp;<span
+                                id="counter_number_notifications" class="label label-default"
+                                style="background-color: red;color: white;font-family: Roboto, sans-serif"></span></span>
 
                     </div>
 
@@ -1049,394 +1040,366 @@
     </div><!--container fluid-->
 </nav><!--nav navbar-inverse-->
 </head>
-<div class="UserWallpaper parallax" style="background-image:url({% load staticfiles %}{% static "GC_Auth/trophyBackground.jpg" %}); margin-top: 0px;
-        background-position:top; ">
+<div class="UserWallpaper parallax"
+     style="background-image:url({% load staticfiles %}{% static "GC_Auth/trophyBackground.jpg" %}); margin-top: 0px;
+             background-position:top; ">
 
 
+    <script>
 
-<script>
+        /*Time for Posts Displayed*/
+        const MONTH_NAMES = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
 
-    /*Time for Posts Displayed*/
-    const MONTH_NAMES = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
+        function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
+            const day = date.getDate();
+            const month = MONTH_NAMES[date.getMonth()];
+            const year = date.getFullYear();
+            const hours = date.getHours();
+            let minutes = date.getMinutes();
 
-    function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
-        const day = date.getDate();
-        const month = MONTH_NAMES[date.getMonth()];
-        const year = date.getFullYear();
-        const hours = date.getHours();
-        let minutes = date.getMinutes();
+            if (minutes < 10) {
+                // Adding leading zero to minutes
+                minutes = `0${minutes}`;
+            }
 
-        if (minutes < 10) {
-            // Adding leading zero to minutes
-            minutes = `0${minutes}`;
+            if (prefomattedDate) {
+                // Today at 10:20
+                // Yesterday at 10:20
+                return `${prefomattedDate} at ${hours}:${minutes}`;
+            }
+
+            if (hideYear) {
+                // 10. January at 10:20
+                return `${day}. ${month} at ${hours}:${minutes}`;
+            }
+
+            // 10. January 2017. at 10:20
+            return `${day}. ${month} ${year}. at ${hours}:${minutes}`;
         }
 
-        if (prefomattedDate) {
-            // Today at 10:20
-            // Yesterday at 10:20
-            return `${prefomattedDate} at ${hours}:${minutes}`;
-        }
+        // --- Main function
+        function timeAgo(dateParam) {
 
-        if (hideYear) {
-            // 10. January at 10:20
-            return `${day}. ${month} at ${hours}:${minutes}`;
-        }
+            if (!dateParam) {
+                return null;
+            }
 
-        // 10. January 2017. at 10:20
-        return `${day}. ${month} ${year}. at ${hours}:${minutes}`;
-    }
-
-    // --- Main function
-    function timeAgo(dateParam) {
-
-        if (!dateParam) {
-            return null;
-        }
-
-        const date = typeof dateParam === 'object' ? dateParam : new Date(dateParam);
-        const DAY_IN_MS = 86400000; // 24 * 60 * 60 * 1000
-        const today = new Date();
-        const yesterday = new Date(today - DAY_IN_MS);
-        const seconds = Math.round((today - date) / 1000);
-        const minutes = Math.round(seconds / 60);
-        const isToday = today.toDateString() === date.toDateString();
-        const isYesterday = yesterday.toDateString() === date.toDateString();
-        const isThisYear = today.getFullYear() === date.getFullYear();
+            const date = typeof dateParam === 'object' ? dateParam : new Date(dateParam);
+            const DAY_IN_MS = 86400000; // 24 * 60 * 60 * 1000
+            const today = new Date();
+            const yesterday = new Date(today - DAY_IN_MS);
+            const seconds = Math.round((today - date) / 1000);
+            const minutes = Math.round(seconds / 60);
+            const isToday = today.toDateString() === date.toDateString();
+            const isYesterday = yesterday.toDateString() === date.toDateString();
+            const isThisYear = today.getFullYear() === date.getFullYear();
 
 
-        if (seconds < 5) {
-            return 'now';
-        } else if (seconds < 60) {
-            return `${seconds} seconds ago`;
-        } else if (seconds < 90) {
-            return 'about a minute ago';
-        } else if (minutes < 60) {
-            return `${minutes} minutes ago`;
-        } else if (isToday) {
-            return getFormattedDate(date, 'Today'); // Today at 10:20
-        } else if (isYesterday) {
-            return getFormattedDate(date, 'Yesterday'); // Yesterday at 10:20
-        } else if (isThisYear) {
-            return getFormattedDate(date, false, true); // 10. January at 10:20
-        }
+            if (seconds < 5) {
+                return 'now';
+            } else if (seconds < 60) {
+                return `${seconds} seconds ago`;
+            } else if (seconds < 90) {
+                return 'about a minute ago';
+            } else if (minutes < 60) {
+                return `${minutes} minutes ago`;
+            } else if (isToday) {
+                return getFormattedDate(date, 'Today'); // Today at 10:20
+            } else if (isYesterday) {
+                return getFormattedDate(date, 'Yesterday'); // Yesterday at 10:20
+            } else if (isThisYear) {
+                return getFormattedDate(date, false, true); // 10. January at 10:20
+            }
 
-        return getFormattedDate(date); // 10. January 2017. at 10:20
-    };
-
-
-    /*Message_Notificationas*/
-
-    var Message_Notifications_Check = firebase.database().ref().child("Users/{{this_uid}}/Messages_Notifications");/*current user's account*/
-    Message_Notifications_Check.on('value', function (snapshot) {
-        msg_messages_dropdown(snapshot.val());
-        msg_message_number(snapshot.val());
-    });
-
-    function msg_messages_dropdown(obj) {
+            return getFormattedDate(date); // 10. January 2017. at 10:20
+        };
 
 
-        var dropdown_item = '';
-        var keys = Object.keys(obj);
-        var counter_check = 0;
+        /*Message_Notificationas*/
+
+        var Message_Notifications_Check = firebase.database().ref().child("Users/{{this_uid}}/Messages_Notifications");/*current user's account*/
+        Message_Notifications_Check.on('value', function (snapshot) {
+            msg_messages_dropdown(snapshot.val());
+            msg_message_number(snapshot.val());
+        });
+
+        function msg_messages_dropdown(obj) {
 
 
-        for (var i = keys.length - 1; i >= 0; i--) {
-
-            if (obj[keys[i]].ProfilePic != undefined) {
-
-                var display_time = obj[keys[i]].Time;
-                display_time = Number(display_time); // cast it to a Number
-                var ts_display = timeAgo(display_time);
+            var dropdown_item = '';
+            var keys = Object.keys(obj);
+            var counter_check = 0;
 
 
-                if (counter_check == 0) {
-                    counter_check++;
+            for (var i = keys.length - 1; i >= 0; i--) {
 
-                    dropdown_item += " <a><div style= \"padding: 2px;\n" +
-                        "            margin: 5px;\n" +
-                        "            border-radius: 4px;\n" +
-                        "            border-width: 5px;\n" +
-                        "            border-color: black;\n" +
-                        "            height: 80px;\n" +
-                        "             margin-left: -20px;\n" +
-                        "            margin-top: 20px  \" class=\"notification-item\">\n" +
-                        "                                <img style=\"margin-top:-12px\" class=\"profile_img\" src=\"" + obj[keys[i]].ProfilePic + "\"/>\n" +
-                        "                                    \n" +
-                        "                                    <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 55px; position:relative\">" + obj[keys[i]].Sender_name + "</h5>\n" +
-                        "                                    <p style=\"font-family: sans-serif; color: black; margin-top: 3px;left: 28px;position:relative; \"> " + obj[keys[i]].text + "</p>\n" +
-                        "                                    <p style=\"font-family:sans-serif;font-style:italic;margin-left: 58px;margin-top:2px; color: grey;font-size:x-small\"><i class= \"fa fa-clock-o \"></i>&nbsp" + ts_display + "</p>\n" +
-                        "                                    <hr style=\"width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px\"/>\n" +
-                        "                                </div>\n" +
-                        "                            </a>";
+                if (obj[keys[i]].ProfilePic != undefined) {
 
-                } else {
+                    var display_time = obj[keys[i]].Time;
+                    display_time = Number(display_time); // cast it to a Number
+                    var ts_display = timeAgo(display_time);
 
-                    dropdown_item += " <a><div style= \"padding: 5px;\n" +
-                        "            margin: 5px;\n" +
-                        "            border-radius: 4px;\n" +
-                        "            border-width: 5px;\n" +
-                        "            border-color: black;\n" +
-                        "            height: 80px;\n" +
-                        "             margin-left: -20px;\n" +
-                        "            margin-top: 20px \" class=\"notification-item\">\n" +
-                        "                                <img style=\"margin-top:-12px\" class=\"profile_img\" src=\"" + obj[keys[i]].ProfilePic + "\"/>\n" +
-                        "                                    \n" +
-                        "                                    <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 55px; position:relative\">" + obj[keys[i]].Sender_name + "</h5>\n" +
-                        "                                    <p style=\"font-family: sans-serif; color: black; margin-top: 3px;left: 28px;position:relative; \">" + obj[keys[i]].text + "</p>\n" +
-                        "                                    <p style=\"font-family:sans-serif;font-style:italic;margin-left: 58px;margin-top:2px; color: grey;font-size:x-small\"><i class= \"fa fa-clock-o \"></i>&nbsp" + ts_display + "</p>\n" +
-                        "                                    <hr style=\"width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px\"/>\n" +
-                        "                                </div>\n" +
-                        "                            </a>";
+
+                    if (counter_check == 0) {
+                        counter_check++;
+
+                        dropdown_item += " <a><div style= \"padding: 2px;\n" +
+                            "            margin: 5px;\n" +
+                            "            border-radius: 4px;\n" +
+                            "            border-width: 5px;\n" +
+                            "            border-color: black;\n" +
+                            "            height: 80px;\n" +
+                            "             margin-left: -20px;\n" +
+                            "            margin-top: 20px  \" class=\"notification-item\">\n" +
+                            "                                <img style=\"margin-top:-12px\" class=\"profile_img\" src=\"" + obj[keys[i]].ProfilePic + "\"/>\n" +
+                            "                                    \n" +
+                            "                                    <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 55px; position:relative\">" + obj[keys[i]].Sender_name + "</h5>\n" +
+                            "                                    <p style=\"font-family: sans-serif; color: black; margin-top: 3px;left: 28px;position:relative; \"> " + obj[keys[i]].text + "</p>\n" +
+                            "                                    <p style=\"font-family:sans-serif;font-style:italic;margin-left: 58px;margin-top:2px; color: grey;font-size:x-small\"><i class= \"fa fa-clock-o \"></i>&nbsp" + ts_display + "</p>\n" +
+                            "                                    <hr style=\"width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px\"/>\n" +
+                            "                                </div>\n" +
+                            "                            </a>";
+
+                    } else {
+
+                        dropdown_item += " <a><div style= \"padding: 5px;\n" +
+                            "            margin: 5px;\n" +
+                            "            border-radius: 4px;\n" +
+                            "            border-width: 5px;\n" +
+                            "            border-color: black;\n" +
+                            "            height: 80px;\n" +
+                            "             margin-left: -20px;\n" +
+                            "            margin-top: 20px \" class=\"notification-item\">\n" +
+                            "                                <img style=\"margin-top:-12px\" class=\"profile_img\" src=\"" + obj[keys[i]].ProfilePic + "\"/>\n" +
+                            "                                    \n" +
+                            "                                    <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 55px; position:relative\">" + obj[keys[i]].Sender_name + "</h5>\n" +
+                            "                                    <p style=\"font-family: sans-serif; color: black; margin-top: 3px;left: 28px;position:relative; \">" + obj[keys[i]].text + "</p>\n" +
+                            "                                    <p style=\"font-family:sans-serif;font-style:italic;margin-left: 58px;margin-top:2px; color: grey;font-size:x-small\"><i class= \"fa fa-clock-o \"></i>&nbsp" + ts_display + "</p>\n" +
+                            "                                    <hr style=\"width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px\"/>\n" +
+                            "                                </div>\n" +
+                            "                            </a>";
+                    }
+
                 }
-
             }
+            $('#Message_dropdown_notifications').html(dropdown_item);
         }
-        $('#Message_dropdown_notifications').html(dropdown_item);
-    }
 
-/*Displaying te Message Number*/
-    function msg_message_number(obj) {
-        // var html = '';
-        var countholder = 0;
-        var keys = Object.keys(obj);
+        /*Displaying te Message Number*/
+        function msg_message_number(obj) {
+            // var html = '';
+            var countholder = 0;
+            var keys = Object.keys(obj);
 
-        for (var i = 0; i < keys.length; i++) {
-            countholder++;
-        }
-        {% comment %}
-                        countholder--;
-        {% endcomment %}
-
-        {% comment %}database_counter.update({'counter': countholder});
-         /*Creating notification icon*/{% endcomment %}
-
-
-        {% comment %}
-                        html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
-        {% endcomment %}
-
-
-        $('#number_of_msg_notifications').html(countholder);
-
-
-    }
-/*Removing a message notifcationr*/
-    function removeMessageNotifications() {
-
-        var other = firebase.database().ref().child("Users/" + '{{ this_uid }}');/*Messages*/
-        other.child("Messages_Notifications").remove();
-
-    }
-
-
-    /*Request Notifications*/
-
-    var database_counter = firebase.database().ref().child("Users/{{this_uid}}/RequestsReceived");/*current user's account*/
-
-
-    database_counter.on('value', function (snapshot) {
-        renderCount(snapshot.val());
-        renderUI(snapshot.val());
-        //alert("Connection Request Received");
-
-
-    });
-
-    /*Displaying the notifications*/
-
-    function renderUI(obj) {
-        var html = '';
-        var keys = Object.keys(obj);
-        for (var i = keys.length - 1; i >= 0; i--) {
-            // for (var i = 0; i <= keys.length - 1; i++) {
-
-
-            /* html += "<li><b><i>" + obj[keys[i]].time + "</i></b> girl " + obj[keys[i]].receiver + "</li>";*/
-            /*Creating notification item*/
-
-            if (obj[keys[i]].sender_profilePic != undefined) {
-
-                var display_time = obj[keys[i]].time;
-                display_time = Number(display_time); // cast it to a Number
-                var ts_display = timeAgo(display_time);
-
-                var type_post = obj[keys[i]].Type;
-                var forum_id_id = obj[keys[i]].Forum_ID;
-
-
-                var decision = "true";
-                var opp_decison = "false";
-                html += "<div href=\"#\" class=\"content\" style=\"padding:5px;margin: 5px; border-radius: 4px; border-width: 5px; border-color: black; height: 80px; margin-left: -20px; \"> <div style=\"padding:2px;margin:5px;border-radius:4px;border-width:5px;border-color:black;height:80px;margin-left: -10px\"><img  class=\"profile_img_1\" src=\" " + obj[keys[i]].sender_profilePic + "\"/> <p style=\"margin-left: 155px;font-size: 60%; color: darkgray;text-decoration: none\">" + "" + "&nbsp;&nbsp;</p> <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: 0px; top: -20px;left: 25px; position:relative\">" + obj[keys[i]].sender + "</h5> <p style=\"font-family: 'Roboto', sans-serif; color: black; margin-top: -25px;left: 28px;position:relative; \">" + obj[keys[i]].message +
-                    "</p> <p style=\"font-family:sans-serif;font-style:italic;margin-left: 55px;margin-top:5px; color: grey;font-size: x-small\"><i class= \"fa fa-clock-o \"></i> " + ts_display + "</p>  <div style=\"margin-top: 10px\"> <button  id=\"dntrigger\" onclick=\"Accept_request(" + "\'" + obj[keys[i]].sender_id + "\'" + "," + "\'" + obj[keys[i]].sender + "\'" + "," + "\'" + obj[keys[i]].post_id + "\'" + "," + "\'" + decision + "\'" +",\'" + type_post + "\',\'" + forum_id_id + "\' )\" class=\"AcceptDeclinebutton\" style=\" font-size: 85%; position: relative;left: 80px;color: white\">Accept</button> <button id=\"DeclineRemove\" onclick=\"Accept_request(" + "\'" + obj[keys[i]].sender_id + "\'" + "," + "\'" + obj[keys[i]].sender + "\'" + "," + "\'" + obj[keys[i]].post_id + "\'" + "," + opp_decison + ")\" class=\"AcceptDeclinebutton\" style=\"; font-size: 85%;position: relative;left: 80px;color: white \">Decline </button> </div> <hr style=\"width: 100%; color: gray; height: 2px; background-color:grey; margin-top: 5px\"/> </div> </div><br>";
-
-
-
-
-
+            for (var i = 0; i < keys.length; i++) {
+                countholder++;
             }
+
+
+            $('#number_of_msg_notifications').html(countholder);
+
+
         }
-        if (html.length == 0){html= "<div style = \"font-family: sans-serif;font-style: italic;color: black\"  > No Notifications</div>";}
 
-        $('#comment').html(html);
-    }
+        /*Removing a message notifcationr*/
+        function removeMessageNotifications() {
 
-    /*Counting  the  number of notifications*/
-    function renderCount(obj) {
-        var html = '';
-        var countholder = 0;
+            var other = firebase.database().ref().child("Users/" + '{{ this_uid }}');/*Messages*/
+            other.child("Messages_Notifications").remove();
 
-        var keys = Object.keys(obj);
-        for (var i = 0; i < keys.length; i++) {
-            countholder++;
         }
-        countholder--;
-        database_counter.update({'counter': countholder});
-        /*Creating notification icon*/
 
 
-{% comment %}
-        html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
-{% endcomment %}
+        /*Request Notifications*/
+
+        var database_counter = firebase.database().ref().child("Users/{{this_uid}}/RequestsReceived");/*current user's account*/
 
 
-        $('#counter_number_notifications').html(countholder);
+        database_counter.on('value', function (snapshot) {
+            renderCount(snapshot.val());
+            renderUI(snapshot.val());
+            //alert("Connection Request Received");
 
 
-    }
+        });
 
-    /*Accepting Notification Requests*/
-    function Accept_request(sender_id, name, post_id, isAccept, typepost, forum_id_id) {
+        /*Displaying the notifications*/
+
+        function renderUI(obj) {
+            var html = '';
+            var keys = Object.keys(obj);
+            for (var i = keys.length - 1; i >= 0; i--) {
+                // for (var i = 0; i <= keys.length - 1; i++) {
 
 
-        if (String(isAccept).valueOf() == String("true").valueOf()) {
+                /* html += "<li><b><i>" + obj[keys[i]].time + "</i></b> girl " + obj[keys[i]].receiver + "</li>";*/
+                /*Creating notification item*/
 
-            /*Check Type of Request*/
+                if (obj[keys[i]].sender_profilePic != undefined) {
+
+                    var display_time = obj[keys[i]].time;
+                    display_time = Number(display_time); // cast it to a Number
+                    var ts_display = timeAgo(display_time);
+
+                    var type_post = obj[keys[i]].Type;
+                    var forum_id_id = obj[keys[i]].Forum_ID;
+
+
+                    var decision = "true";
+                    var opp_decison = "false";
+                    html += "<div href=\"#\" class=\"content\" style=\"padding:5px;margin: 5px; border-radius: 4px; border-width: 5px; border-color: black; height: 80px; margin-left: -20px; \"> <div style=\"padding:2px;margin:5px;border-radius:4px;border-width:5px;border-color:black;height:80px;margin-left: -10px\"><img  class=\"profile_img_1\" src=\" " + obj[keys[i]].sender_profilePic + "\"/> <p style=\"margin-left: 155px;font-size: 60%; color: darkgray;text-decoration: none\">" + "" + "&nbsp;&nbsp;</p> <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: 0px; top: -20px;left: 25px; position:relative\">" + obj[keys[i]].sender + "</h5> <p style=\"font-family: 'Roboto', sans-serif; color: black; margin-top: -25px;left: 28px;position:relative; \">" + obj[keys[i]].message +
+                        "</p> <p style=\"font-family:sans-serif;font-style:italic;margin-left: 55px;margin-top:5px; color: grey;font-size: x-small\"><i class= \"fa fa-clock-o \"></i> " + ts_display + "</p>  <div style=\"margin-top: 10px\"> <button  id=\"dntrigger\" onclick=\"Accept_request(" + "\'" + obj[keys[i]].sender_id + "\'" + "," + "\'" + obj[keys[i]].sender + "\'" + "," + "\'" + obj[keys[i]].post_id + "\'" + "," + "\'" + decision + "\'" + ",\'" + type_post + "\',\'" + forum_id_id + "\' )\" class=\"AcceptDeclinebutton\" style=\" font-size: 85%; position: relative;left: 80px;color: white\">Accept</button> <button id=\"DeclineRemove\" onclick=\"Accept_request(" + "\'" + obj[keys[i]].sender_id + "\'" + "," + "\'" + obj[keys[i]].sender + "\'" + "," + "\'" + obj[keys[i]].post_id + "\'" + "," + opp_decison + ")\" class=\"AcceptDeclinebutton\" style=\"; font-size: 85%;position: relative;left: 80px;color: white \">Decline </button> </div> <hr style=\"width: 100%; color: gray; height: 2px; background-color:grey; margin-top: 5px\"/> </div> </div><br>";
+
+
+                }
+            }
+            if (html.length == 0) {
+                html = "<div style = \"font-family: sans-serif;font-style: italic;color: black\"  > No Notifications</div>";
+            }
+
+            $('#comment').html(html);
+        }
+
+        /*Counting  the  number of notifications*/
+        function renderCount(obj) {
+            var html = '';
+            var countholder = 0;
+
+            var keys = Object.keys(obj);
+            for (var i = 0; i < keys.length; i++) {
+                countholder++;
+            }
+            countholder--;
+            database_counter.update({'counter': countholder});
+            /*Creating notification icon*/
+
+
+            $('#counter_number_notifications').html(countholder);
+
+
+        }
+
+        /*Accepting Notification Requests*/
+        function Accept_request(sender_id, name, post_id, isAccept, typepost, forum_id_id) {
+
+
+            if (String(isAccept).valueOf() == String("true").valueOf()) {
+
+                /*Check Type of Request*/
+
+                firebase.database().ref("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id + "/Type_check").once("value", snapshot => {
+
+                    if (snapshot.exists()) {
+
+
+                        if (String(typepost).valueOf() == String("Forum_Request").valueOf()) {
+
+                            var AddtoForum = firebase.database().ref().child("Forums/" + forum_id_id + "/Participants");/*Messages*/
+                            AddtoForum.child(sender_id).set(sender_id);
+
+                            var AddtoForum_Joined = firebase.database().ref().child("Users/" + sender_id + "/ForumsJoined");/*Messages*/
+                            AddtoForum_Joined.child(forum_id_id).set(forum_id_id);
+
+                        } else {
+
+
+                            var AddtoForum = firebase.database().ref().child("Forums/" + sender_id + "/Participants");/*Messages*/
+
+                            AddtoForum.child('{{this_uid}}').set('{{ this_uid }}');
+
+
+                            var AddtoForum_Joined = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/ForumsJoined");/*Messages*/
+
+                            AddtoForum_Joined.child(sender_id).set(sender_id);
+
+
+                            // window.alert("You have joined a new forum!");
+                            var x = document.getElementById("forumJoined");
+                            x.show();
+                        }
+
+
+                    }/*Forum Requests*/
+
+                    else {
+
+
+                        var AddConnection = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/Connections");/*Messages*/
+                        var AddConnection_other = firebase.database().ref().child("Users/" + sender_id + "/Connections");/*Messages*/
+
+
+                        //AddConnection.child(sender_id).set(name);
+                        var bio;
+                        var propic;
+                        var country;
+                        var html = '';
+                        var getAcceptcon = firebase.database().ref().child("Users/" + sender_id);
+                        getAcceptcon.on("value", function (snapshot) {
+                            bio = snapshot.val().Bio;
+                            propic = snapshot.val().ProfilePic;
+                            country = snapshot.val().Country;
+                        });
+
+                        //var created_id_target = AddConnection.push();
+                        AddConnection.child(sender_id).set({ /*Pushes to receiver*/
+                            Name: name,
+                            Bio: bio,
+                            ProfilePic: propic,
+                            Country: country,
+
+                        });
+
+                        AddConnection_other.child('{{this_uid}}').set({ /*Pushes to receiver*/
+                            Name: '{{ n }}',
+                            Bio: '{{ bio }}',
+                            ProfilePic: '{{ profilePic }}',
+                            Country: '{{ country }}',
+
+                        });
+
+
+                        // window.alert("You are now connected with " + name);
+
+                        html += "You are now connected with " + name;
+                        $('#newconnectionmodal').html(html);
+
+                        var y = document.getElementById("connectedWith");
+                        y.show();
+
+                    }/*Friend Reuest*/
+                }); /*Checking Type of Request*/
+            } /*If Accept*/
+
 
             firebase.database().ref("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id + "/Type_check").once("value", snapshot => {
 
                 if (snapshot.exists()) {
 
+                    var different_name = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id);/*Messages*/
+                    different_name.remove();
 
 
-                    if (String(typepost).valueOf() == String("Forum_Request").valueOf())
+                } else {
 
-                    {
+                    var different_name = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id);/*Messages*/
+                    different_name.remove();
 
-                        var AddtoForum = firebase.database().ref().child("Forums/" + forum_id_id + "/Participants");/*Messages*/
-                        AddtoForum.child(sender_id).set(sender_id);
-
-                        var AddtoForum_Joined = firebase.database().ref().child("Users/" + sender_id + "/ForumsJoined");/*Messages*/
-                        AddtoForum_Joined.child(forum_id_id).set(forum_id_id);
-
-                    }
+                    var removesent = firebase.database().ref().child("Users/" + post_id + "/RequestsSent/" + '{{this_uid}}');/*Messages*/
+                    removesent.remove();
 
 
-                    else {
+                }
+
+            });
 
 
-                    var AddtoForum = firebase.database().ref().child("Forums/" + sender_id + "/Participants");/*Messages*/
-
-                    AddtoForum.child('{{this_uid}}').set('{{ this_uid }}');
+        }
 
 
-                    var AddtoForum_Joined = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/ForumsJoined");/*Messages*/
-
-                    AddtoForum_Joined.child(sender_id).set(sender_id);
-
-
-                    // window.alert("You have joined a new forum!");
-                    var x = document.getElementById("forumJoined");
-                    x.show();}
-
-
-
-
-
-
-
-                }/*Forum Requests*/
-
-                else {
-
-
-                    var AddConnection = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/Connections");/*Messages*/
-                    var AddConnection_other = firebase.database().ref().child("Users/" + sender_id + "/Connections");/*Messages*/
-
-
-                    //AddConnection.child(sender_id).set(name);
-                    var bio;
-                    var propic;
-                    var country;
-                    var html = '';
-                    var getAcceptcon = firebase.database().ref().child("Users/" + sender_id);
-                    getAcceptcon.on("value", function (snapshot) {
-                        bio = snapshot.val().Bio;
-                        propic = snapshot.val().ProfilePic;
-                        country = snapshot.val().Country;
-                    });
-
-                    //var created_id_target = AddConnection.push();
-                    AddConnection.child(sender_id).set({ /*Pushes to receiver*/
-                        Name: name,
-                        Bio: bio,
-                        ProfilePic: propic,
-                        Country: country,
-
-                    });
-
-                    AddConnection_other.child('{{this_uid}}').set({ /*Pushes to receiver*/
-                        Name: '{{ n }}',
-                        Bio: '{{ bio }}',
-                        ProfilePic: '{{ profilePic }}',
-                        Country: '{{ country }}',
-
-                    });
-
-
-                   // window.alert("You are now connected with " + name);
-
-                    html += "You are now connected with " + name;
-                    $('#newconnectionmodal').html(html);
-
-                     var y = document.getElementById("connectedWith");
-                    y.show();
-
-                }/*Friend Reuest*/
-            }); /*Checking Type of Request*/
-        } /*If Accept*/
-
-
-        firebase.database().ref("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id + "/Type_check").once("value", snapshot => {
-
-            if (snapshot.exists()) {
-
-                var different_name = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id);/*Messages*/
-                different_name.remove();
-
-
-            } else {
-
-                var different_name = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id);/*Messages*/
-                different_name.remove();
-
-                var removesent = firebase.database().ref().child("Users/" + post_id + "/RequestsSent/" + '{{this_uid}}');/*Messages*/
-                removesent.remove();
-
-
-            }
-
-        });
-
-
-    }
-
-
-</script>
-
-
+    </script>
 
 
 </div>
@@ -1444,7 +1407,6 @@
 <div class="profileContainer profileContainerLift">
     <!--2. Everything else-->
     <div class="description text-left">
-
 
 
         <!--2.RIGHT-HAND SIDE which shows forum suggestions-->
@@ -1465,29 +1427,36 @@
             <div class="col-md-12">
 
 
-                {% for names, countries, pictures, bio, conn_id in connections_suggestions_list|slice:":3"  %}
-                    <div id="{{ conn_id }}_background"  class=" rightColumnContainer" style="margin-top: -10px"><!--Connections Suggestions Card-->
+                {% for names, countries, pictures, bio, conn_id in connections_suggestions_list|slice:":3" %}
+                    <div id="{{ conn_id }}_background" class=" rightColumnContainer" style="margin-top: -10px">
+                        <!--Connections Suggestions Card-->
                         <form action="/goConnectionsOpen/" method="post">
-                            <button class="badges_plus" type="button" id="btnGetMessage" onclick=" send_friend_request('{{ conn_id }}')" value="Get Message"
-                                    style="position: relative; left: 240px; top: 3px;border-color: white; background-color: white; "><i id="{{ conn_id }}" style="color: grey" class="fa fa-user-plus"></i>
+                            <button class="badges_plus" type="button" id="btnGetMessage"
+                                    onclick=" send_friend_request('{{ conn_id }}')" value="Get Message"
+                                    style="position: relative; left: 240px; top: 3px;border-color: white; background-color: white; ">
+                                <i id="{{ conn_id }}" style="color: grey" class="fa fa-user-plus"></i>
                             </button>
 
                             <div class="row" style="margin-top: -15px">
-                                <img id="{{ conn_id }}_img"   class=" pull-left"
+                                <img id="{{ conn_id }}_img" class=" pull-left"
                                      style="border-radius: 10px; margin-left: 20px; position:relative; width: 60px; height: 60px"
                                      src="{{ pictures }}"/>
 
                                 <div class="connection_container">
                                     <div>
-                                        <input class="connection_id" id="connection_id" name="connection_id" value="{{ conn_id }}" hidden style="display: none;">
-                                        <button id="{{ conn_id }}_name" style=" background-color: #FCFCFC;font-family: 'Arial Narrow';border:none;left: 5px; font-weight: bold; font-size: small; top: 5px; position: relative" onclick="location.href='{% url 'connectionsopen' %}'" type="submit" value="goConnectionsOpen">
+                                        <input class="connection_id" id="connection_id" name="connection_id"
+                                               value="{{ conn_id }}" hidden style="display: none;">
+                                        <button id="{{ conn_id }}_name"
+                                                style=" background-color: #FCFCFC;font-family: 'Arial Narrow';border:none;left: 5px; font-weight: bold; font-size: small; top: 5px; position: relative"
+                                                onclick="location.href='{% url 'connectionsopen' %}'" type="submit"
+                                                value="goConnectionsOpen">
                                             {{ names }}
                                         </button>
                                     </div>
                                     <!-- hidden field that stores the id of the entity  -->
                                     <div id="{{ conn_id }}" style="display: none;"> {{ conn_id }}</div>
-                                      <h8 style="display: inline-block;margin-left: 5px;margin-top: -10px;font-family:'Arial Narrow'; color:#666666 ;font-weight:bold; font-size: small;">
-                                       &nbsp;<span>  {{ countries }} </span>
+                                    <h8 style="display: inline-block;margin-left: 5px;margin-top: -10px;font-family:'Arial Narrow'; color:#666666 ;font-weight:bold; font-size: small;">
+                                        &nbsp;<span>  {{ countries }} </span>
                                     </h8>
                                     <br>
 
@@ -1498,8 +1467,10 @@
                             </div>
                         </form>
                     </div><!--end of Connections Suggestions Card--><br style="height: 2px">
-                {% empty %}
-                    <div style="font-style: italic; font-size: small">No Connection Suggestions: : Select more topics you are interested in </div>
+                    {% empty %}
+                    <div style="font-style: italic; font-size: small">No Connection Suggestions: : Select more topics
+                        you are interested in
+                    </div>
                 {% endfor %}
 
             </div><!--col-md-12-->
@@ -1523,8 +1494,10 @@
 
 
                 {% for forum_names, forum_pics, forum_num_participants, forum_creators, forum_topics, forum_descriptions, forum_ids in forums_suggestions_list|slice:":3" %}
-                    <div id="{{ forum_ids }}_hideForumSuggestion" class=" rightColumnContainer" style="margin-top: -10px"><!--Forum Suggestions Card-->
-                        <input type="hidden" class="forum_id" id="forum_id" value="{{ forum_ids }}" hidden style="color: white;">
+                    <div id="{{ forum_ids }}_hideForumSuggestion" class=" rightColumnContainer"
+                         style="margin-top: -10px"><!--Forum Suggestions Card-->
+                        <input type="hidden" class="forum_id" id="forum_id" value="{{ forum_ids }}" hidden
+                               style="color: white;">
 
                         <div style="position: relative; left: 235px; top: 3px;">
                             <h8><span class="label label-default"><span
@@ -1539,7 +1512,8 @@
                             <div class="connection_container">
                                 <div>
                                     <button onclick="joinForum('{{ forum_ids }}', '{{ this_uid }}', '{{ forum_names }}','{{ forum_ids }}_hideForumSuggestion')"
-                                            style=" border: none; font-family: 'Arial Narrow';background: #FCFCFC;left: 5px;font-size: small; font-weight: bold; color: gray; font-weight: bold; position: relative; top: 5px" type="submit">{{ forum_names }}
+                                            style=" border: none; font-family: 'Arial Narrow';background: #FCFCFC;left: 5px;font-size: small; font-weight: bold; color: gray; font-weight: bold; position: relative; top: 5px"
+                                            type="submit">{{ forum_names }}
                                     </button>
                                 </div>
                                 <div id="forum_id" style="display: none;"> {{ forum_ids }}</div>
@@ -1555,23 +1529,24 @@
 
                         </div>
                     </div><!--end of Forum Suggestions Card--><br>
-                {% empty %}
-                    <div style="font-style: italic; font-size: small"><p class="text-center">No Forum Suggestions</p><p class="text-center">Select more topics you are interested in</p></div>
+                    {% empty %}
+                    <div style="font-style: italic; font-size: small"><p class="text-center">No Forum Suggestions</p>
+                        <p class="text-center">Select more topics you are interested in</p></div>
                 {% endfor %}
 
 
                 <script>
-                    function joinForum(forum_id, this_uid, forum_name, hide_block){
+                    function joinForum(forum_id, this_uid, forum_name, hide_block) {
 
                         var db = firebase.database().ref('Forums');
                         blockedUsersRef = db.child(forum_id).child("Blocked");                  // get list of users blocked for this forum
-                        blockedUsersRef.once('value', function(snapshot) {
+                        blockedUsersRef.once('value', function (snapshot) {
                             blockedUsers = snapshotToArray(snapshot);
-                            if (this.arrayContainsValue(blockedUsers, this_uid) == false){      // if this user is NOT blocked for the forum selected
+                            if (this.arrayContainsValue(blockedUsers, this_uid) == false) {      // if this user is NOT blocked for the forum selected
                                 forumPrivateRef = db.child(forum_id).child('Private');          // get the privacy settings of the forum
-                                forumPrivateRef.once('value', function(snapPrivate) {
+                                forumPrivateRef.once('value', function (snapPrivate) {
                                     privacy = snapPrivate.val();
-                                    if (privacy == false){                                    // if the forums is not private
+                                    if (privacy == false) {                                    // if the forums is not private
                                         json_dict = {};
                                         json_dict[forum_id] = forum_id;
                                         updateUserForumsRef = firebase.database().ref().child("Users").child(this_uid).child("ForumsJoined");
@@ -1583,20 +1558,19 @@
                                         this.hideDiv(hide_block);
                                         //document.getElementById(forum_id+"_hideAll").hidden = true;     // remove forum from all forums
                                         getNumParticipantsRef = firebase.database().ref("Forums").child(forum_id).child("NumParticipants");         // reduce nunm participants in this forum
-                                        getNumParticipantsRef.once('value', function(snapshot) {
+                                        getNumParticipantsRef.once('value', function (snapshot) {
                                             var numParticipants = snapshot.val();              // get the current number of participants
 
-                                            json_dict = {NumParticipants: numParticipants+1};   // reduce num participants by 1
+                                            json_dict = {NumParticipants: numParticipants + 1};   // reduce num participants by 1
 
                                             reduceNumParticipantsRef = firebase.database().ref("Forums").child(forum_id);
                                             reduceNumParticipantsRef.update(json_dict);         // update database
 
                                             $("#modalForumJoined").modal('show');
                                         });
-                                    }
-                                    else{                                                       // if the forum is private
+                                    } else {                                                       // if the forum is private
                                         forumCreatorRef = db.child(forum_id).child('Creator');
-                                        forumCreatorRef.once('value', function(snapCreator) {
+                                        forumCreatorRef.once('value', function (snapCreator) {
                                             creator_id = snapCreator.val();                     // send the message to this user id
                                             message = '{{ username }}' + " has requested to join your forum, " + forum_name + ".";
                                             // code for the resolve/accept button is the code in the if(privacy == "false") if statement above. i.e. the if statement that is above this else statement
@@ -1612,7 +1586,7 @@
                                                 sender: '{{ n }}',
                                                 sender_id: '{{ this_uid }}',
                                                 message: message,
-                                                receiver_id: creator_id ,
+                                                receiver_id: creator_id,
                                                 sender_profilePic: '{{ ProfilePic }}',
                                                 Type: "Forum_Request",
 
@@ -1622,7 +1596,8 @@
                                             var result = hope.substring(hope.lastIndexOf("/") + 1);
                                             var save_id = firebase.database().ref().child("Users/" + creator_id + "/RequestsReceived/" + result);/*Messages*/
                                             save_id.update({
-                                                post_id: result  });
+                                                post_id: result
+                                            });
 
                                             /*End of Sending Forum Request to Creator*/
                                             $("#modalJoinRequestSent").modal('show');           // popup notifies user of join request being sent
@@ -1631,8 +1606,7 @@
                                     }
                                 })
 
-                            }
-                            else{                                                               // if the user is blocked, display a message to the user
+                            } else {                                                               // if the user is blocked, display a message to the user
                                 $("#modalBlockedFromForum").modal('show');
                             }
 
@@ -1642,7 +1616,7 @@
                     }
 
                     // hides the div with the specified id
-                    function hideDiv(div_name){
+                    function hideDiv(div_name) {
                         document.getElementById(div_name).hidden = true;     // remove forum from all forums
 
                     }
@@ -1661,18 +1635,15 @@
                     }
 
                     // returns true if the array contains the value
-                    function arrayContainsValue(array, value){
-                        if (array.length > 0)
-                        {
-                            for (let i = 0; i < array.length; i++)
-                            {
-                                if (array[i] == value){
+                    function arrayContainsValue(array, value) {
+                        if (array.length > 0) {
+                            for (let i = 0; i < array.length; i++) {
+                                if (array[i] == value) {
                                     return true;
                                 }
                             }
                             return false;
-                        }
-                        else{
+                        } else {
                             return false;
                         }
                     }
@@ -1684,12 +1655,12 @@
         </div><!--col-md-4 rightColumnTwo-->
         <!--END OF RIGHTHAND SIDE-->
 
-        <div class="badgeHeader" style=" height: 250px ; margin-left:-259px; width: 850px; position: relative; top: -400px; overflow: hidden">
-
+        <div class="badgeHeader"
+             style=" height: 250px ; margin-left:-259px; width: 850px; position: relative; top: -400px; overflow: hidden">
 
 
             {% load staticfiles %}
-            <img src = "{% static "GC_Auth/badge_icon.png" %}" alt="trohy" >
+            <img src="{% static "GC_Auth/badge_icon.png" %}" alt="trohy">
 
             <h3> Your Badges </h3>
 
@@ -1702,7 +1673,6 @@
             </div>
 
 
-
         </div>
         <br>
 
@@ -1710,13 +1680,14 @@
         <div class="container-fluid">
 
             <!--row1-->
-            <div class="row" style=" height: 250px ; margin-left:-300px; width: 850px; position: relative; top: -540px; overflow: hidden">
+            <div class="row"
+                 style=" height: 250px ; margin-left:-300px; width: 850px; position: relative; top: -540px; overflow: hidden">
                 <!--coloumn-->
                 <!--Badge 1: FriendFinder-->
                 <div class="col-sm-3" style="background-color:white;">
                     {% load staticfiles %}
                     <!--friend finder 1 connection-->
-                    <div id ="FriendFinder" class ="badgehover"> <!--badge hover for the hovering over the badge-->
+                    <div id="FriendFinder" class="badgehover"> <!--badge hover for the hovering over the badge-->
 
                     </div>
                 </div>
@@ -1727,7 +1698,7 @@
                 <div class="col-sm-3" style="background-color:white;">
                     {% load staticfiles %}
                     <!--coloumn networking ninja-->
-                    <div id ="NetworkingNinja" class ="badgehover">
+                    <div id="NetworkingNinja" class="badgehover">
 
 
                     </div>
@@ -1737,7 +1708,7 @@
                 <!--Badge 3: Crazy Connector-->
                 <div class="col-sm-3" style="background-color:white;">
 
-                    <div id ="CrazyConnector" class ="badgehover">
+                    <div id="CrazyConnector" class="badgehover">
                         <!--coloumn crazy connector-->
 
                     </div>
@@ -1746,7 +1717,7 @@
                 <!--coloumn-->
                 <!--Badge 4: Popular Profiler-->
                 <div class="col-sm-3" style="background-color:white;">
-                    <div id ="PopularProfile" class ="badgehover">
+                    <div id="PopularProfile" class="badgehover">
                         <!--coloumn popular profiler-->
 
 
@@ -1756,12 +1727,13 @@
             </div>
 
             <!--row2-->
-            <div class="row" style=" height: 250px ; margin-left:-300px; width: 850px; position: relative; top: -640px; overflow: hidden">
+            <div class="row"
+                 style=" height: 250px ; margin-left:-300px; width: 850px; position: relative; top: -640px; overflow: hidden">
 
                 <!--coloumn-->
                 <!--Badge 5: Bright Spark-->
                 <div class="col-sm-3" style="background-color:white;"><!-- 3 courses taken-->
-                    <div id="BrightSpark" class ="badgehover">
+                    <div id="BrightSpark" class="badgehover">
                         <!--coloumn popular profiler-->
                     </div>
                 </div>
@@ -1771,7 +1743,7 @@
                 <div class="col-sm-3" style="background-color:white;">
                     <!--fab academic 5 courses-->
 
-                    <div id="FabAcademic" class ="badgehover">
+                    <div id="FabAcademic" class="badgehover">
 
                     </div>
 
@@ -1782,7 +1754,7 @@
                 <div class="col-sm-3" style="background-color:white;">
                     <!--got smarter 10 courses-->
 
-                    <div id ="Got_Smarter" class ="badgehover">
+                    <div id="Got_Smarter" class="badgehover">
                         <!--coloumn popular profiler-->
 
                     </div>
@@ -1792,7 +1764,7 @@
                 <!--coloumn-->
                 <!--Badge 8: Locked-->
                 <div class="col-sm-3" style="background-color:white;">
-                    <div id="locked" class ="badgehover">
+                    <div id="locked" class="badgehover">
                         {% load staticfiles %}
 
                     </div>
@@ -1802,18 +1774,17 @@
             </div>
 
             <!--row3-->
-            <div class="row" style=" height: 250px ; margin-left:-300px; width: 850px; position: relative; top: -740px; overflow: hidden">
+            <div class="row"
+                 style=" height: 250px ; margin-left:-300px; width: 850px; position: relative; top: -740px; overflow: hidden">
                 <!--coloumn-->
                 <!--Badge 9: ForumBoffin-->
                 <div class="col-sm-3" style="background-color:white;">
                     <!--forum boffin , 1 forum-->
 
-                    <div id="ForumBoffin" class ="badgehover">
+                    <div id="ForumBoffin" class="badgehover">
                         <!--coloumn 5 forums-->
 
                     </div>
-
-
 
 
                 </div>
@@ -1822,10 +1793,8 @@
                 <!--Badge 10: SuperSecurity-->
                 <div class="col-sm-3" style="background-color:white;"><!--Privacy-->
 
-                    <div id="SuperSecurity" class ="badgehover">
+                    <div id="SuperSecurity" class="badgehover">
                         <!--coloumn super security-->
-
-
 
 
                     </div>
@@ -1837,18 +1806,18 @@
                 <!--Badge 11: SuperSecurity-->
                 <div class="col-sm-3" style="background-color:white;">
 
-                    <div id="numConnectionsBadge" class ="badgehover">
+                    <div id="numConnectionsBadge" class="badgehover">
                         <!--coloumn popular profiler-->
                         {% if numConnections >= 1 %}<!--decorator update header-->
 
-                            <img src="{% static "GC_Auth/Badges/decorator2.png" %}" alt= "lock" class="image" >
+                            <img src="{% static "GC_Auth/Badges/decorator2.png" %}" alt="lock" class="image">
 
                             <div class="middle">
-                                <div class="text"><strong>#Selfie</strong> <br> Adding a profile picture </div>
+                                <div class="text"><strong>#Selfie</strong> <br> Adding a profile picture</div>
                                 <!--text for the hover-->
                             </div>
                             {% else %}<!--no badge-->
-                            <img src="{% static "GC_Auth/lockCircle.png" %}" alt= "lock" class="image" >
+                            <img src="{% static "GC_Auth/lockCircle.png" %}" alt="lock" class="image">
                             <div class="middle">
                                 <div class="text"><strong>Oops!</strong> <br> Badge Locked</div>
                                 <!--text for the hover-->
@@ -1861,9 +1830,9 @@
                 <!--coloumn-->
                 <!--Badge 12: -->
                 <div class="col-sm-3" style="background-color:white;">
-                    <div class ="badgehover">
+                    <div class="badgehover">
                         {% load staticfiles %}
-                        <img src="{% static "GC_Auth/lockCircle.png" %}" alt= "lock" class="image" >
+                        <img src="{% static "GC_Auth/lockCircle.png" %}" alt="lock" class="image">
                         <div class="middle">
                             <div class="text"><strong>Oops!</strong> <br> Badge Locked</div>
                         </div>
@@ -1902,7 +1871,8 @@
 
                             <p style="color:#e83e8c;font-size:20px;"><strong>Menu</strong></p>
                             <a onclick="location.href='{% url 'nav_home' %}'" style="color: white"><p>Home</p></a>
-                            <a onclick="location.href='{% url 'nav_networks' %}'" style="color: white"><p>Connections</p>
+                            <a onclick="location.href='{% url 'nav_networks' %}'" style="color: white"><p>
+                                Connections</p>
                             </a>
                             <a onclick="location.href='{% url 'nav_forums' %}'" style="color: white"><p>Forums</p></a>
                             <a onclick="location.href='{% url 'nav_courses' %}'" style="color: white"><p>Courses</p></a>
@@ -1914,12 +1884,15 @@
 
                             <a onclick="location.href='{% url 'introHelp' %}'" style="color: white"><p>What is
                                 GetConnected?</p></a>
-                            <a onclick="location.href='{% url 'accountHelp' %}'" style="color: white"><p>Your Account</p>
+                            <a onclick="location.href='{% url 'accountHelp' %}'" style="color: white"><p>Your
+                                Account</p>
                             </a>
-                            <a onclick="location.href='{% url 'forumsHelp' %}'" style="color: white"><p>Forums & Messaging</p></a>
+                            <a onclick="location.href='{% url 'forumsHelp' %}'" style="color: white"><p>Forums &
+                                Messaging</p></a>
                             <a onclick="location.href='{% url 'helpconnections' %}'" style="color: white"><p>Connection
                                 Management</p></a>
-                            <a onclick="location.href='{% url 'helpcourses' %}'" style="color: white"><p>Courses Help</p></a>
+                            <a onclick="location.href='{% url 'helpcourses' %}'" style="color: white"><p>Courses
+                                Help</p></a>
                             <a href="https://www.getsmarter.com/what-we-do" style="color: white"><p>GetSmarter</p></a>
 
 
@@ -1951,16 +1924,15 @@
     </footer>
 
 
-
     <script>
         <!--tooltip functionality-->
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 
     <script>
-/*Badges Celebrations*/
+        /*Badges Celebrations*/
         //Badge_1_Friend_Finder
 
         var FriendFinder_Connections = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Connections");
@@ -1975,11 +1947,9 @@
                 counter++;
             });
 
-            if (counter >=1 && counter<5)
+            if (counter >= 1 && counter < 5) {
 
-            {
-
-                display =  "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2Ffriendfinder5.png?alt=media&token=ee0c7bd4-f4b6-492e-a9a0-e45b210b8284\" alt= \"lock\" class=\"image\" >\n" +
+                display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2Ffriendfinder5.png?alt=media&token=ee0c7bd4-f4b6-492e-a9a0-e45b210b8284\" alt= \"lock\" class=\"image\" >\n" +
                     "\n" +
                     "                <div class=\"middle\">\n" +
                     "                   <div class=\"text\"><strong>Friend Finder</strong> <br> 1 Connection</div>\n" +
@@ -1989,7 +1959,7 @@
                 checkCelebration.on("value", function (snapshot) {
                     var text = "Friend Finder Badge";
 
-                    if (snapshot.val().FriendFinder == "not_celebrated"){
+                    if (snapshot.val().FriendFinder == "not_celebrated") {
                         $('#Congrats_Pop_Up').html(text);
                         $("#Celebrations").modal();
                         //window.alert("hah?");
@@ -2000,9 +1970,7 @@
 
                 });
 
-            }
-
-            else {
+            } else {
 
                 display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FlockCircle.png?alt=media&token=d204d5fe-9d37-4269-9e73-0a54571a5ce6\" alt= \"lock\" class=\"image\" >\n" +
                     "                    <div class=\"middle\">\n" +
@@ -2015,11 +1983,9 @@
 
             //Badge_2_NetoworkingNinja
 
-            if (counter >=5 && counter < 10)
+            if (counter >= 5 && counter < 10) {
 
-            {
-
-                display =  "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FnetworkingNinja.jpg?alt=media&token=a8cac22b-a196-405c-a300-a1e601654717\" >\n" +
+                display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FnetworkingNinja.jpg?alt=media&token=a8cac22b-a196-405c-a300-a1e601654717\" >\n" +
                     "\n" +
                     "                <div class=\"middle\">\n" +
                     "                   <div class=\"text\"><strong>Networking Ninja</strong> <br> 5 Connection</div>\n" +
@@ -2028,7 +1994,7 @@
                 var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
                 checkCelebration.on("value", function (snapshot) {
                     var text = "Networking Ninja Badge";
-                    if (snapshot.val().NetworkingNinja == "not_celebrated"){
+                    if (snapshot.val().NetworkingNinja == "not_celebrated") {
                         $('#Congrats_Pop_Up').html(text);
                         $("#Celebrations").modal();
                         checkCelebration.update({'NetworkingNinja': "celebrated"});
@@ -2038,9 +2004,7 @@
 
                 })
 
-            }
-
-            else {
+            } else {
 
                 display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FlockCircle.png?alt=media&token=d204d5fe-9d37-4269-9e73-0a54571a5ce6\" alt= \"lock\" class=\"image\" >\n" +
                     "                    <div class=\"middle\">\n" +
@@ -2054,11 +2018,9 @@
 
             //Badge_3_CrazyConnector
 
-            if (counter >=10 && counter<15)
+            if (counter >= 10 && counter < 15) {
 
-            {
-
-                display =  "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FcrazyConnector2.png?alt=media&token=98707036-4745-4cfe-a688-f4c7b71a89df\" alt= \"lock\" class=\"image\" >\n" +
+                display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FcrazyConnector2.png?alt=media&token=98707036-4745-4cfe-a688-f4c7b71a89df\" alt= \"lock\" class=\"image\" >\n" +
                     "\n" +
                     "                <div class=\"middle\">\n" +
                     "                   <div class=\"text\"><strong>Crazy Connector</strong> <br> 10 Connection</div>\n" +
@@ -2069,7 +2031,7 @@
                     var text = "Crazy Connector Badge";
 
 
-                    if (snapshot.val().CrazyConnector == "not_celebrated"){
+                    if (snapshot.val().CrazyConnector == "not_celebrated") {
                         $('#Congrats_Pop_Up').html(text);
                         $("#Celebrations").modal();
                         checkCelebration.update({'CrazyConnector': "celebrated"});
@@ -2079,9 +2041,7 @@
 
                 })
 
-            }
-
-            else {
+            } else {
 
                 display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FlockCircle.png?alt=media&token=d204d5fe-9d37-4269-9e73-0a54571a5ce6\" alt= \"lock\" class=\"image\" >\n" +
                     "                    <div class=\"middle\">\n" +
@@ -2094,11 +2054,9 @@
 
             //Badge_4_PopularProfile
 
-            if (counter >=15)
+            if (counter >= 15) {
 
-            {
-
-                display =  "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FPopularProfiler2.png?alt=media&token=bfed5700-f4ea-4b0f-a992-81346e9fcaee\">\n" +
+                display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FPopularProfiler2.png?alt=media&token=bfed5700-f4ea-4b0f-a992-81346e9fcaee\">\n" +
                     "\n" +
                     "                <div class=\"middle\">\n" +
                     "                   <div class=\"text\"><strong>Crazy Connector</strong> <br> 15 Connection</div>\n" +
@@ -2108,7 +2066,7 @@
                 checkCelebration.on("value", function (snapshot) {
                     var text = "Popular Profile Badge";
 
-                    if (snapshot.val().PopularProfile == "not_celebrated"){
+                    if (snapshot.val().PopularProfile == "not_celebrated") {
                         $('#Congrats_Pop_Up').html(text);
                         $("#Celebrations").modal();
                         checkCelebration.update({'PopularProfile': "celebrated"});
@@ -2118,9 +2076,7 @@
 
                 })
 
-            }
-
-            else {
+            } else {
 
                 display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FlockCircle.png?alt=media&token=d204d5fe-9d37-4269-9e73-0a54571a5ce6\" alt= \"lock\" class=\"image\" >\n" +
                     "                    <div class=\"middle\">\n" +
@@ -2146,11 +2102,9 @@
                 counter++;
             });
 
-            if (counter >=3 && counter<5)
+            if (counter >= 3 && counter < 5) {
 
-            {
-
-                display =  "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FBrigthSpark.png?alt=media&token=2dec1cb8-31d6-4ce5-9519-01dfcd3380b9\" >\n" +
+                display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FBrigthSpark.png?alt=media&token=2dec1cb8-31d6-4ce5-9519-01dfcd3380b9\" >\n" +
                     "\n" +
                     "                <div class=\"middle\">\n" +
                     "                   <div class=\"text\"><strong>Friend Finder</strong> <br> 3 Courses</div>\n" +
@@ -2160,7 +2114,7 @@
                 checkCelebration.on("value", function (snapshot) {
                     var text = "Bright Spark Badge";
 
-                    if (snapshot.val().BrightSpark == "not_celebrated"){
+                    if (snapshot.val().BrightSpark == "not_celebrated") {
                         $('#Congrats_Pop_Up').html(text);
                         $("#Celebrations").modal();
                         checkCelebration.update({'BrightSpark': "celebrated"});
@@ -2169,9 +2123,7 @@
 
                 })
 
-            }
-
-            else {
+            } else {
 
                 display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FlockCircle.png?alt=media&token=d204d5fe-9d37-4269-9e73-0a54571a5ce6\" alt= \"lock\" class=\"image\" >\n" +
                     "                    <div class=\"middle\">\n" +
@@ -2184,11 +2136,9 @@
 
             //Badge_6_FabAcademic
 
-            if (counter >=5 && counter<10 )
+            if (counter >= 5 && counter < 10) {
 
-            {
-
-                display =  "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FfabAcademic2.png?alt=media&token=d198ff3c-f91a-4e20-90b5-52eba72c7508\" >\n" +
+                display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FfabAcademic2.png?alt=media&token=d198ff3c-f91a-4e20-90b5-52eba72c7508\" >\n" +
                     "\n" +
                     "                <div class=\"middle\">\n" +
                     "                   <div class=\"text\"><strong>Friend Finder</strong> <br> 5 Courses</div>\n" +
@@ -2199,7 +2149,7 @@
                     var text = "FabAcademic Badge";
 
 
-                    if (snapshot.val().FabAcademic == "not_celebrated"){
+                    if (snapshot.val().FabAcademic == "not_celebrated") {
                         $('#Congrats_Pop_Up').html("FabAcademic Badge");
                         $("#Celebrations").modal();
                         checkCelebration.update({'FabAcademic': "celebrated"});
@@ -2209,9 +2159,7 @@
 
                 })
 
-            }
-
-            else {
+            } else {
 
                 display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FlockCircle.png?alt=media&token=d204d5fe-9d37-4269-9e73-0a54571a5ce6\" alt= \"lock\" class=\"image\" >\n" +
                     "                    <div class=\"middle\">\n" +
@@ -2225,11 +2173,9 @@
             //Badge_7_Got_Smarter
 
 
-            if (counter >=10 )
+            if (counter >= 10) {
 
-            {
-
-                display =  "<https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FgotSmarter2.png?alt=media&token=3f6b81be-2f2a-41e5-a727-7f48e6e05762\" >\n" +
+                display = "<https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FgotSmarter2.png?alt=media&token=3f6b81be-2f2a-41e5-a727-7f48e6e05762\" >\n" +
                     "\n" +
                     "                <div class=\"middle\">\n" +
                     "                   <div class=\"text\"><strong>Friend Finder</strong> <br> 10 Courses</div>\n" +
@@ -2239,7 +2185,7 @@
                 checkCelebration.on("value", function (snapshot) {
                     var text = "GotSmarter Badge";
 
-                    if (snapshot.val().GotSmarter == "not_celebrated"){
+                    if (snapshot.val().GotSmarter == "not_celebrated") {
                         $('#Congrats_Pop_Up').html("GotSmarter Badge");
                         $("#Celebrations").modal();
 
@@ -2250,9 +2196,7 @@
 
                 })
 
-            }
-
-            else {
+            } else {
 
                 display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FlockCircle.png?alt=media&token=d204d5fe-9d37-4269-9e73-0a54571a5ce6\" alt= \"lock\" class=\"image\" >\n" +
                     "                    <div class=\"middle\">\n" +
@@ -2290,11 +2234,9 @@
                 counter++;
             });
 
-            if (counter >=5 )
+            if (counter >= 5) {
 
-            {
-
-                display =  "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FforumBoffin2.png?alt=media&token=a31eff4e-d16e-4a1c-a5f6-31cd86f0c6fb\" >\n" +
+                display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FforumBoffin2.png?alt=media&token=a31eff4e-d16e-4a1c-a5f6-31cd86f0c6fb\" >\n" +
                     "\n" +
                     "                <div class=\"middle\">\n" +
                     "                   <div class=\"text\"><strong>Forum Boffin</strong> <br> Active in 1 Forum </div>\n" +
@@ -2303,7 +2245,7 @@
                 var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
                 checkCelebration.on("value", function (snapshot) {
 
-                    if (snapshot.val().ForumBoffin == "not_celebrated"){
+                    if (snapshot.val().ForumBoffin == "not_celebrated") {
                         var text = "GotSmarter Badge";
                         $('#Congrats_Pop_Up').html("ForumBoffin Badge");
                         $("#Celebrations").modal();
@@ -2313,9 +2255,7 @@
 
                 })
 
-            }
-
-            else {
+            } else {
 
                 display = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FlockCircle.png?alt=media&token=d204d5fe-9d37-4269-9e73-0a54571a5ce6\" alt= \"lock\" class=\"image\" >\n" +
                     "                    <div class=\"middle\">\n" +
@@ -2324,11 +2264,12 @@
                     "                     </div>";
             }
 
-            $('#ForumBoffin').html(display);});
+            $('#ForumBoffin').html(display);
+        });
 
 
         //Badge_10_Forum_Boffin
-        var Badges_for_Badges_Private = firebase.database().ref().child("Users/" + '{{ this_uid }}' );
+        var Badges_for_Badges_Private = firebase.database().ref().child("Users/" + '{{ this_uid }}');
 
         Badges_for_Badges_Private.on("value", function (snapshot) {
 
@@ -2336,11 +2277,9 @@
             var display_1 = "";
 
 
-            if (isPrivate == "yes" )
+            if (isPrivate == "yes") {
 
-            {
-
-                display_1 =  "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2Fsupersecurity1.png?alt=media&token=3f68e4d3-957b-41f0-bda0-7341025e260b\" alt= \"lock\" class=\"image\" >\n" +
+                display_1 = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2Fsupersecurity1.png?alt=media&token=3f68e4d3-957b-41f0-bda0-7341025e260b\" alt= \"lock\" class=\"image\" >\n" +
                     "\n" +
                     "                <div class=\"middle\">\n" +
                     "                   <div class=\"text\"><strong>Super Security</strong> <br> Updated you Privacy Settings</div>\n" +
@@ -2350,7 +2289,7 @@
                 var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
                 checkCelebration.on("value", function (snapshot) {
 
-                    if (snapshot.val().SuperSecurity == "not_celebrated"){
+                    if (snapshot.val().SuperSecurity == "not_celebrated") {
                         var text = "Super Security Badge";
                         $('#Congrats_Pop_Up').html("Super Security Badge");
                         $("#Celebrations").modal();
@@ -2360,9 +2299,7 @@
 
                 })
 
-            }
-
-            else {
+            } else {
 
                 display_1 = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FlockCircle.png?alt=media&token=d204d5fe-9d37-4269-9e73-0a54571a5ce6\" alt= \"lock\" class=\"image\" >\n" +
                     "                    <div class=\"middle\">\n" +
@@ -2371,8 +2308,8 @@
                     "                     </div>";
             }
 
-            $('#SuperSecurity').html(display_1);});
-
+            $('#SuperSecurity').html(display_1);
+        });
 
 
     </script>
@@ -2382,16 +2319,7 @@
 </div><!--Profile container-->
 
 
-
-{% comment %} <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
-        Open modal for @mdo
-    </button>{% endcomment %}
-
-{% comment %}
-Badges_Celebrations_1
-{% endcomment %}
-
-<div id="Celebrations" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div id="Celebrations" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div style="" class="modal-content">
@@ -2408,7 +2336,7 @@ Badges_Celebrations_1
 
                 <h1 style="margin-left: 140px; color: orange">Congratulations!!!!</h1>
                 <h3 style="margin-left: 140px; color: purple">You unlocked a new badge!</h3>
-                <h4 id="Congrats_Pop_Up" style=" margin-left: 200px; color: orangered; font-style: italic"> </h4>
+                <h4 id="Congrats_Pop_Up" style=" margin-left: 200px; color: orangered; font-style: italic"></h4>
 
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2437,9 +2365,7 @@ Badges_Celebrations_1
     </div>
 </div>
 
-{% comment %}
-Badges_Celebrations_2
-{% endcomment %}
+
 <script>
 
     $('#Celebrations').on('show.bs.modal', function (event) {
@@ -2448,7 +2374,8 @@ Badges_Celebrations_2
 </script>
 
 <!-- Modal for pop up message "forum joined" -->
-<div class="modal fade" id="modalForumJoined" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalForumJoined" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -2462,7 +2389,8 @@ Badges_Celebrations_2
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border: 1px solid gray;
-            color: #e83e8c;">Close</button>
+            color: #e83e8c;">Close
+                </button>
 
             </div>
         </div>
@@ -2471,7 +2399,8 @@ Badges_Celebrations_2
 
 
 <!-- Modal for pop up message "join request sent" -->
-<div class="modal fade" id="modalJoinRequestSent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalJoinRequestSent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -2481,11 +2410,13 @@ Badges_Celebrations_2
                 </button>
             </div>
             <div class="modal-body">
-                Your join request has been sent to the forum owner. You will be notified once the owner has accepted your request.
+                Your join request has been sent to the forum owner. You will be notified once the owner has accepted
+                your request.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border: 1px solid gray;
-            color: #e83e8c;">Close</button>
+            color: #e83e8c;">Close
+                </button>
 
             </div>
         </div>
@@ -2494,7 +2425,8 @@ Badges_Celebrations_2
 
 
 <!-- Modal for pop up message "blocked from forum message" -->
-<div class="modal fade" id="modalBlockedFromForum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalBlockedFromForum" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -2508,13 +2440,13 @@ Badges_Celebrations_2
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" style="border: 1px solid gray;
-            color: #e83e8c;">Close</button>
+            color: #e83e8c;">Close
+                </button>
 
             </div>
         </div>
     </div>
 </div>
-
 
 
 </body>

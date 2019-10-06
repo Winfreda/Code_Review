@@ -486,7 +486,6 @@
     </style>
 
 
-
     <style>
 
 
@@ -654,9 +653,7 @@
     };
 </script>
 
-<!--*BODY* 1. Navigation Bar-->
-
-
+<!--Navigation Bar-->
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
 
@@ -710,23 +707,6 @@
                                    style="font-family: sans-serif;font-style: italic;color: black; margin-left: 25%;">No
                                     Messages</a>
 
-                                {% comment %}     <a><div style="" class="notification-item">
-                                <img class="profile_img" src="{{ ProfilePic }}"/>
-                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
-                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
-                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
-                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
-                                </div>
-                            </a>
-
-                            <a><div style="margin-top: -20px" class="notification-item">
-                                <img class="profile_img" src="{{ ProfilePic }}"/>
-                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
-                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
-                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
-                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
-                                </div>
-                            </a>{% endcomment %}
 
                             </ul>
 
@@ -837,7 +817,7 @@
         return `${day}. ${month} ${year}. at ${hours}:${minutes}`;
     }
 
-    // --- Main function
+    // --- Main function for timing system
     function timeAgo(dateParam) {
 
         if (!dateParam) {
@@ -893,7 +873,8 @@
 
         for (var i = keys.length - 1; i >= 0; i--) {
 
-            if (obj[keys[i]].ProfilePic != undefined) {
+            if (obj[keys[i]].ProfilePic != undefined) { <!--Displays the notifications in the navigation bar-->
+
 
                 var display_time = obj[keys[i]].Time;
                 display_time = Number(display_time); // cast it to a Number
@@ -954,17 +935,6 @@
         for (var i = 0; i < keys.length; i++) {
             countholder++;
         }
-        {% comment %}
-                        countholder--;
-        {% endcomment %}
-
-        {% comment %}database_counter.update({'counter': countholder});
-         /*Creating notification icon*/{% endcomment %}
-
-
-        {% comment %}
-                        html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
-        {% endcomment %}
 
 
         $('#number_of_msg_notifications').html(countholder);
@@ -972,7 +942,7 @@
 
     }
 
-    function removeMessageNotifications() {
+    function removeMessageNotifications() { <!--Deleting a notifcation-->
 
         var other = firebase.database().ref().child("Users/" + '{{ this_uid }}');/*Messages*/
         other.child("Messages_Notifications").remove();
@@ -993,7 +963,7 @@
 
     });
 
-
+    <!--Displaying request notifications-->
     function renderUI(obj) {
         var html = "";
         var keys = Object.keys(obj);
@@ -1029,6 +999,8 @@
         $('#comment').html(html);
     }
 
+    <!--Displaying the number of request notifications-->
+
     function renderCount(obj) {
         var html = '';
         var countholder = 0;
@@ -1042,15 +1014,12 @@
         /*Creating notification icon*/
 
 
-        {% comment %}
-                html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
-        {% endcomment %}
-
-
         $('#counter_number_notifications').html(countholder);
 
 
     }
+
+    <!--Accepting the request notification-->
 
     function Accept_request(sender_id, name, post_id, isAccept, typepost, forum_id_id) {
 
@@ -1127,7 +1096,7 @@
                     });
 
 
- /*Notification pop-up message*/
+                    /*Notification pop-up message*/
                     html += "You are now connected with " + name;
                     $('#newconnectionmodal').html(html);
 
@@ -1509,17 +1478,6 @@
 
                     }
 
-                    {% comment %}function helloCatAsync(callback) {
-
-                        var connections_fb_location = firebase.database().ref().child("Users/" + "6y4rretCRGftH3avGJfVI6EQm313");
-                        connections_fb_location.once('value').then(snapshot => {
-                            callback(snapshot.val().Name);
-                            $("div").attr("data-stored", snapshot.val().Name);
-
-
-                        });
-                    }{% endcomment %}
-
 
                 </script>
 
@@ -1734,8 +1692,7 @@
                 });
 
 
-
- /*Displays Explore Cards*/
+                /*Displays Explore Cards*/
 
                 function ExploreformCard(key, child_name, child_bio, child_country, child_propic) {
 
@@ -1844,7 +1801,7 @@
 
             <script>
 
- /*Displays pending cards*/
+                /*Displays pending cards*/
                 function Pending(connection_id, child_name) {
 
 
@@ -1894,7 +1851,7 @@
 
                 }
 
- /*Unsending a pending request*/
+                /*Unsending a pending request*/
                 function unsendRequest(connection_id, child_name) {
                     var removepending_User = firebase.database().ref().child("Users/" + connection_id + "/RequestsReceived/" + '{{this_uid}}');
 
@@ -1907,7 +1864,7 @@
 
                 }
 
- /*Sending a connection request*/
+                /*Sending a connection request*/
                 function Connect(connection_id) {
 
 
@@ -1924,11 +1881,11 @@
 
                 }
 
-/*Saving a connections request*/
+                /*Saving a connections request*/
 
                 function writeUserData(message_time, messageFrom, request_sender_id, actual_message, request_receiver_id) {/*Pushes to current users*/
 
-/*Sending notification to the receiver and taking note that the connection request has been sent from the current account*/
+                    /*Sending notification to the receiver and taking note that the connection request has been sent from the current account*/
                     var database = firebase.database().ref().child("Users/" + request_sender_id + "/RequestsSent");/*Current users account*/
 
 
@@ -1975,8 +1932,6 @@
 
 
     <br><br>
-
-
 
 
 </div>
@@ -2107,7 +2062,6 @@
 </footer>
 
 
-
 <!-- Modal for pop up message "you are now connected with" -->
 <div class="modal fade" id="modalResetSent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -2133,7 +2087,6 @@
         </div>
     </div>
 </div>
-
 
 
 <script>
@@ -2406,9 +2359,7 @@
 
 
 </script>
-{% comment %}
-Badges_Celebrations_1
-{% endcomment %}
+
 
 <!--badge celebration modal-->
 <div id="Celebrations" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -2457,9 +2408,7 @@ Badges_Celebrations_1
     </div>
 </div>
 
-{% comment %}
-Badges_Celebrations_2
-{% endcomment %}
+
 <script>
 
     $('#Celebrations').on('show.bs.modal', function (event) {
