@@ -1358,39 +1358,7 @@
                 <div class="messages">
                     <ul id="list_of_mgs"><p style="font-style: italic; margin-left: 15px; font-family: sans-serif">
                         Select a conversation and begin sending messages</p>
-                        {% comment %}<li class="sent">
-                    <img src="http://emilcarlsson.se/assets/mikeross.png" alt=""/>
-                    <p>We should do assignments together more often yes do you think?</p>
-                </li>
-                <li class="replies">
-                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
-                    <p>When you're backed against the wall, break the god damn thing down.</p>
-                </li>
-                <li class="replies">
-                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
-                    <p>Excuses don't win championships.</p>
-                </li>
-                <li class="sent">
-                    <img src="http://emilcarlsson.se/assets/mikeross.png" alt=""/>
-                    <p>Oh yeah, did Michael Jordan tell you that?</p>
-                </li>
-                <li class="replies">
-                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
-                    <p>No, I told him that.</p>
-                </li>
-                <li class="replies">
-                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
-                    <p>What are your choices when someone puts a gun to your head?</p>
-                </li>
-                <li class="sent">
-                    <img src="http://emilcarlsson.se/assets/mikeross.png" alt=""/>
-                    <p>What are you talking about? You do what they say or they shoot you.</p>
-                </li>
-                <li class="replies">
-                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt=""/>
-                    <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any
-                        one of a hundred and forty six other things.</p>
-                </li>{% endcomment %}
+
                     </ul>
                 </div>
                 <div class="message-input">
@@ -1540,13 +1508,12 @@
         };
 
 
-        <!--Sending, Receiving, Accepting, Declining Requests -->
     </script>
 
 </div>
 
 
-<!-- Send Message Button -->
+<!--Sending, Receiving, Accepting, Declining Requests -->
 
 <script>
 
@@ -1554,6 +1521,8 @@
     var conversation_id = "0001";
     var messaging_db_first = firebase.database().ref().child("Messages");/*Messages*/
     var participants_message_id = ""
+
+<!--Posting a Message to the Group -->
 
     function SendMessagePost() {
 
@@ -1619,6 +1588,7 @@
 
     });
 
+<!--Display the Left Hand Side of the Messaging Page -->
 
     function renderLHS(obj) {
 
@@ -1671,7 +1641,7 @@
 
     }
 
-
+<!--When a message is clicked, load the message -->
     function ViewMessages(conversation_id_db) {
 
 
@@ -1690,7 +1660,6 @@
         messaging_db_title.on('value', function (snapshot) {
 
 
-            // window.alert(snapshot.val().Sender_key);
             var text_html = "";
 
             if (snapshot.val().Sender_key == '{{ this_uid }}') {
@@ -1743,7 +1712,7 @@
 
     }
 
-
+<!--Loading the Messages on the right hand side of the page -->
     function renderRHS(obj) {
 
 
@@ -1770,31 +1739,10 @@
                     "</li><div style= \"width: 70%;height: 20px;border-radius: 5px;right:-50px;position:relative; top:0px; color:grey; font-style:italic;font-size: x-small;font-family: sans-serif; \"\n" +
                     "class= \" \"> <i class= \"fa fa-clock-o \"></i> " + ts_display + "</div> <p style=\"color:transparent;\">hidden div</p><p style=\"color:transparent;\">hidden div</p>";
 
-                {% comment %} html_dropdown = "<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\"\n" +
-                     "                                        data-toggle=\"dropdown\">\n" +
-                     "                    <!--more options menu-->\n" +
-                     "                    <span class=\"\tglyphicon glyphicon-triangle-bottom \"\n" +
-                     "                          style=\"color: black;font-size:15px;\"></span></a>\n" +
-                     "                    <ul class=\"dropdown-menu\">\n" +
-                     "\n" +
-                     "                        <li onclick=\"RemoveConnection()\"><a style=\"font-size: 11px\">View Profile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span\n" +
-                     "                                style=\"font-size: 15px\"\n" +
-                     "                                class=\"glyphicon glyphicon-user\"><span><a>\n" +
-                     "                        <li>\n" +
-                     "\n" +
-                     "                        <li class=\"divider\"><li>\n" +
-                     "\n" +
-                     "                        <li onclick=\"Delete_messages(\'"+ obj[keys[i]].Conversation_id  +"\')\"><a\n" +
-                     "                                style=\"font-size: 11px\">Remove Connection&nbsp;&nbsp;<span\n" +
-                     "                                style=\"font-size: 15px\"\n" +
-                     "                                class=\"fa fa-trash\"><span><a>\n" +
-                     "                        <li>\n" +
-                     "                    </ul>\n" +
-                     "                </li>";{% endcomment %}
+
 
             } else {
 
-                //window.alert("second");
 
                 html += "<li tabindex=\"1\" class=\"replies\">\n" +
                     "<img src=\"" + obj[keys[i]].ProfilePic + "\" alt=\"\" />\n" +
@@ -1803,27 +1751,7 @@
                     "</li><div style= \"width: 70%;height: 20px;border-radius: 5px;right:-850px;position:relative; top:-4px; color:grey; font-style:italic;font-size: x-small;font-family: sans-serif; \"\n" +
                     "class= \" \"> <i class= \"fa fa-clock-o \"></i> " + ts_display + "</div> <p style=\"color:transparent;\">hidden div/p><p style=\"color:transparent\">hidden div</p>";
 
-                {% comment %}  html_dropdown = "<li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\"\n" +
-                             "                                        data-toggle=\"dropdown\">\n" +
-                             "                    <!--more options menu-->\n" +
-                             "                    <span class=\"\tglyphicon glyphicon-triangle-bottom \"\n" +
-                             "                          style=\"color: black;font-size:15px;\"></span></a>\n" +
-                             "                    <ul class=\"dropdown-menu\">\n" +
-                             "\n" +
-                             "                        <li onclick=\"RemoveConnection()\"><a style=\"font-size: 11px\">View Profile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span\n" +
-                             "                                style=\"font-size: 15px\"\n" +
-                             "                                class=\"glyphicon glyphicon-user\"><span><a>\n" +
-                             "                        <li>\n" +
-                             "\n" +
-                             "                        <li class=\"divider\"><li>\n" +
-                             "\n" +
-                             "                        <li onclick=\"Delete_messages(\'"+ obj[keys[i]].Conversation_id +"\')\"><a\n" +
-                             "                                style=\"font-size: 11px\">Remove Connection&nbsp;&nbsp;<span\n" +
-                             "                                style=\"font-size: 15px\"\n" +
-                             "                                class=\"fa fa-trash\"><span><a>\n" +
-                             "                        <li>\n" +
-                             "                    </ul>\n" +
-                             "                </li>";{% endcomment %}
+
             }
 
         }
@@ -1832,7 +1760,6 @@
         $('#list_of_mgs').html(html);
 
 
-        //$('#Dropdown_for_user').html(html_dropdown);
 
 
     }

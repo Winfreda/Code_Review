@@ -192,7 +192,7 @@
 
     </style>
 
-    <!-- 1.4. Cards Style-->
+    <!--  Cards Style-->
 
     <style>
 
@@ -638,7 +638,7 @@
     </style>
 
 
-    <!--*STYLE for pop up model-->
+    <!--*STYLE for pop up model*-->
     <style>
 
         .modal {
@@ -801,10 +801,6 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <!--MESSAGE NOTIFICATIONS -->
-
-
-                <!--REQUESTS NOTIFICATIONS -->
 
 
                 <!--Profile Drop-Down -->
@@ -993,15 +989,15 @@
             countholder++;
         }
         {% comment %}
-                        countholder--;
+            countholder--;
         {% endcomment %}
 
         {% comment %}database_counter.update({'counter': countholder});
-         /*Creating notification icon*/{% endcomment %}
+            /*Creating notification icon*/{% endcomment %}
 
 
         {% comment %}
-                        html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
+            html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
         {% endcomment %}
 
 
@@ -1379,7 +1375,7 @@
                             </div>
                         </form>
                     </div><!--end of Connections Suggestions Card--><br style="height: 2px">
-                {% empty %}
+                    {% empty %}
                     <div>No Suggested Connections</div>
                 {% endfor %}
 
@@ -1692,7 +1688,7 @@
 
                         </div>
                     </div><!--end of Forum Suggestions Card--><br>
-                {% empty %}
+                    {% empty %}
                     <div>No Forum Suggestions</div>
                 {% endfor %}
 
@@ -1756,7 +1752,7 @@
                         </div><!-- /card-hovercard -->
                     </div>
                 </form>
-            {% empty %}
+                {% empty %}
                 <div>{{ n }} has no forums</div>
             {% endfor %}
 
@@ -1944,7 +1940,7 @@
 
 
                 </div>
-            {% empty %}
+                {% empty %}
                 <div>{{ n }} has no courses</div>
             {% endfor %}
 
@@ -2588,7 +2584,7 @@
                             </div>
                             <div class="row" style="margin-bottom: 20px; margin-left: 80px;">
                         {% endif %}
-                    {% empty %}
+                        {% empty %}
                         <p>No Mutual Connections</p>
                     {% endfor %}
 

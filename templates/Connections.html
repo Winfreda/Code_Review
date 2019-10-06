@@ -622,7 +622,7 @@
 
 <body class="profileContainerDetails">
 
-<!--dialog pop-ups-->
+<!--dialog pop-ups for accepting forum joins-->
 <dialog class="text-center" id="connectedWith"
         style="box-shadow: 2px 2px 2px 2px grey;color: white;position: absolute; top: 30%;z-index: 4;border: 1px solid white;font-family: 'Roboto', sans-serif;border-radius: 8px;background-color: darkgray;width: 400px; height:100px;">
     <div id="newconnectionmodal"></div>
@@ -641,10 +641,7 @@
         color: #e83e8c; background-color:white; font-family: 'Roboto', sans-serif;position: center; ">Okay
     </button>
 </dialog>
-
-
 <script>
-
 
     var x = document.getElementById("forumJoined");
     var y = document.getElementById("connectedWith");
@@ -1088,7 +1085,6 @@
                         AddtoForum_Joined.child(sender_id).set(sender_id);
 
 
-                        // window.alert("You have joined a new forum!");
                         var x = document.getElementById("forumJoined");
                         x.show();
                     }
@@ -1103,7 +1099,6 @@
                     var AddConnection_other = firebase.database().ref().child("Users/" + sender_id + "/Connections");/*Messages*/
 
 
-                    //AddConnection.child(sender_id).set(name);
                     var bio;
                     var propic;
                     var country;
@@ -1115,7 +1110,6 @@
                         country = snapshot.val().Country;
                     });
 
-                    //var created_id_target = AddConnection.push();
                     AddConnection.child(sender_id).set({ /*Pushes to receiver*/
                         Name: name,
                         Bio: bio,
@@ -1133,8 +1127,7 @@
                     });
 
 
-                    // window.alert("You are now connected with " + name);
-
+ /*Notification pop-up message*/
                     html += "You are now connected with " + name;
                     $('#newconnectionmodal').html(html);
 
@@ -1742,7 +1735,7 @@
 
 
 
-
+ /*Displays Explore Cards*/
 
                 function ExploreformCard(key, child_name, child_bio, child_country, child_propic) {
 
@@ -1851,7 +1844,7 @@
 
             <script>
 
-
+ /*Displays pending cards*/
                 function Pending(connection_id, child_name) {
 
 
@@ -1901,7 +1894,7 @@
 
                 }
 
-
+ /*Unsending a pending request*/
                 function unsendRequest(connection_id, child_name) {
                     var removepending_User = firebase.database().ref().child("Users/" + connection_id + "/RequestsReceived/" + '{{this_uid}}');
 
@@ -1914,7 +1907,7 @@
 
                 }
 
-
+ /*Sending a connection request*/
                 function Connect(connection_id) {
 
 
@@ -1931,9 +1924,11 @@
 
                 }
 
+/*Saving a connections request*/
+
                 function writeUserData(message_time, messageFrom, request_sender_id, actual_message, request_receiver_id) {/*Pushes to current users*/
 
-
+/*Sending notification to the receiver and taking note that the connection request has been sent from the current account*/
                     var database = firebase.database().ref().child("Users/" + request_sender_id + "/RequestsSent");/*Current users account*/
 
 
@@ -2142,6 +2137,9 @@
 
 
 <script>
+
+    /*Badges Celebrations*/
+
 
     //Badge_1_Friend_Finder
 

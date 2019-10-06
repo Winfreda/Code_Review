@@ -21,7 +21,7 @@
 
     <!--*HEAD* 1. Title-->
 
-    <title>Badges </title>
+    <title>Badges Page </title>
 
     <!--*HEAD* 2. Bootstrap & CSS Links-->
     <meta charset="utf-8">
@@ -1197,7 +1197,7 @@
         $('#Message_dropdown_notifications').html(dropdown_item);
     }
 
-
+/*Displaying te Message Number*/
     function msg_message_number(obj) {
         // var html = '';
         var countholder = 0;
@@ -1223,7 +1223,7 @@
 
 
     }
-
+/*Removing a message notifcationr*/
     function removeMessageNotifications() {
 
         var other = firebase.database().ref().child("Users/" + '{{ this_uid }}');/*Messages*/
@@ -1245,6 +1245,7 @@
 
     });
 
+    /*Displaying the notifications*/
 
     function renderUI(obj) {
         var html = '';
@@ -1282,6 +1283,7 @@
         $('#comment').html(html);
     }
 
+    /*Counting  the  number of notifications*/
     function renderCount(obj) {
         var html = '';
         var countholder = 0;
@@ -1305,6 +1307,7 @@
 
     }
 
+    /*Accepting Notification Requests*/
     function Accept_request(sender_id, name, post_id, isAccept, typepost, forum_id_id) {
 
 
@@ -1444,7 +1447,7 @@
 
 
 
-        <!--2.RIGHT-HAND SIDE-->
+        <!--2.RIGHT-HAND SIDE which shows forum suggestions-->
         <div class="col-md-4 rightColumn" style="position: relative; top: 170px;">
 
             <div><p class="rightColumnfont"><span
@@ -1957,7 +1960,7 @@
     </script>
 
     <script>
-
+/*Badges Celebrations*/
         //Badge_1_Friend_Finder
 
         var FriendFinder_Connections = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Connections");
