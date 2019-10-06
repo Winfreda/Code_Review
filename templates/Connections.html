@@ -1,0 +1,2472 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!--*HEAD* Firebase-->
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCW2DTUu_qEhCG9xpj5gGkG2_QC_CmsGQE",
+            authDomain: "getconnected-9dac0.firebaseapp.com",
+            databaseURL: "https://getconnected-9dac0.firebaseio.com",
+            projectId: "getconnected-9dac0",
+            storageBucket: "getconnected-9dac0.appspot.com",
+            messagingSenderId: "144309081376"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <!--*HEAD* 1. Title-->
+
+    <title>Connections </title>
+
+    <!--*HEAD* 2. Bootstrap & CSS Links-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../GC_Auth/GC_Auth/static/GC_Auth/loginstyle.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- footer style -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- Navigation Bar Style + Body Style -->
+
+    <style>
+        /*dropdown menu on navbar*/
+        .dropdown {
+            display: inline-block;
+            margin-left: 20px;
+        }
+
+        /*icon for bell*/
+        .glyphicon-bell {
+            font-size: 1.5rem;
+        }
+
+        .notifications {
+            min-width: 320px;
+        }
+
+        .notifications-wrapper {
+            overflow: auto;
+            max-height: 250px;
+        }
+
+        /*icon*/
+        .glyphicon-circle-arrow-right {
+            margin-left: 10px;
+        }
+
+        .item-title {
+            font-size: 1.5rem;
+            color: black;
+            padding: 0px 50px;
+        }
+
+        .notifications a.content {
+            text-decoration: none;
+            background: white;
+        }
+
+
+        /*icon for user profile img**/
+        .profile_img {
+            width: 50px;
+            display: inline;
+            float: left;
+            border: 0px solid #111;
+            border-radius: 25px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
+            margin-right: -20px;
+
+        }
+
+        .profile_img_1 {
+            max-width: 50px;
+            min-width: 50px;
+            display: inline;
+            float: left;
+            border: 0px solid #111;
+            border-radius: 25px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
+            margin-right: -20px;
+
+        }
+
+        .AcceptDeclinebutton {
+            border-radius: 8px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+            opacity: 0.8;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            padding-left: 5px;
+            padding-right: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            background-color: black;
+        }
+
+        .AcceptDeclinebutton:hover {
+            background-color: #e83e8c;
+            color: black;
+
+        }
+    </style>
+
+    <!-- background Page format styles-->
+
+    <style>
+
+
+        .profileContainerDetails .UserWallpaper {
+            height: 380px;
+            background-position: center;
+        }
+
+        .UserWallpaper {
+            height: 100vh;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            display: flex;
+            align-items: center;
+
+        }
+
+        .parallax {
+            /* The image used */
+
+            /* Set a specific height */
+
+            /* Create the parallax scrolling effect */
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+
+        .profileContainerLift {
+            margin: -290px 30px 0; /* Up and down control */
+            border-radius: 8px;
+            box-shadow: 0 16px 24px 2px rgba(0, 0, 0, .14), 0 6px 30px 5px rgba(0, 0, 0, .12), 0 8px 10px -5px rgba(0, 0, 0, .2);
+            height: auto; /* For Mandy to adjust size of pafe */
+            margin-bottom: 30px;
+        }
+
+        .profileContainer { /* Container Control */
+            background: #FFF;
+            position: relative;
+            z-index: 3;
+        }
+
+        .profileContainerDetails .profile img {
+            max-width: 160px;
+            width: 100%;
+            margin: 0 auto;
+            -webkit-transform: translate3d(0, -50%, 0);
+            -moz-transform: translate3d(0, -50%, 0);
+            -o-transform: translate3d(0, -50%, 0);
+            -ms-transform: translate3d(0, -50%, 0);
+            transform: translate3d(0, -50%, 0);
+        }
+
+        .img-raised { /* Profile Picture 1/3 */
+            box-shadow: 0 5px 15px -8px rgba(0, 0, 0, .24), 0 8px 10px -5px rgba(0, 0, 0, .2);
+
+        }
+
+        .avatar:hover .changeImageLabel {
+            opacity: 0.9;
+            display: inline-block;
+        }
+
+        .rounded-circle { /* Profile Picture 2/3 */
+            border-radius: 50% !important;
+        }
+
+        .img-fluid { /* Profile Picture 3/3 */
+
+            width: 150px;
+            max-width: 150px;
+            min-width: 150px;
+
+            max-height: 100%;
+            min-height: 160px;
+            height: 160px;
+
+
+        }
+
+        .profileContainerDetails .description {
+            margin: 1.071rem auto 0;
+            max-width: 600px;
+            color: #999;
+            font-weight: 300;
+        }
+
+        .profileContainerDetails, html {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        .profileContainerDetails .gallery img {
+            width: 100%;
+            margin-bottom: 2.142rem;
+        }
+
+        .profileContainerDetails .profile .name {
+            margin-top: -80px;
+        }
+
+
+    </style>
+
+    <!-- Cards Style-->
+
+    <style>
+
+
+        .card.Ccard .info .title {
+            margin-bottom: 4px;
+            font-size: 24px;
+            line-height: 1;
+            color: black;
+            vertical-align: middle;
+            font-family: Arial;
+        }
+
+
+        /*footer logo*/
+        footer img {
+
+
+            width: 200%;
+            height: 200%;
+            text-align: left;
+
+        }
+
+
+        .well a:hover {
+            text-decoration: none;
+
+        }
+
+    </style>
+
+
+    <!--User profile page-->
+    <style>
+
+
+        .image-section img {
+            width: 100%;
+            height: 250px;
+            position: relative;
+        }
+
+
+        .user-image img {
+            width: 100px;
+            height: 100px;
+        }
+
+
+        .user-detail-section2 span {
+            color: #7CBBC3;
+            font-size: 20px;
+        }
+
+        .user-detail-section2 small {
+            font-size: 12px;
+            color: #D3A86A;
+        }
+
+
+        .profile-header-section1 h1 {
+            font-size: 25px;
+            margin: 0px;
+        }
+
+        .profile-header-section1 h5 {
+            color: #0062cc;
+        }
+
+
+        .profile-tag i {
+            color: #ADADAD;
+            font-size: 20px;
+        }
+
+
+        .image-right-detail a:hover {
+            text-decoration: none;
+        }
+
+        .image-right img {
+            width: 100%;
+        }
+
+
+        .image-right-detail-section2 span {
+            color: #7F7F7F;
+        }
+
+
+    </style>
+
+
+    <style>
+
+
+        .connectionitems .card {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            margin: 10px 0 20px 0;
+            border-top-width: 0;
+            border-bottom-width: 2px;
+            box-sizing: border-box;
+            position: relative;
+            top: -50px;
+            margin-bottom: -50px;
+            left: 18px;
+            box-shadow: 0 4px 8px 0 silver;
+        }
+
+
+        .connectionitems .card.hovercard {
+            text-align: center;
+            background-color: white;
+            border-width: 5px;
+            border-radius: 10px;
+            width: 250px;
+            height: 170px;
+            padding-top: 1px;
+            padding-bottom: 1px;
+
+
+        }
+
+        .connectionitems .card.hovercard:hover {
+            text-align: center;
+            background-color: white;
+            border-width: 5px;
+
+            -ms-transform: scale(0.5); /* IE 9 */
+            -webkit-transform: scale(1); /* Safari 3-8 */
+            transform: scale(1);
+            border: 1px solid silver;
+            z-index: 3000;
+
+        }
+
+
+        .connectionitems .card.Ccard .info .title {
+            margin-bottom: 4px;
+            font-size: 24px;
+            line-height: 1;
+            color: black;
+            vertical-align: middle;
+            font-family: Arial;
+        }
+
+        .connectionitems .card.Ccard:hover {
+            -ms-transform: scale(1); /* IE 9 */
+            -webkit-transform: scale(1); /* Safari 3-8 */
+            transform: scale(1);
+            border: 1px solid silver;
+            box-shadow: 5px 10px 8px #888888;
+
+        }
+
+        .connectionitems .cardheader {
+            background: url("http://lorempixel.com/850/280/nature/4/");
+            background-size: cover;
+            height: 200px;
+            width: 300px;
+            border-radius: 9px;
+            box-shadow: 0 4px 8px 0 silver;
+
+        }
+
+
+        .connectionitems .card.hovercard .info .title {
+            margin-bottom: 4px;
+            font-size: 24px;
+            line-height: 1;
+            color: black;
+            vertical-align: middle;
+            font-family: Arial;
+        }
+
+
+        .well a:hover {
+            text-decoration: none;
+
+        }
+
+    </style>
+
+
+    <!--User profile page-->
+    <style>
+
+
+        .connectionitems .image-section img {
+            width: 100%;
+            height: 250px;
+            position: relative;
+        }
+
+
+        .connectionitems .user-image img {
+            width: 100px;
+            height: 100px;
+        }
+
+
+        .connectionitems .user-detail-section2 span {
+            color: #7CBBC3;
+            font-size: 20px;
+        }
+
+        .connectionitems .user-detail-section2 small {
+            font-size: 12px;
+            color: #D3A86A;
+        }
+
+
+        .connectionitems .profile-header-section1 h1 {
+            font-size: 25px;
+            margin: 0px;
+        }
+
+        .connectionitems .profile-header-section1 h5 {
+            color: #0062cc;
+        }
+
+
+        .connectionitems .profile-tag i {
+            color: #ADADAD;
+            font-size: 20px;
+        }
+
+
+        .connectionitems .image-right-detail a:hover {
+            text-decoration: none;
+        }
+
+        .connectionitems .image-right img {
+            width: 100%;
+        }
+
+
+        .connectionitems .image-right-detail-section2 span {
+            color: #7F7F7F;
+        }
+
+
+    </style>
+
+
+
+    <style>
+
+
+        .connectionitems .title {
+            color: grey;
+            font-size: 18px;
+        }
+
+        .connectionitems button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #e83e8c;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+        }
+
+        .connectionitems a {
+            text-decoration: none;
+            font-size: 22px;
+            color: black;
+        }
+
+        .connectionitems button:hover, a:hover {
+            opacity: 0.7;
+        }
+
+
+        .connectionitems .card:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .connectionitems .container {
+            padding: 2px 16px;
+        }
+
+
+        .connectionitems .w3-container {
+            display: inline;
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        .connectionitems .carddeck {
+
+            display: inline;
+        }
+
+
+        .RequestButton {
+
+            padding: 10px 10px;
+            background-color: #FF69B4;
+            color: white;
+
+        }
+
+
+        .ConnectionImg {
+
+            margin-bottom: 3px;
+            border-radius: 3px;
+
+
+        }
+
+        .UserDescription {
+
+            text-align: center;
+        }
+
+        .ConnectionsHeading {
+            Text-align: center;
+            font-size: 50px;
+            font-color: #000000;
+        }
+
+
+        .AcceptDeclinebutton {
+            border-radius: 8px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1) inset;
+            opacity: 0.8;
+            padding-top: 3px;
+            padding-bottom: 3px;
+            padding-left: 5px;
+            padding-right: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            background-color: black;
+        }
+
+        .AcceptDeclinebutton:hover {
+            background-color: #e83e8c;
+            color: black;
+
+        }
+
+
+        .profile_img_1 {
+            max-width: 50px;
+            min-width: 50px;
+            display: inline;
+            float: left;
+            border: 0px solid #111;
+            border-radius: 25px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.5) inset;
+            margin-right: -20px;
+
+        }
+
+        .btn-yes {
+            border: 1px solid gray;
+            color: #e83e8c;
+
+        }
+
+        .btn-no {
+            border: 1px solid gray;
+            color: #e83e8c;
+
+        }
+
+
+    </style>
+
+
+</head>
+
+<body class="profileContainerDetails">
+
+<!--dialog pop-ups-->
+<dialog class="text-center" id="connectedWith"
+        style="box-shadow: 2px 2px 2px 2px grey;color: white;position: absolute; top: 30%;z-index: 4;border: 1px solid white;font-family: 'Roboto', sans-serif;border-radius: 8px;background-color: darkgray;width: 400px; height:100px;">
+    <div id="newconnectionmodal"></div>
+    <br>
+    <button id="close" style="border: 1px solid #e83e8c;border-radius: 8px;
+        color: #e83e8c; background-color:white; font-family: 'Roboto', sans-serif;position: center; ">Okay
+    </button>
+</dialog>
+
+
+<dialog class="text-center" id="forumJoined"
+        style="box-shadow: 2px 2px 2px 2px grey;;color: white;position: absolute; top:30%;z-index: 4;border: 1px solid white;font-family: 'Roboto', sans-serif;border-radius: 8px;background-color: darkgray;width: 400px; height:100px;">
+    <p>You have joined a new forum!</p>
+    <br>
+    <button id="shut" style="border: 1px solid #e83e8c;border-radius: 8px;
+        color: #e83e8c; background-color:white; font-family: 'Roboto', sans-serif;position: center; ">Okay
+    </button>
+</dialog>
+
+
+<script>
+
+
+    var x = document.getElementById("forumJoined");
+    var y = document.getElementById("connectedWith");
+
+    document.querySelector('#close').onclick = function () {
+        y.close();
+    };
+    document.querySelector('#shut').onclick = function () {
+        x.close();
+    };
+</script>
+
+<!--*BODY* 1. Navigation Bar-->
+
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>  <!--navbar-header-->
+
+        <div class="collapse navbar-collapse" id="myNavbar"> <!--Navigation bar contents-->
+
+            <!--Left-side (including search ) of navigation bar-->
+            <ul class="nav navbar-nav navbar-left">
+                <li><a onclick="location.href='{% url 'nav_home' %}'"><span
+                        class="glyphicon glyphicon-home fa-lg"></span> Home</a></li>
+                <li><a onclick="location.href='{% url 'nav_networks' %}'"
+                       style="color:white;border-left: 1px solid white;border-right: 1px solid white;"><span
+                        class="fa fa-globe fa-lg"></span> Connections </a></li>
+                <li><a onclick="location.href='{% url 'nav_forums' %}'"><span class="fa fa-comments-o fa-lg"></span>
+                    Forums</a>
+                </li>
+                <li><a onclick="location.href='{% url 'nav_courses' %}'"><span
+                        class="fa fa-book fa-lg"></span> Courses</a></li>
+            </ul>
+
+            <!--RHS of the navigation bar -->
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <!--MESSAGE NOTIFICATIONS -->
+                <li class="dropdown"><a id="idMessage" data-toggle="dropdown" data-target="#" href="#"
+                                        onclick="CloseIntroForm(); OpenLogIn();">
+
+                    <div style=""
+                         id="Messages_icons_notifications">
+                        &nbsp;<span class="glyphicon glyphicon-envelope"></span>&nbsp;
+                        <span id="number_of_msg_notifications" class="label label-default"
+                              style="background-color: red;color: white">0</span>&nbsp;
+                    </div>
+
+
+                    <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+
+                        <div class="notifications-wrapper" style="overflow-x: hidden; "> <!--Messages Dropdown div-->
+
+                            <ul id="Message_dropdown_notifications" style="">
+
+                                <a class="text-center"
+                                   style="font-family: sans-serif;font-style: italic;color: black; margin-left: 25%;">No
+                                    Messages</a>
+
+                                {% comment %}     <a><div style="" class="notification-item">
+                                <img class="profile_img" src="{{ ProfilePic }}"/>
+                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
+                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
+                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
+                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
+                                </div>
+                            </a>
+
+                            <a><div style="margin-top: -20px" class="notification-item">
+                                <img class="profile_img" src="{{ ProfilePic }}"/>
+                                    <p style="font-family:sans-serif;font-style:italic;margin-left: 240px; color: grey">14:50</p>
+                                    <h5 style="font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 25px; position:relative">Winfreda Mazvidza</h5>
+                                    <p style="font-family: sans-serif; color: black; margin-top: 3px;left: 30px;position:relative; font-size:small"> Hi Winny</p>
+                                    <hr style="width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px"/>
+                                </div>
+                            </a>{% endcomment %}
+
+                            </ul>
+
+                        </div><!--notifications-wrapper-->
+                        <li class="divider"></li>
+                        <li style="font-weight: bold; font-family: sans-serif; text-align: right"
+                            onclick="removeMessageNotifications() ;location.href='{% url 'nav_DirectMessaging' %}' ">
+                            View All <i class="fa fa-angle-double-right"></i></li>
+                    </ul><!--Dropdown menu Messages--> </a>
+                </li><!--dropdown -->
+
+                <!--REQUESTS NOTIFICATIONS -->
+                <li style="text-decoration: none" class="dropdown"><a id="idLabel" data-toggle="dropdown"
+                                                                      data-target="#" href="#"
+                                                                      onclick="CloseIntroForm(); OpenLogIn();">
+
+                    <div id="">
+                        <span><span class="glyphicon glyphicon-bell"></span>&nbsp;<span
+                                id="counter_number_notifications" class="label label-default"
+                                style="background-color: red;color: white;font-family: Roboto, sans-serif"></span></span>
+
+                    </div>
+
+                    <ul style="text-decoration: none" class="dropdown-menu notifications" role="menu"
+                        aria-labelledby="dLabel">
+
+                        <div class="notifications-wrapper" style="overflow-x: hidden;text-decoration: none">
+                            <!--Notifications Dropdown div-->
+                            <ul id="comment"><p style="font-family: sans-serif;font-style: italic;color: black">No
+                                Notifications</p></ul>
+                        </div><!--End of Notifications Dropdown div-->
+
+                        <!--Footer of notification drop down-->
+                        <li class="divider"></li>
+                        <li style="text-align: center"><a href="#"></a></li>
+
+                    </ul> <!--Dropdown menu Notification-->
+                </a>
+                </li><!--dropdown -->
+
+                <!--Profile Drop-Down -->
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                        onclick="CloseIntroForm(); OpenLogIn();">
+
+                    <span onclick="location.href='{% url 'userprofile' %}'"> <img class="rounded-circle" width="20"
+                                                                                  height="20" src="{{ ProfilePic }}"
+                                                                                  alt=""></span>
+
+                    <span class="glyphicon glyphicon-triangle-bottom"></span></a>
+
+                    <ul class="dropdown-menu">
+                        <li><a onclick="location.href='{% url 'settings' %}'">Settings <span
+                                class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="location.href='{% url 'nav_forums' %}'">Forums <span
+                                class="fa fa-comments-o pull-right"></span></a></li>
+                        <li class="divider"></li>
+
+                        <li><a onclick="location.href='{% url 'helpUserProfile' %}'">Help<span
+                                class="glyphicon glyphicon-question-sign pull-right"></span></a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="location.href='{% url 'log' %}'">Sign Out <span
+                                class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                    </ul>
+                </li>
+
+
+            </ul><!--nav navbar-nav navbar-right-->
+
+
+        </div><!--collapse nav-bar collapse-->
+    </div><!--container fluid-->
+</nav><!--nav navbar-inverse-->
+
+
+<script>
+
+    /*Time for Posts Displayed*/
+    const MONTH_NAMES = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
+        const day = date.getDate();
+        const month = MONTH_NAMES[date.getMonth()];
+        const year = date.getFullYear();
+        const hours = date.getHours();
+        let minutes = date.getMinutes();
+
+        if (minutes < 10) {
+            // Adding leading zero to minutes
+            minutes = `0${minutes}`;
+        }
+
+        if (prefomattedDate) {
+            // Today at 10:20
+            // Yesterday at 10:20
+            return `${prefomattedDate} at ${hours}:${minutes}`;
+        }
+
+        if (hideYear) {
+            // 10. January at 10:20
+            return `${day}. ${month} at ${hours}:${minutes}`;
+        }
+
+        // 10. January 2017. at 10:20
+        return `${day}. ${month} ${year}. at ${hours}:${minutes}`;
+    }
+
+    // --- Main function
+    function timeAgo(dateParam) {
+
+        if (!dateParam) {
+            return null;
+        }
+
+        const date = typeof dateParam === 'object' ? dateParam : new Date(dateParam);
+        const DAY_IN_MS = 86400000; // 24 * 60 * 60 * 1000
+        const today = new Date();
+        const yesterday = new Date(today - DAY_IN_MS);
+        const seconds = Math.round((today - date) / 1000);
+        const minutes = Math.round(seconds / 60);
+        const isToday = today.toDateString() === date.toDateString();
+        const isYesterday = yesterday.toDateString() === date.toDateString();
+        const isThisYear = today.getFullYear() === date.getFullYear();
+
+
+        if (seconds < 5) {
+            return 'now';
+        } else if (seconds < 60) {
+            return `${seconds} seconds ago`;
+        } else if (seconds < 90) {
+            return 'about a minute ago';
+        } else if (minutes < 60) {
+            return `${minutes} minutes ago`;
+        } else if (isToday) {
+            return getFormattedDate(date, 'Today'); // Today at 10:20
+        } else if (isYesterday) {
+            return getFormattedDate(date, 'Yesterday'); // Yesterday at 10:20
+        } else if (isThisYear) {
+            return getFormattedDate(date, false, true); // 10. January at 10:20
+        }
+
+        return getFormattedDate(date); // 10. January 2017. at 10:20
+    };
+
+
+    /*Message_Notificationas*/
+
+    var Message_Notifications_Check = firebase.database().ref().child("Users/{{this_uid}}/Messages_Notifications");/*current user's account*/
+    Message_Notifications_Check.on('value', function (snapshot) {
+        msg_messages_dropdown(snapshot.val());
+        msg_message_number(snapshot.val());
+    });
+
+    function msg_messages_dropdown(obj) {
+
+
+        var dropdown_item = '';
+        var keys = Object.keys(obj);
+        var counter_check = 0;
+
+
+        for (var i = keys.length - 1; i >= 0; i--) {
+
+            if (obj[keys[i]].ProfilePic != undefined) {
+
+                var display_time = obj[keys[i]].Time;
+                display_time = Number(display_time); // cast it to a Number
+                var ts_display = timeAgo(display_time);
+
+
+                if (counter_check == 0) {
+                    counter_check++;
+
+                    dropdown_item += " <a><div style= \"padding: 2px;\n" +
+                        "            margin: 5px;\n" +
+                        "            border-radius: 4px;\n" +
+                        "            border-width: 5px;\n" +
+                        "            border-color: black;\n" +
+                        "            height: 80px;\n" +
+                        "             margin-left: -20px;\n" +
+                        "            margin-top: 20px  \" class=\"notification-item\">\n" +
+                        "                                <img style=\"margin-top:-12px\" class=\"profile_img\" src=\"" + obj[keys[i]].ProfilePic + "\"/>\n" +
+                        "                                    \n" +
+                        "                                    <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 55px; position:relative\">" + obj[keys[i]].Sender_name + "</h5>\n" +
+                        "                                    <p style=\"font-family: sans-serif; color: black; margin-top: 3px;left: 28px;position:relative; \"> " + obj[keys[i]].text + "</p>\n" +
+                        "                                    <p style=\"font-family:sans-serif;font-style:italic;margin-left: 58px;margin-top:2px; color: grey;font-size:x-small\"><i class= \"fa fa-clock-o \"></i>&nbsp" + ts_display + "</p>\n" +
+                        "                                    <hr style=\"width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px\"/>\n" +
+                        "                                </div>\n" +
+                        "                            </a>";
+
+                } else {
+
+                    dropdown_item += " <a><div style= \"padding: 5px;\n" +
+                        "            margin: 5px;\n" +
+                        "            border-radius: 4px;\n" +
+                        "            border-width: 5px;\n" +
+                        "            border-color: black;\n" +
+                        "            height: 80px;\n" +
+                        "             margin-left: -20px;\n" +
+                        "            margin-top: 20px \" class=\"notification-item\">\n" +
+                        "                                <img style=\"margin-top:-12px\" class=\"profile_img\" src=\"" + obj[keys[i]].ProfilePic + "\"/>\n" +
+                        "                                    \n" +
+                        "                                    <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 55px; position:relative\">" + obj[keys[i]].Sender_name + "</h5>\n" +
+                        "                                    <p style=\"font-family: sans-serif; color: black; margin-top: 3px;left: 28px;position:relative; \">" + obj[keys[i]].text + "</p>\n" +
+                        "                                    <p style=\"font-family:sans-serif;font-style:italic;margin-left: 58px;margin-top:2px; color: grey;font-size:x-small\"><i class= \"fa fa-clock-o \"></i>&nbsp" + ts_display + "</p>\n" +
+                        "                                    <hr style=\"width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px\"/>\n" +
+                        "                                </div>\n" +
+                        "                            </a>";
+                }
+
+            }
+        }
+        $('#Message_dropdown_notifications').html(dropdown_item);
+    }
+
+
+    function msg_message_number(obj) {
+        // var html = '';
+        var countholder = 0;
+        var keys = Object.keys(obj);
+
+        for (var i = 0; i < keys.length; i++) {
+            countholder++;
+        }
+        {% comment %}
+                        countholder--;
+        {% endcomment %}
+
+        {% comment %}database_counter.update({'counter': countholder});
+         /*Creating notification icon*/{% endcomment %}
+
+
+        {% comment %}
+                        html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
+        {% endcomment %}
+
+
+        $('#number_of_msg_notifications').html(countholder);
+
+
+    }
+
+    function removeMessageNotifications() {
+
+        var other = firebase.database().ref().child("Users/" + '{{ this_uid }}');/*Messages*/
+        other.child("Messages_Notifications").remove();
+
+    }
+
+
+    /*Request Notifications*/
+
+    var database_counter = firebase.database().ref().child("Users/{{this_uid}}/RequestsReceived");/*current user's account*/
+
+
+    database_counter.on('value', function (snapshot) {
+        renderCount(snapshot.val());
+        renderUI(snapshot.val());
+        //alert("Connection Request Received");
+
+
+    });
+
+
+    function renderUI(obj) {
+        var html = "";
+        var keys = Object.keys(obj);
+        for (var i = keys.length - 1; i >= 0; i--) {
+            // for (var i = 0; i <= keys.length - 1; i++) {
+
+
+            /* html += "<li><b><i>" + obj[keys[i]].time + "</i></b> girl " + obj[keys[i]].receiver + "</li>";*/
+            /*Creating notification item*/
+
+            if (obj[keys[i]].sender_profilePic != undefined) {
+
+                var display_time = obj[keys[i]].time;
+                display_time = Number(display_time); // cast it to a Number
+                var ts_display = timeAgo(display_time);
+
+                var type_post = obj[keys[i]].Type;
+                var forum_id_id = obj[keys[i]].Forum_ID;
+
+
+                var decision = "true";
+                var opp_decison = "false";
+                html += "<div href=\"#\" class=\"content\" style=\"padding:5px;margin: 5px; border-radius: 4px; border-width: 5px; border-color: black; height: 80px; margin-left: -20px; \"> <div style=\"padding:2px;margin:5px;border-radius:4px;border-width:5px;border-color:black;height:80px;margin-left: -10px\"><img  class=\"profile_img_1\" src=\" " + obj[keys[i]].sender_profilePic + "\"/> <p style=\"margin-left: 155px;font-size: 60%; color: darkgray;text-decoration: none\">" + "" + "&nbsp;&nbsp;</p> <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: 0px; top: -20px;left: 25px; position:relative\">" + obj[keys[i]].sender + "</h5> <p style=\"font-family: sans-serif; color: black; margin-top: -25px;left: 28px;position:relative; \">" + obj[keys[i]].message +
+                    "</p> <p style=\"font-family:sans-serif;font-style:italic;margin-left: 55px;margin-top:5px; color: grey;font-size: x-small\"><i class= \"fa fa-clock-o \"></i> " + ts_display + "</p>  <div style=\"margin-top: 10px\"> <button  id=\"dntrigger\" onclick=\"Accept_request(" + "\'" + obj[keys[i]].sender_id + "\'" + "," + "\'" + obj[keys[i]].sender + "\'" + "," + "\'" + obj[keys[i]].post_id + "\'" + "," + "\'" + decision + "\'" + ",\'" + type_post + "\',\'" + forum_id_id + "\' )\" class=\"AcceptDeclinebutton\" style=\" font-size: 85%; position: relative;left: 80px;color: white\">Accept</button> <button id=\"DeclineRemove\" onclick=\"Accept_request(" + "\'" + obj[keys[i]].sender_id + "\'" + "," + "\'" + obj[keys[i]].sender + "\'" + "," + "\'" + obj[keys[i]].post_id + "\'" + "," + opp_decison + ")\" class=\"AcceptDeclinebutton\" style=\"; font-size: 85%;position: relative;left: 80px;color: white \">Decline </button> </div> <hr style=\"width: 100%; color: gray; height: 2px; background-color:grey; margin-top: 5px\"/> </div> </div><br><br>";
+
+
+            }
+        }
+        if (html.length == 0) {
+            html = "<div style = \"font-family: sans-serif;font-style: italic;color: black\"  > No Notifications</div>";
+        }
+
+        $('#comment').html(html);
+    }
+
+    function renderCount(obj) {
+        var html = '';
+        var countholder = 0;
+
+        var keys = Object.keys(obj);
+        for (var i = 0; i < keys.length; i++) {
+            countholder++;
+        }
+        countholder--;
+        database_counter.update({'counter': countholder});
+        /*Creating notification icon*/
+
+
+        {% comment %}
+                html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
+        {% endcomment %}
+
+
+        $('#counter_number_notifications').html(countholder);
+
+
+    }
+
+    function Accept_request(sender_id, name, post_id, isAccept, typepost, forum_id_id) {
+
+
+        if (String(isAccept).valueOf() == String("true").valueOf()) {
+
+            /*Check Type of Request*/
+
+            firebase.database().ref("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id + "/Type_check").once("value", snapshot => {
+
+                if (snapshot.exists()) {
+
+
+                    if (String(typepost).valueOf() == String("Forum_Request").valueOf()) {
+
+                        var AddtoForum = firebase.database().ref().child("Forums/" + forum_id_id + "/Participants");/*Messages*/
+                        AddtoForum.child(sender_id).set(sender_id);
+
+                        var AddtoForum_Joined = firebase.database().ref().child("Users/" + sender_id + "/ForumsJoined");/*Messages*/
+                        AddtoForum_Joined.child(forum_id_id).set(forum_id_id);
+
+                    } else {
+
+
+                        var AddtoForum = firebase.database().ref().child("Forums/" + sender_id + "/Participants");/*Messages*/
+
+                        AddtoForum.child('{{this_uid}}').set('{{ this_uid }}');
+
+
+                        var AddtoForum_Joined = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/ForumsJoined");/*Messages*/
+
+                        AddtoForum_Joined.child(sender_id).set(sender_id);
+
+
+                        // window.alert("You have joined a new forum!");
+                        var x = document.getElementById("forumJoined");
+                        x.show();
+                    }
+
+
+                }/*Forum Requests*/
+
+                else {
+
+
+                    var AddConnection = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/Connections");/*Messages*/
+                    var AddConnection_other = firebase.database().ref().child("Users/" + sender_id + "/Connections");/*Messages*/
+
+
+                    //AddConnection.child(sender_id).set(name);
+                    var bio;
+                    var propic;
+                    var country;
+                    var html = '';
+                    var getAcceptcon = firebase.database().ref().child("Users/" + sender_id);
+                    getAcceptcon.on("value", function (snapshot) {
+                        bio = snapshot.val().Bio;
+                        propic = snapshot.val().ProfilePic;
+                        country = snapshot.val().Country;
+                    });
+
+                    //var created_id_target = AddConnection.push();
+                    AddConnection.child(sender_id).set({ /*Pushes to receiver*/
+                        Name: name,
+                        Bio: bio,
+                        ProfilePic: propic,
+                        Country: country,
+
+                    });
+
+                    AddConnection_other.child('{{this_uid}}').set({ /*Pushes to receiver*/
+                        Name: '{{ n }}',
+                        Bio: '{{ bio }}',
+                        ProfilePic: '{{ ProfilePic }}',
+                        Country: '{{ my_country }}',
+
+                    });
+
+
+                    // window.alert("You are now connected with " + name);
+
+                    html += "You are now connected with " + name;
+                    $('#newconnectionmodal').html(html);
+
+                    var y = document.getElementById("connectedWith");
+                    y.show();
+
+                }/*Friend Reuest*/
+            }); /*Checking Type of Request*/
+        } /*If Accept*/
+
+
+        firebase.database().ref("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id + "/Type_check").once("value", snapshot => {
+
+            if (snapshot.exists()) {
+
+                var different_name = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id);/*Messages*/
+                different_name.remove();
+
+
+            } else {
+
+                var different_name = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id);/*Messages*/
+                different_name.remove();
+
+                var removesent = firebase.database().ref().child("Users/" + post_id + "/RequestsSent/" + '{{this_uid}}');/*Messages*/
+                removesent.remove();
+
+
+            }
+
+        });
+
+
+    }
+
+
+</script>
+
+
+<!--used to encapsulate all content items of settings page, excl footer-->
+<!--background wallpaper-->
+<div class="UserWallpaper parallax" style="background-image:url(
+        {% load staticfiles %}{% static "GC_Auth/UserProfile_images/campus.jpg" %}); margin-top: -20px;"></div>
+<div class="profileContainer profileContainerLift"><!--1. Container for page content -->
+
+
+    <!--tab heading-->
+    <div class="main main-raised">
+        <br>
+        <ul class="nav nav-tabs" style="padding-right: 500px;padding-left: 20px;">
+            <li class="active">
+                <a data-toggle="pill" href="#MyConnections">
+                    <h2 class="text-center" style="color: silver">
+                        <strong> My Connections</strong>
+                    </h2>
+                </a></li>
+            <li><a data-toggle="pill" href="#allConnections">
+                <h2 class="text-center" style="color: silver">
+                    <strong> Explore</strong>
+                </h2>
+            </a></li>
+
+        </ul>
+        <br>
+
+        <div id="my_country" hidden>{{ my_country }}</div>
+        <br>
+
+        <!--actual body of the tabs-->
+        <div class="tab-content">
+            <div hidden id="my_conn_ids">{{ my_conn_ids }}</div>
+
+            <!--my connections content-->
+            <div id="MyConnections" class="tab-pane fade in active">
+
+
+                <!--search bar with icon-->
+                <div class="centraliser" style="text-align: center">
+                    <div class="input-group" style="width: 90%;padding-left: 30%;font-family: 'Roboto', sans-serif;">
+                        <input id="searchTermInput" type="text" class="form-control" placeholder="Search"/>
+                        <span onclick="searchByTerm()" class="input-group-addon" style="color: #e83e8c; ">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                        <span onclick="searchByCountry()" class="input-group-addon" style="color: #e83e8c; ">
+                            <i class="glyphicon glyphicon-map-marker"></i>
+                        </span>
+                        <span onclick="showAll()" class="input-group-addon" style="color: #e83e8c; ">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                        <script>
+
+                            var myConnList = [];
+                            var list_conn_db = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Connections");
+                            //Fetching list of User's connections
+                            list_conn_db.on("value", function (snapshot_1) {
+                                myConnList = [];
+                                snapshot_1.forEach(function (childSnapshot_1) {
+                                    var w = childSnapshot_1.key;
+                                    myConnList.push(w);
+                                });
+                            });
+
+                            // shows all blocks in the list of my connections
+                            function showAll() {
+                                var myConnList = [];
+                                var list_conn_db = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Connections");
+                                //Fetching list of User's connections
+                                list_conn_db.on("value", function (snapshot_1) {
+                                    myConnList = [];
+                                    snapshot_1.forEach(function (childSnapshot_1) {
+                                        var w = childSnapshot_1.key;
+                                        myConnList.push(w);
+                                    });
+
+                                    //  loop through connection_ids
+                                    for (let i = 0; i < myConnList.length; i++) {
+                                        document.getElementById(myConnList[i] + "_hide").hidden = false;           // show all blocks
+                                    }
+                                });
+
+                            }
+
+
+                            function searchByCountry() {
+                                //strConnList = document.getElementById("my_conn_ids").innerText.substr(1);
+                                //myConnList =  strConnList.split(",");
+                                myCountry = document.getElementById('my_country').innerText;
+                                var myConnList = [];
+                                var list_conn_db = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Connections");
+                                //Fetching list of User's connections
+                                list_conn_db.on("value", function (snapshot_1) {
+                                    myConnList = [];
+                                    snapshot_1.forEach(function (childSnapshot_1) {
+                                        var w = childSnapshot_1.key;
+                                        myConnList.push(w);
+                                    });
+
+                                    //  loop through connection_ids
+                                    for (let i = 0; i < myConnList.length; i++) {
+                                        this_country = document.getElementById(myConnList[i] + '_country').innerText;
+                                        if (this_country == myCountry) {
+                                            document.getElementById(myConnList[i] + "_hide").hidden = false;
+
+                                        } else {
+                                            document.getElementById(myConnList[i] + "_hide").hidden = true;
+                                        }
+                                    }
+                                });
+
+                            }
+
+                            //  check if name, coutnry or bio contains string typed - search button
+                            function searchByTerm() {
+                                searchTerm = document.getElementById('searchTermInput').value;                   // get the value in the search input field
+                                // strConnList = document.getElementById("my_conn_ids").innerText.substr(1);           // removes first letter from string version of array
+                                // myConnList =  strConnList.split(",");                                        // split string into array by the delimiter ","
+
+                                var myConnList = [];
+                                var list_conn_db = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Connections");
+                                //Fetching list of User's connections
+                                list_conn_db.on("value", function (snapshot_1) {
+                                    myConnList = [];
+                                    snapshot_1.forEach(function (childSnapshot_1) {
+                                        var w = childSnapshot_1.key;
+                                        myConnList.push(w);
+                                    });
+
+                                    //  loop through course_ids
+                                    for (let i = 0; i < myConnList.length; i++) {
+                                        // check if topics list for this course_id contains Finance
+                                        connName = document.getElementById(myConnList[i] + "_name").innerText;          // get data from the element that contains the university name for that course
+                                        connCountry = document.getElementById(myConnList[i] + "_country").innerText;    // check country for matching text
+                                        connBio = document.getElementById(myConnList[i] + "_bio").innerText;            // check bio for matching text
+                                        if (connName.includes(searchTerm) || connCountry.includes(searchTerm) || connBio.includes(searchTerm)) {                                               // if the rating searched is in the list
+                                            document.getElementById(myConnList[i] + "_hide").hidden = false;              // if the topic is not found in the list, hide the block for the course
+                                        } else {
+                                            document.getElementById(myConnList[i] + "_hide").hidden = true;
+                                        }
+                                    }
+                                    // labels are placed on ech element in the array "course_id_bio", _country, _hide, _name
+                                });
+
+
+                            }
+                        </script>
+                    </div><!--end search bar-->
+                </div>
+                <script>
+                    var val = ' ';
+
+                    function RemoveConnection(connection_id, connection_name) {
+
+                        //var r = confirm("Are you sure you want to remove " + connection_name + " from your connections?");
+                        var message = "Are you sure you want to remove " + connection_name + " from your connections?";
+
+
+                        $(`<div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                            <div class="modal-body" style="padding:10px;">
+                            <h4 class="text-center">${message}</h4>
+                            <br>
+                            <div class="text-right">
+                            <a class="btn btn-yes">Confirm</a>
+                            <a class="btn btn-no">Cancel</a>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            </div>`).appendTo('body');
+
+                        //Trigger the modal
+                        $("#myModal").modal({
+                            backdrop: 'static',
+                            keyboard: false
+                        });
+
+                        //Pass true to a callback function
+                        $(".btn-yes").click(function () {
+
+                            $("#myModal").modal("hide");
+                            removal(connection_id, connection_name);
+                        });
+
+                        //Pass false to callback function
+                        $(".btn-no").click(function () {
+
+                            $("#myModal").modal("hide");
+                        });
+
+                        //Remove the modal once it is closed.
+                        $("#myModal").on('hidden.bs.modal', function () {
+                            $("#myModal").remove();
+                        });
+
+
+                    }
+
+                    function removal(connection_id, connection_name) {
+
+                        var delete_ref = firebase.database().ref().child("Users/{{ this_uid }}/Connections");
+                        delete_ref.child(connection_id).remove();
+
+                        var removesent = firebase.database().ref().child("Users/" + connection_id + "/Connections/" + '{{this_uid}}');
+                        removesent.remove();
+
+                    }
+
+
+                </script>
+
+
+                <!-- My Connections tab-->
+
+                <div class="connectionitems" style="margin-left: 90px">
+                    <div style="" class="row">
+                        <!--connection card-->
+                        <table id="MyConnectionsTable"></table>
+                    </div><!--endrow-->
+                </div><!-- end my connections -->
+
+
+                <script>
+                    /*This JavaScript Section is for creating a table with connection cards. The table is called MyConnectionsTable*/
+                    var connections_fb_location = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Connections");
+                    connections_fb_location.on("value", function (snapshot) {
+                        var isempty = true;
+
+                        var j = 0;
+                        var result = "<table >";
+                        result += "<tr>";
+
+                        snapshot.forEach(function (childSnapshot) {
+                            var key = childSnapshot.key;
+                            var connection_enabled = firebase.database().ref().child("Users").child(key).child("Enabled");
+
+                            connection_enabled.on("value", function (enabled_snapshot) {                                    // check if the user is snabled firs
+                                user_enabled = enabled_snapshot.val();
+
+                                if (user_enabled == true || user_enabled == "true") {
+                                    isempty = false;
+                                    //var key = childSnapshot.key;
+                                    //var value = childSnapshot.val();
+
+                                    var child_name = childSnapshot.val().Name;
+                                    var child_country = childSnapshot.val().Country;
+                                    var child_bio = childSnapshot.val().Bio;
+                                    var child_propic = childSnapshot.val().ProfilePic;
+
+                                    result += "<td>" + formCard(key, child_name, child_bio, child_country, child_propic) + "</td>";
+                                    if ((j + 1) % 3 == 0) {
+                                        result += "</tr><tr>";
+                                    }
+                                    j++;
+
+                                    if (isempty == true) {
+                                        result = "<div class=\"container_2\">\n" +
+                                            "    <img style=\"height: 400px;width: 1365px; opacity: 0.2; width:100%;\" src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/images%2FprofileHeaders%2Fnoconnections.jpg?alt=media&token=0f232c78-956b-46eb-85c6-f4a483fd480a\" alt=\"Snow\">\n" +
+                                            "    <div  class=\"centered\"><strong><h1 style=\"font-family: 'Roboto', sans-serif; color: deeppink \">Click Explore and GetConnected with GetSmarter Alumni!</h1></strong></div>\n" +
+                                            "</div>";
+
+                                    }
+                                }
+                            });
+                        });
+
+                        $('#MyConnectionsTable').html(result);
+
+
+                    });
+
+
+                    function formCard(key, name, bio, country, profilepic) {
+
+
+                        var card = "<div id=\"" + key + "_hide\"  class=\"col-md-3\"\n" +
+                            "                                style=\"margin-top: 70px; margin-left: 90px;\">\n" +
+                            "                                <form action=\"/goConnectionsOpen/\" method=\"post\">\n" +
+                            "                                    \n" +
+                            "                                    <div hidden id=\"" + key + "_bio\">" + bio + "</div>\n" +
+                            "                                    <div style=\"display: none;\" id=\"conn_id\">" + key + "</div>\n" +
+                            "                                    <!-- hidden field with the user id for that connection -->\n" +
+                            "                                    <img style=\" position:relative; top: -15px ; margin-left: 60px;\"\n" +
+                            "                                         src=\" " + profilepic + " \"\n" +
+                            "                                         alt=\"Circle Image\" class=\"img-raised rounded-circle img-fluid\">\n" +
+                            "\n" +
+                            "\n" +
+                            "                                    <div class=\"card hovercard \">\n" +
+                            "                                        <div class=\"dropdownmenu\"\n" +
+                            "                                             style=\"position: relative; left: 38%;color: #666666; \">\n" +
+                            "                                            <li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\"\n" +
+                            "                                                                    data-toggle=\"dropdown\">\n" +
+                            "                                                <!--more options menu-->\n" +
+                            "                                                <span class=\"glyphicon glyphicon-option-vertical \"\n" +
+                            "                                                      style=\"color: lightgrey;font-size:15px;\"></span></a>\n" +
+                            "                                                <ul   class=\"dropdown-menu\">\n" +
+                            "                                                    <li><a onclick=\"location.href='{% url 'nav_DirectMessaging' %}'\" style=\"font-size: 11px\">Send Message &nbsp;<span\n" +
+                            "                                                            style=\"font-size: 15px\"\n" +
+                            "                                                            class=\"fa fa-comments-o pull-right\"></span></a></li>\n" +
+                            "                                                    <li class=\"divider\"></li>\n" +
+                            "                                                    <li onclick=\"RemoveConnection(\'" + key + "\',\'" + name + "\')\"><a\n" +
+                            "                                                            style=\"font-size: 11px\">Remove Connection&nbsp;&nbsp;<span\n" +
+                            "                                                            style=\"font-size: 15px\"\n" +
+                            "                                                            class=\"\tfa fa-trash\"></span></a></li>\n" +
+                            "                                                </ul>\n" +
+                            "                                            </li>\n" +
+                            "                                        </div>\n" +
+                            "\n" +
+                            "                                        <div class=\"info\">\n" +
+                            "                                            <div class=\"title\"></div>\n" +
+                            "                                            <div id=\"" + key + "_name" + "\"\n" +
+                            "                                                 style=\"font-family: 'Arial Narrow'; font-weight: bold; font-size: medium\">\n" +
+                            "                                                " + name + "\n" +
+                            "                                            </div>\n" +
+                            "                                            <br>\n" +
+                            "                                            <p style=\"font-size: small;color: grey\" id=\"" + key + "_bio" + "\"> " + bio + "</p>\n" +
+                            "                                            <p id=\"" + key + "_country" + "\">" + country + "</p>\n" +
+                            "                                            <input class=\"connection_id\" id=\"connection_id\" name=\"connection_id\"\n" +
+                            "                                                   value=\"" + key + "\" hidden style=\"display: none;\">\n" +
+                            "                                            <button onclick=\"location.href='{% url 'connectionsopen' %}'\"\n" +
+                            "                                                    style=\"background-color: #e83e8c; width: 90px; height: 30px; font-size: small;  border-radius: 15px\"\n" +
+                            "                                                    type=\"submit\" value=\"goConnectionsOpen\">View Profile\n" +
+                            "                                                <i></i></button>\n" +
+                            "                                            <br>\n" +
+                            "                                        </div>\n" +
+                            "                                    </div>\n" +
+                            "\n" +
+                            "\n" +
+                            "\n" +
+                            "\n" +
+                            "\n" +
+                            "\n" +
+                            "                                </form>\n" +
+                            "                            </div>\n";
+
+
+                        return card;
+
+                    }
+
+                    {% comment %}function helloCatAsync(callback) {
+
+                        var connections_fb_location = firebase.database().ref().child("Users/" + "6y4rretCRGftH3avGJfVI6EQm313");
+                        connections_fb_location.once('value').then(snapshot => {
+                            callback(snapshot.val().Name);
+                            $("div").attr("data-stored", snapshot.val().Name);
+
+
+                        });
+                    }{% endcomment %}
+
+
+                </script>
+
+
+            </div>
+
+
+            <!--all connections-->
+            <div id="allConnections" class="tab-pane fade">
+
+                <!--search bar with icon-->
+                <div class="centraliser" style="text-align: center">
+                    <div class="input-group"
+                         style="width: 90%;padding-left: 30%;font-family: 'Roboto', sans-serif;">
+                        <input id="searchTermInputAll" type="text" class="form-control" placeholder="Search"/>
+                        <span onclick="searchByTermAll()" class="input-group-addon" style="color: #e83e8c; ">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </span>
+                        <span onclick="searchByCountryAll()" class="input-group-addon" style="color: #e83e8c; ">
+                            <i class="glyphicon glyphicon-map-marker"></i>
+                        </span>
+                        <span onclick="showAllAll()" class="input-group-addon" style="color: #e83e8c; ">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                    </div><!--end search bar-->
+                    <div hidden id="conn_suggestions_ids_str">{{ conn_suggestions_ids_str }}</div>
+                    <script>
+
+
+                        // shows all blocks in the list of my connections
+                        function showAllAll() {
+                            var myConnList = [];
+                            var list_conn_db = firebase.database().ref().child("Users");
+                            //Fetching list of User's connections
+                            list_conn_db.on("value", function (snapshot_1) {
+                                myConnList = [];
+                                snapshot_1.forEach(function (childSnapshot_1) {
+                                    var w = childSnapshot_1.key;
+                                    myConnList.push(w);
+                                });
+
+                                //  loop through course_ids
+                                for (let i = 0; i < myConnList.length; i++) {
+                                    try {
+                                        document.getElementById(myConnList[i] + "_hideAll").hidden = false;           // show all blocks
+                                    } catch (err) {
+                                        //  do nothing is connection id not found on a card
+                                    }
+                                }
+                            });
+
+                        }
+
+                        function searchByCountryAll() {
+                            myCountry = document.getElementById('my_country').innerText;
+                            var myConnList = [];
+                            var list_conn_db = firebase.database().ref().child("Users");
+                            //Fetching list of User's connections
+                            list_conn_db.on("value", function (snapshot_1) {
+                                myConnList = [];
+                                snapshot_1.forEach(function (childSnapshot_1) {
+                                    var w = childSnapshot_1.key;
+                                    myConnList.push(w);
+                                });
+
+                                //  loop through connection_ids
+                                for (let i = 0; i < myConnList.length; i++) {
+                                    try {
+                                        this_country = document.getElementById(myConnList[i] + '_countryAll').innerText;
+                                        if (this_country == myCountry) {
+                                            document.getElementById(myConnList[i] + "_hideAll").hidden = false;
+                                        } else {
+                                            document.getElementById(myConnList[i] + "_hideAll").hidden = true;
+                                        }
+                                    } catch (err) {
+                                        // do nothing if element not found
+                                    }
+
+                                }
+                            });
+
+
+                        }
+
+                        //  check if name, coutnry or bio contains string typed - search button
+                        function searchByTermAll() {
+                            searchTerm = document.getElementById('searchTermInputAll').value;                   // get the value in the search input field
+
+                            var myConnList = [];
+                            var list_conn_db = firebase.database().ref().child("Users");
+                            //Fetching list of User's connections
+                            list_conn_db.on("value", function (snapshot_1) {
+                                myConnList = [];
+                                snapshot_1.forEach(function (childSnapshot_1) {
+                                    var w = childSnapshot_1.key;
+                                    myConnList.push(w);
+                                });
+
+                                //  loop through course_ids
+                                for (let i = 0; i < myConnList.length; i++) {
+                                    try {
+                                        // check if topics list for this course_id contains Finance
+                                        connName = document.getElementById(myConnList[i] + "_nameAll").innerText;          // get data from the element that contains the university name for that course
+                                        connCountry = document.getElementById(myConnList[i] + "_countryAll").innerText;    // check country for matching text
+                                        connBio = document.getElementById(myConnList[i] + "_bioAll").innerText;            // check bio for matching text
+                                        if (connName.includes(searchTerm)) {                                               // if the rating searched is in the list
+                                            document.getElementById(myConnList[i] + "_hideAll").hidden = false;              // if the topic is not found in the list, hide the block for the course
+                                        } else if (connCountry.includes(searchTerm)) {
+                                            document.getElementById(myConnList[i] + "_hideAll").hidden = false;
+                                        } else if (connBio.includes(searchTerm)) {
+                                            document.getElementById(myConnList[i] + "_hideAll").hidden = false;
+                                        } else {
+                                            document.getElementById(myConnList[i] + "_hideAll").hidden = true;
+                                        }
+
+                                        // labels are placed on ech element in the array "course_id_bio", _country, _hide, _name
+                                    } catch (err) {
+                                        // do nothing is element not found
+                                    }
+                                }
+
+                            });
+
+
+                        }
+                    </script>
+                </div>
+
+                <div class="connectionitems" style="margin-left: 90px">
+
+                    <div class="row"><!--row one of page-->
+
+                        <table id="ExploreConnectionsTable"></table>
+
+                    </div><!--endrow-->
+                </div><!--end my connections-->
+            </div>
+
+            <script>
+
+                /*This JavaScript Section is for creating a table with connection cards. The table is called ExploreConnectionsTable*/
+
+                var explore_connections = firebase.database().ref().child("Users");
+
+                explore_connections.on("value", function (snapshot) {
+
+                    var myconnectionsArray = [];
+                    var sentrequests = [];
+
+
+                    var connections_fb_location = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Connections");
+                    var sentrequests_fb_location = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/RequestsSent");
+
+
+                    //Fetching list of User's connections
+                    connections_fb_location.on("value", function (snapshot_1) {
+                        snapshot_1.forEach(function (childSnapshot_1) {
+                            var w = childSnapshot_1.key;
+                            myconnectionsArray.push(w);
+                        });
+                    });
+
+                    //Fetching list of User's sent requests
+                    sentrequests_fb_location.on("value", function (snapshot_2) {
+                        snapshot_2.forEach(function (childSnapshot_2) {
+                            var g = childSnapshot_2.val().receiver_id;
+                            sentrequests.push(g);
+                        });
+                    });
+
+
+                    var j = 0;
+                    var result = "<table >";
+                    result += "<tr>";
+
+                    snapshot.forEach(function (childSnapshot) {
+
+                        var key = childSnapshot.key;
+                        var connection_enabled = firebase.database().ref().child("Users").child(key).child("Enabled");
+
+                        connection_enabled.on("value", function (enabled_snapshot) {                                    // check if the user is snabled firs
+                            user_enabled = enabled_snapshot.val();
+
+                            if ((user_enabled == true || user_enabled == 'true') && myconnectionsArray.includes(key) == false && key != ('{{ this_uid }}')) {
+
+                                var child_name = childSnapshot.val().Name;
+                                var child_country = childSnapshot.val().Country;
+                                var child_bio = childSnapshot.val().Bio;
+                                var child_propic = childSnapshot.val().ProfilePic;
+
+                                if (sentrequests.includes(key) == false) {
+
+                                    result += "<td>" + ExploreformCard(key, child_name, child_bio, child_country, child_propic) + "</td>";
+                                } else {
+                                    result += "<td>" + ExploreformCard_dim(key, child_name, child_bio, child_country, child_propic) + "</td>";
+                                }
+
+
+                                if ((j + 1) % 3 == 0) {
+                                    result += "</tr><tr>";
+                                }
+                                j++;
+                            }
+                        });
+
+                    });
+
+
+                    $('#ExploreConnectionsTable').html(result);
+
+
+                });
+
+
+
+
+
+                function ExploreformCard(key, child_name, child_bio, child_country, child_propic) {
+
+
+                    var card = "<div id=\"" + key + "_hideAll" + "\"  class=\"col-md-3\"  style=\"margin-top: 70px; margin-left: 90px;\">\n" +
+                        "                                <form action=\"/goConnectionsOpen/\" method=\"post\">\n" +
+                        "                         \n" +
+                        "                                                            \n" +
+                        "                            <div style=\"display: none;\" id=\"conn_id\"></div>    <!-- hidden field with the user id for that connection -->\n" +
+                        "                           <img style=\" position:relative; top: -15px ; margin-left: 60px\" src=\"" + child_propic + " \"\n" +
+                        "                                     alt=\"Circle Image\" class=\"img-raised rounded-circle img-fluid\">\n" +
+                        "                            <div hidden id=\"" + key + "_bioAll" + "\"></div>\n" +
+                        "                            <div class=\"card hovercard \">\n" +
+                        "\n" +
+                        "                                  <div class=\"dropdownmenu\" style=\"position: relative; left: 38%;color: #666666; \">\n" +
+                        "\n" +
+                        "                                     <li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n" +
+                        "\n" +
+                        "\n" +
+                        "                                        <!--more options menu-->\n" +
+                        "                                        <span  class=\"glyphicon glyphicon-option-vertical \" style=\"color: lightgrey;font-size:15px;\"></span></a>\n" +
+                        "\n" +
+                        "                                        <ul class=\"dropdown-menu\" >\n" +
+                        "                                            \n" +
+                        "                                            <li class=\"divider\"></li>\n" +
+                        "                                            <input class=\"connection_id\" id=\"connection_id\" name=\"connection_id\" value=\"" + key + "\" hidden style=\"display: none;\">\n" +
+                        "                                            <li><button onclick=\"location.href='{% url 'connectionsopen' %}'\" style=\"color:black;background-color:white;border:none;font-size: 11px\" type=\"submit\" value=\"goConnectionsOpen\">View Profile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"font-size: 15px\"\n" +
+                        "                                                    class=\"\tglyphicon glyphicon-user\"></span></button></li>\n" +
+                        "                                        </ul>\n" +
+                        "                                   </li>\n" +
+                        "                           </div>\n" +
+                        "\n" +
+                        "                                <div class=\"info\">\n" +
+                        "                                    <div class=\"title\"></div>\n" +
+                        "                                    <div id=\"" + key + "_nameAll" + "\" style=\"font-family: 'Arial Narrow'; font-weight: bold; font-size: medium\">\n" +
+                        "                                        " + child_name + "\n" +
+                        "                                    </div><br>\n" +
+                        "                                     <p style=\"font-size: small;color: grey\" id=\"" + key + "\">" + child_bio + "</p>\n" +
+                        "                                    <p id=\"" + key + "_countryAll" + "\">" + child_country + "</p>\n" +
+                        "                                    <button onclick=\"Connect(\'" + key + "\')\" style=\"background-color: #e83e8c; width: 90px; height: 30px; font-size: small;  border-radius: 15px\" class=\"button\"><i  id=\"" + key + "\"  class=\"fa fa-user-plus\"></i>&nbsp;Connect<br>\n" +
+                        "                                    </button>\n" +
+                        "                                </div>\n" +
+                        "                            </div>\n" +
+                        "                         \n" +
+                        "                                </form>\n" +
+                        "                        </div>";
+
+
+                    return card;
+
+                }
+
+                function ExploreformCard_dim(key, child_name, child_bio, child_country, child_propic) {
+
+                    var card = "<div id=\"" + key + "_hideAll" + "\" class=\"col-md-3\"  style=\"margin-top: 70px; margin-left: 90px;\">\n" +
+                        "                         \n" +
+                        "                                <form action=\"/goConnectionsOpen/\" method=\"post\">\n" +
+                        "                                                            \n" +
+                        "                            <div style=\"display: none;\" id=\"conn_id\"></div>    <!-- hidden field with the user id for that connection -->\n" +
+                        "                           <img style=\" position:relative; opacity: 0.1; top: -15px ; margin-left: 60px\" src=\"" + child_propic + " \"\n" +
+                        "                                     alt=\"Circle Image\" class=\"img-raised rounded-circle img-fluid\">\n" +
+                        "                            <div hidden id=\"" + key + "_bioAll" + "\"></div>\n" +
+                        "                            <div style=\"background-color: lightgrey;\"  class=\"card hovercard \">\n" +
+                        "\n" +
+                        "                                  <div class=\"dropdownmenu\" style=\"position: relative; left: 38%;color: #666666; \">\n" +
+                        "\n" +
+                        "                                     <li class=\"dropdown\"><a href=\"#\" class=\"dropdown-toggle\" data-toggle=\"dropdown\">\n" +
+                        "\n" +
+                        "\n" +
+                        "                                        <!--more options menu-->\n" +
+                        "                                        <span  class=\"glyphicon glyphicon-option-vertical \" style=\"color: lightgrey;font-size:15px;\"></span></a>\n" +
+                        "\n" +
+                        "                                        <ul class=\"dropdown-menu\" >\n" +
+                        "                                            \n" +
+                        "                                            <li class=\"divider\"></li>\n" +
+                        "                                            <input class=\"connection_id\" id=\"connection_id\" name=\"connection_id\" value=\"" + key + "\" hidden style=\"display: none;\">\n" +
+                        "                                            <li><button onclick=\"location.href='{% url 'connectionsopen' %}'\" style=\"color:black;background-color:white;border:none;font-size: 11px\" type=\"submit\" value=\"goConnectionsOpen\">View Profile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style=\"font-size: 15px\"\n" +
+                        "                                                    class=\"\tglyphicon glyphicon-user\"></span></button></li>\n" +
+                        "                                        </ul>\n" +
+                        "                                   </li>\n" +
+                        "                           </div>\n" +
+                        "\n" +
+                        "                                <div class=\"info\">\n" +
+                        "                                    <div class=\"title\"></div>\n" +
+                        "                                    <div id=\"" + key + "_nameAll" + "\" style=\"font-family: 'Arial Narrow'; font-weight: bold; font-size: medium\">\n" +
+                        "                                        " + child_name + "\n" +
+                        "                                    </div><br>\n" +
+                        "                                     <p style=\"font-size: small;color: grey\" id=\"" + key + "\">" + child_bio + "</p>\n" +
+                        "                                    <p id=\"" + key + "_countryAll" + "\">" + child_country + "</p>\n" +
+                        "                                    <button onclick= \"Pending(\'" + key + "\',\'" + child_name + "\')\" style=\"background-color: #e83e8c; width: 90px; height: 30px; font-size: small;  border-radius: 15px\" class=\"button\"><i  id=\"" + key + "\"  class=\"fa fa-hourglass\"></i>&nbsp;Pending<br>\n" +
+                        "                                    </button>\n" +
+                        "                                </div>\n" +
+                        "                            </div>\n" +
+                        "                         \n" +
+                        "                                </form>\n" +
+                        "                        </div>";
+
+
+                    return card;
+
+
+                }
+
+            </script>
+
+
+            <script>
+
+
+                function Pending(connection_id, child_name) {
+
+
+                    var message = "Are you sure you want to unsend connection request to  " + child_name + " ?"
+
+
+                    $(`<div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+
+                            <div class="modal-content">
+                            <div class="modal-body" style="padding:10px;">
+                            <h4 class="text-center">${message}</h4>
+                            <br>
+                            <div class="text-right">
+                            <a class="btn btn-yes">Yes</a>
+                            <a class="btn btn-no">Cancel</a>
+                            </div>
+                            </div>
+                            </div>
+                            </div>
+                            </div>`).appendTo('body');
+
+                    //Trigger the modal
+                    $("#myModal").modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+
+                    //Pass true to a callback function
+                    $(".btn-yes").click(function () {
+
+                        $("#myModal").modal("hide");
+                        unsendRequest(connection_id, child_name)
+                    });
+
+                    //Pass false to callback function
+                    $(".btn-no").click(function () {
+
+                        $("#myModal").modal("hide");
+                    });
+
+                    //Remove the modal once it is closed.
+                    $("#myModal").on('hidden.bs.modal', function () {
+                        $("#myModal").remove();
+                    });
+
+
+                }
+
+
+                function unsendRequest(connection_id, child_name) {
+                    var removepending_User = firebase.database().ref().child("Users/" + connection_id + "/RequestsReceived/" + '{{this_uid}}');
+
+                    var removepending_Personal = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/RequestsSent/" + connection_id);
+
+                    removepending_User.remove();
+
+                    removepending_Personal.remove();
+
+
+                }
+
+
+                function Connect(connection_id) {
+
+
+                    var date_for_post = Date.now();
+
+
+                    writeUserData(date_for_post, "{{ n }}", '{{this_uid}}', "Connection Request", connection_id);
+
+
+                    //document.getElementById(connection_id).className = "fa fa-hourglass";
+
+                    //connection_id;
+
+
+                }
+
+                function writeUserData(message_time, messageFrom, request_sender_id, actual_message, request_receiver_id) {/*Pushes to current users*/
+
+
+                    var database = firebase.database().ref().child("Users/" + request_sender_id + "/RequestsSent");/*Current users account*/
+
+
+                    // var created_id =  database.push();
+                    // AddConnection.child(request_receiver_id).set({ /*Pushes to receiver*/
+
+                    database.child(request_receiver_id).set({
+                        time: message_time,
+                        sender: messageFrom,
+                        sender_id: request_sender_id,
+                        message: actual_message,
+                        receiver_id: request_receiver_id,
+                        sender_profilePic: '{{ ProfilePic }}',
+                        post_id: request_receiver_id,
+
+
+                    });
+
+
+                    var database_target = firebase.database().ref().child("Users/" + request_receiver_id + "/RequestsReceived");/*Where the message is going*/
+                    database_target.child(request_sender_id).set({ /*Pushes to receiver*/
+                        time: message_time,
+                        sender: messageFrom,
+                        sender_id: request_sender_id,
+                        message: actual_message,
+                        receiver_id: request_receiver_id,
+                        sender_profilePic: '{{ ProfilePic }}',
+                        post_id: request_sender_id,
+                        Type: "Friend_Request",
+                        Forum_ID: "noForum_ID"
+
+
+                    });
+
+                }
+
+
+            </script>
+
+
+        </div>
+
+    </div>  <!--main main-raised-->
+
+
+    <br><br>
+
+
+
+
+</div>
+
+
+<br>
+
+
+</div>
+
+</div>
+
+
+<style>
+
+    .background {
+        background-image: url("https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/images%2FprofileHeaders%2Fnoconnections.jpg?alt=media&token=0f232c78-956b-46eb-85c6-f4a483fd480a");
+        width: 1000px;
+        height: 200px;
+    }
+
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .container_2 {
+        position: relative;
+        text-align: center;
+        color: white;
+        margin-left: -75px;
+        top: 30px;
+    }
+</style>
+
+
+<!-- Page Footer-->
+<footer class="page-footer font-small cyan darken-3" style="background-color: #D3D3D3;">
+
+
+    <div class="container">
+        <br></br>
+        <!-- Call to action -->
+        <ul class="list-unstyled list-inline text-center py-2">
+            <li class="list-inline-item">
+                <!--  <h5 class="mb-1">Log in now: </h5>-->
+            </li>
+            <li class="list-inline-item">
+
+
+                <div class="row"><!--table row-->
+
+                    <div class="col-sm-3" style="text-align:left;padding-right: 100px;">
+                        <br>
+                        {% load staticfiles %}
+                        <img src="{% static "GC_Auth/logotrans.png" %}" alt="lock"
+                             class="image">
+                    </div>
+
+
+                    <div class="col-sm-3" style="text-align:left;padding-left: 120px;">
+
+                        <p style="color:#e83e8c;font-size:20px;"><strong>Menu</strong></p>
+                        <a onclick="location.href='{% url 'nav_home' %}'" style="color: white">
+                            <p>Home</p></a>
+                        <a onclick="location.href='{% url 'nav_networks' %}'"
+                           style="color: white"><p>Connections</p>
+                        </a>
+                        <a onclick="location.href='{% url 'nav_forums' %}'"
+                           style="color: white"><p>Forums</p></a>
+                        <a onclick="location.href='{% url 'nav_courses' %}'"
+                           style="color: white"><p>Courses</p></a>
+                    </div>
+
+                    <div class="col-sm-3" style="text-align:left;padding-left: 80px;">
+                        <!--coloumn-->
+
+                        <p style="color:#e83e8c;font-size:20px;"><strong>Help & FAQs</strong>
+                        </p>
+
+                        <a onclick="location.href='{% url 'introHelp' %}'" style="color: white">
+                            <p>What is
+                                GetConnected?</p></a>
+                        <a onclick="location.href='{% url 'accountHelp' %}'"
+                           style="color: white"><p>Your Account</p>
+                        </a>
+                        <a onclick="location.href='{% url 'forumsHelp' %}'" style="color: white">
+                            <p>Forums & Messaging Help</p></a>
+                        <a onclick="location.href='{% url 'helpconnections' %}'" style="color: white">
+                            <p>Connection
+                                Management</p></a>
+                        <a onclick="location.href='{% url 'helpcourses' %}'" style="color: white">
+                            <p>Courses Help</p></a>
+                        <a href="https://www.getsmarter.com/what-we-do" style="color: white"><p>
+                            GetSmarter</p></a>
+
+
+                    </div>
+
+                    <div class="col-sm-3" style="text-align:left;padding-left: 80px;">
+                        <!--coloumn-->
+
+                        <p style="color:#e83e8c;font-size:20px;"><strong>Contact Us</strong></p>
+                        <p style="color:white;"><strong>Tel: </strong> 456 4637</p>
+                        <p style="color:white;"><strong>Email: </strong>
+                            getConnected@GetSmarter.co.za</p>
+                        <p style="color:white;"><strong>Working Hours:</strong> Mon - Fri, 09:00
+                            - 17:00</p>
+
+
+                    </div>
+
+
+                </div>
+
+                <br>
+                <br>
+
+
+            </li>
+        </ul>
+        <!-- Call to action -->
+
+    </div>
+    </div>
+</footer>
+
+
+
+<!-- Modal for pop up message "you are now connected with" -->
+<div class="modal fade" id="modalResetSent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New Connection</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="newconnectionmodal"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" style=" font-size: 15px;
+            font-weight: bold;
+            background-color: #e83e8c;
+            border-color: black;">Close
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    //Badge_1_Friend_Finder
+
+    var FriendFinder_Connections = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Connections");
+
+    FriendFinder_Connections.on("value", function (snapshot) {
+
+        var counter = 0;
+
+        snapshot.forEach(function (childSnapshot) {
+            counter++;
+        });
+
+        if (counter >= 1 && counter < 5) {
+            var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
+            checkCelebration.on("value", function (snapshot) {
+                var text = "Friend Finder Badge";
+
+                if (snapshot.val().FriendFinder == "not_celebrated") {
+                    $('#Congrats_Pop_Up').html(text);
+                    $("#Celebrations").modal();
+
+                    checkCelebration.update({'FriendFinder': "celebrated"});
+                }
+            });
+        } else {
+        }
+
+
+        //Badge_2_NetoworkingNinja
+
+        if (counter >= 5 && counter < 10) {
+
+            var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
+            checkCelebration.on("value", function (snapshot) {
+                var text = "Networking Ninja Badge";
+                if (snapshot.val().NetworkingNinja == "not_celebrated") {
+                    $('#Congrats_Pop_Up').html(text);
+                    $("#Celebrations").modal();
+                    checkCelebration.update({'NetworkingNinja': "celebrated"});
+                }
+
+            })
+
+        } else {
+        }
+
+
+        //Badge_3_CrazyConnector
+
+        if (counter >= 10 && counter < 15) {
+
+
+            var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
+            checkCelebration.on("value", function (snapshot) {
+                var text = "Crazy Connector Badge";
+
+
+                if (snapshot.val().CrazyConnector == "not_celebrated") {
+                    $('#Congrats_Pop_Up').html(text);
+                    $("#Celebrations").modal();
+                    checkCelebration.update({'CrazyConnector': "celebrated"});
+
+
+                }
+
+            })
+
+        } else {
+        }
+
+
+        //Badge_4_PopularProfile
+
+        if (counter >= 15) {
+
+
+            var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
+            checkCelebration.on("value", function (snapshot) {
+                var text = "Popular Profile Badge";
+
+                if (snapshot.val().PopularProfile == "not_celebrated") {
+                    $('#Congrats_Pop_Up').html(text);
+                    $("#Celebrations").modal();
+                    checkCelebration.update({'PopularProfile': "celebrated"});
+
+
+                }
+
+            })
+
+        } else {
+
+
+        }
+
+
+    });
+
+    //Badge_5_BrightSpark
+
+    var Badges_for_Courses = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Courses");
+
+    Badges_for_Courses.on("value", function (snapshot) {
+
+        var counter = 0;
+
+        snapshot.forEach(function (childSnapshot) {
+            counter++;
+        });
+
+
+        if (counter >= 3 && counter < 5) {
+
+            var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
+            checkCelebration.on("value", function (snapshot) {
+                var text = "Bright Spark Badge";
+
+                if (snapshot.val().BrightSpark == "not_celebrated") {
+                    $('#Congrats_Pop_Up').html(text);
+                    $("#Celebrations").modal();
+                    checkCelebration.update({'BrightSpark': "celebrated"});
+
+                }
+
+            })
+
+        } else {
+        }
+
+
+        //Badge_6_FabAcademic
+
+        if (counter >= 5 && counter < 10) {
+
+            var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
+            checkCelebration.on("value", function (snapshot) {
+                var text = "FabAcademic Badge";
+
+
+                if (snapshot.val().FabAcademic == "not_celebrated") {
+                    $('#Congrats_Pop_Up').html("FabAcademic Badge");
+                    $("#Celebrations").modal();
+                    checkCelebration.update({'FabAcademic': "celebrated"});
+
+
+                }
+
+            })
+
+        } else {
+        }
+
+
+        //Badge_7_Got_Smarter
+
+
+        if (counter >= 10) {
+
+
+            var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
+            checkCelebration.on("value", function (snapshot) {
+                var text = "GotSmarter Badge";
+
+                if (snapshot.val().GotSmarter == "not_celebrated") {
+                    $('#Congrats_Pop_Up').html("GotSmarter Badge");
+                    $("#Celebrations").modal();
+
+                    checkCelebration.update({'GotSmarter': "celebrated"});
+
+
+                }
+
+            })
+
+        } else {
+
+
+        }
+
+
+    });
+
+    //Badge_8_Got_Smarter
+
+    //Badge_9_Forum_Boffin
+
+    var Badges_for_Forums = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/ForumsJoined");
+
+    Badges_for_Forums.on("value", function (snapshot) {
+
+        var counter = 0;
+
+        snapshot.forEach(function (childSnapshot) {
+            counter++;
+        });
+
+        if (counter >= 5) {
+
+
+            var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
+            checkCelebration.on("value", function (snapshot) {
+
+                if (snapshot.val().ForumBoffin == "not_celebrated") {
+                    var text = "GotSmarter Badge";
+                    $('#Congrats_Pop_Up').html("ForumBoffin Badge");
+                    $("#Celebrations").modal();
+                    checkCelebration.update({'ForumBoffin': "celebrated"});
+
+                }
+
+            })
+
+        } else {
+
+
+        }
+
+    });
+
+
+    //Badge_10_Forum_Boffin
+    var Badges_for_Badges_Private = firebase.database().ref().child("Users/" + '{{ this_uid }}');
+
+    Badges_for_Badges_Private.on("value", function (snapshot) {
+
+        var isPrivate = snapshot.val().privacyUpdated;
+        var display_1 = "";
+
+
+        if (isPrivate == "yes") {
+
+            display_1 = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FsuperSecurity.png?alt=media&token=503cf33c-c79b-4710-b12d-ffbb2a7477b7\" alt= \"lock\" class=\"image\" >\n" +
+                "\n" +
+                "                <div class=\"middle\">\n" +
+                "                   <div class=\"text\"><strong>Super Security</strong> <br> Updated you Privacy Settings</div>\n" +
+                "                     <!--text for the hover-->\n" +
+                "                 </div>";
+
+            var checkCelebration = firebase.database().ref().child("Users/" + '{{ this_uid }}' + "/Badges");
+            checkCelebration.on("value", function (snapshot) {
+
+                if (snapshot.val().SuperSecurity == "not_celebrated") {
+                    var text = "Super Security Badge";
+                    $('#Congrats_Pop_Up').html("Super Security Badge");
+                    $("#Celebrations").modal();
+                    checkCelebration.update({'SuperSecurity': "celebrated"});
+
+                }
+
+            })
+
+        } else {
+
+            display_1 = "<img src=\"https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2FlockCircle.png?alt=media&token=d204d5fe-9d37-4269-9e73-0a54571a5ce6\" alt= \"lock\" class=\"image\" >\n" +
+                "                    <div class=\"middle\">\n" +
+                "                        <div class=\"text\"><strong>Oops!</strong> <br> Badge Locked</div>\n" +
+                "                         <!--text for the hover-->\n" +
+                "                     </div>";
+        }
+
+        $('#SuperSecurity').html(display_1);
+    });
+
+
+</script>
+{% comment %}
+Badges_Celebrations_1
+{% endcomment %}
+
+<!--badge celebration modal-->
+<div id="Celebrations" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div style="" class="modal-content">
+            <div style="" class="modal-header">
+
+                <img style="margin-left: 30px; width: 100px; height: 100px"
+                     src="https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2Fstuffcelebration.gif?alt=media&token=77be32d2-cdbb-4356-ba92-bc8fc69ca31c">
+                <img style="margin-left: 30px; width: 100px; height: 100px"
+                     src="https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2Fparty_face_256_1.gif?alt=media&token=4c859e3c-a29b-469e-b275-5208cff0e46d">
+                <img style="margin-left: 30px; width: 100px; height: 100px"
+                     src="https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2Fconfetti_ball_256.gif?alt=media&token=28226457-860e-48db-b443-07052b333515">
+                <img style="margin-left: 30px; width: 100px; height: 100px"
+                     src="https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2Fstuffcelebration.gif?alt=media&token=77be32d2-cdbb-4356-ba92-bc8fc69ca31c">
+
+                <h1 style="margin-left: 140px; color: orange">Congratulations!!!!</h1>
+                <h3 style="margin-left: 140px; color: purple">You unlocked a new badge!</h3>
+                <h4 id="Congrats_Pop_Up" style=" margin-left: 200px; color: orangered; font-style: italic"></h4>
+
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <br>
+            <img style="margin-left: 50px"
+                 src="https://firebasestorage.googleapis.com/v0/b/getconnected-9dac0.appspot.com/o/Badges%2Ftumblr_inline_pk7haw87391r9r3iy_540.gif?alt=media&token=f11fda16-ae48-4560-9abd-c5e4dd78a141">
+
+            <div class="modal-body">
+
+
+                <div id="ConnectionsListing_All" class="row">
+
+
+                </div> <!--end row-->
+
+
+                <div class="modal-footer">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% comment %}
+Badges_Celebrations_2
+{% endcomment %}
+<script>
+
+    $('#Celebrations').on('show.bs.modal', function (event) {
+
+    })
+</script>
+
+</body>

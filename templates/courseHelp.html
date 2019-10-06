@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!--Firebase-->
+
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCW2DTUu_qEhCG9xpj5gGkG2_QC_CmsGQE",
+            authDomain: "getconnected-9dac0.firebaseapp.com",
+            databaseURL: "https://getconnected-9dac0.firebaseio.com",
+            projectId: "getconnected-9dac0",
+            storageBucket: "getconnected-9dac0.appspot.com",
+            messagingSenderId: "144309081376"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Course Help</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- <link rel="stylesheet" type="text/css" href="../GC_Auth/static/GC_Auth/loginstyle.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <!-- footer style -->
+    <link href="sticky-footer.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <style>
+
+        /* specify the font for the page*/
+        body {
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+
+        }
+
+        /*specifiy the font for the header*/
+        .header p {
+
+            font-size: 40px;
+            color: gray;
+            text-align: center;
+            padding-top: 0px;
+
+        }
+
+        /*specify the look for the pink strip*/
+        .intro {
+            background-color: #e83e8c;
+            opacity: 0.8;
+            color: white;
+            font-size: 20px;
+            text-align: left;
+            padding-left: 200px;
+            padding-right: 200px;
+            padding-top: 20px;
+        }
+
+        /*css for the block text*/
+
+        .features p {
+            text-align: center;
+
+            font-size: 25px;
+            padding-top: 20px;
+            font-size: 40px;
+            color: gray;
+
+
+        }
+
+        /*footer logo*/
+        footer img {
+
+
+            width: 200%;
+            height: 200%;
+            text-align: left;
+
+        }
+
+        /*text for the blocks which show the features*/
+        .row p {
+            font-size: 20px;
+            color: #e83e8c;
+            text-align: left;
+            padding-top: 0px;
+        }
+
+        /*headings for the blocks*/
+        .row h1 {
+            font-size: 18px;
+            color: gray;
+            text-align: left;
+        }
+
+        /*move the row away from the edges*/
+        .row {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+
+        /*removes the underlining for the links in the blocks*/
+        a:hover {
+            text-decoration: none;
+
+        }
+
+        /*specify the look for the Freq asked Questions*/
+        .faq {
+            background-color: #9d9d9d;
+
+            padding-left: 50px;
+            padding-right: 50px;
+            padding-top: 10px;
+            text-align: left;
+            width: 80%;
+            position: center;
+            display: inline-block;
+
+        }
+
+        /*specify the heading for the FAQ*/
+        .faq h1 {
+            font-size: 20px;
+            color: white; /*#e83e8c*/
+            text-align: left;
+
+        }
+
+        /*text qualities for the FAQ*/
+        .faq p {
+            font-size: 18px;
+            color: silver;
+            text-align: left;
+            padding-top: 0;
+
+        }
+
+        /*numbers in FAQ*/
+        .numbercircles {
+            border-radius: 50%;
+            behavior: url(PIE.htc);
+            width: 36px;
+            height: 36px;
+            padding: 8px;
+            background: #9d9d9d;
+            border: 2px solid white;
+            color: white;
+            text-align: center;
+            font-size: 20px;
+            display: inline-block;
+        }
+
+        /*strip for badges*/
+        .badges {
+            background-color: #e83e8c;
+            opacity: 0.8;
+
+        }
+
+
+    </style>
+
+
+</head>
+
+
+<body>
+
+<!--dialog pop-ups-->
+<dialog class="text-center" id="connectedWith"
+        style="box-shadow: 2px 2px 2px 2px grey;color: white;position: absolute; top: 30%;z-index: 4;border: 1px solid white;font-family: 'Roboto', sans-serif;border-radius: 8px;background-color: darkgray;width: 400px; height:100px;">
+    <div id="newconnectionmodal"></div>
+    <br>
+    <button id="close" style="border: 1px solid #e83e8c;border-radius: 8px;
+        color: #e83e8c; background-color:white; font-family: 'Roboto', sans-serif;position: center; ">Okay
+    </button>
+</dialog>
+
+
+<dialog class="text-center" id="forumJoined"
+        style="box-shadow: 2px 2px 2px 2px grey;;color: white;position: absolute; top:30%;z-index: 4;border: 1px solid white;font-family: 'Roboto', sans-serif;border-radius: 8px;background-color: darkgray;width: 400px; height:100px;">
+    <p>You have joined a new forum!</p>
+    <br>
+    <button id="shut" style="border: 1px solid #e83e8c;border-radius: 8px;
+        color: #e83e8c; background-color:white; font-family: 'Roboto', sans-serif;position: center; ">Okay
+    </button>
+</dialog>
+
+<!--Navigation Bar-->
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>  <!--navbar-header-->
+
+        <div class="collapse navbar-collapse" id="myNavbar"> <!--Navigation bar contents-->
+
+            <!--Left-side (including search ) of navigation bar-->
+            <ul class="nav navbar-nav navbar-left">
+                <li><a onclick="location.href='{% url 'nav_home' %}'"><span
+                        class="glyphicon glyphicon-home fa-lg"></span> Home</a></li>
+                <li><a onclick="location.href='{% url 'nav_networks' %}'"><span class="fa fa-globe fa-lg"></span>
+                    Connections</a></li>
+                <li><a onclick="location.href='{% url 'nav_forums' %}'"><span class="fa fa-comments-o fa-lg"></span>
+                    Forums</a></li>
+                <li><a onclick="location.href='{% url 'nav_courses' %}'"><span class="fa fa-book fa-lg"></span> Courses</a>
+                </li>
+            </ul>
+
+            <!--RHS of the navigation bar -->
+
+            <ul class="nav navbar-nav navbar-right">
+
+                <li class="dropdown"><a id="idMessage" data-toggle="dropdown" data-target="#" href="#"
+                                        onclick="CloseIntroForm(); OpenLogIn();">
+
+
+                    <ul class="dropdown-menu notifications" role="menu" aria-labelledby="dLabel">
+
+
+                    </ul><!--Dropdown menu Messages--> </a>
+                </li><!--dropdown -->
+
+                <!--Profile Drop-Down -->
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                                        onclick="CloseIntroForm(); OpenLogIn();">
+
+                    <span onclick="location.href='{% url 'userprofile' %}'"> <img style="border-radius: 10px;"
+                                                                                  class="rounded-circle" width="20"
+                                                                                  height="20" src="{{ profilePic }}"
+                                                                                  alt=""></span>
+
+                    <span class="glyphicon glyphicon-triangle-bottom"></span></a>
+
+                    <ul class="dropdown-menu">
+                        <li><a onclick="location.href='{% url 'settings' %}'">Settings <span
+                                class="glyphicon glyphicon-cog pull-right"></span></a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="location.href='{% url 'nav_forums' %}'">Forums <span
+                                class="fa fa-comments-o pull-right"></span></a></li>
+                        <li class="divider"></li>
+
+                        <li><a onclick="location.href='{% url 'helpUserProfile' %}'">Help<span
+                                class="glyphicon glyphicon-question-sign pull-right"></span></a></li>
+                        <li class="divider"></li>
+                        <li><a onclick="location.href='{% url 'log' %}'">Sign Out <span
+                                class="glyphicon glyphicon-log-out pull-right"></span></a></li>
+                    </ul>
+                </li>
+
+
+            </ul><!--nav navbar-nav navbar-right-->
+        </div><!--collapse nav-bar collapse-->
+    </div><!--container fluid-->
+</nav><!--nav navbar-inverse-->
+
+<script>
+
+    /*Time for Posts Displayed*/
+    const MONTH_NAMES = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    function getFormattedDate(date, prefomattedDate = false, hideYear = false) {
+        const day = date.getDate();
+        const month = MONTH_NAMES[date.getMonth()];
+        const year = date.getFullYear();
+        const hours = date.getHours();
+        let minutes = date.getMinutes();
+
+        if (minutes < 10) {
+            // Adding leading zero to minutes
+            minutes = `0${minutes}`;
+        }
+
+        if (prefomattedDate) {
+            // Today at 10:20
+            // Yesterday at 10:20
+            return `${prefomattedDate} at ${hours}:${minutes}`;
+        }
+
+        if (hideYear) {
+            // 10. January at 10:20
+            return `${day}. ${month} at ${hours}:${minutes}`;
+        }
+
+        // 10. January 2017. at 10:20
+        return `${day}. ${month} ${year}. at ${hours}:${minutes}`;
+    }
+
+    // --- Main function
+    function timeAgo(dateParam) {
+
+        if (!dateParam) {
+            return null;
+        }
+
+        const date = typeof dateParam === 'object' ? dateParam : new Date(dateParam);
+        const DAY_IN_MS = 86400000; // 24 * 60 * 60 * 1000
+        const today = new Date();
+        const yesterday = new Date(today - DAY_IN_MS);
+        const seconds = Math.round((today - date) / 1000);
+        const minutes = Math.round(seconds / 60);
+        const isToday = today.toDateString() === date.toDateString();
+        const isYesterday = yesterday.toDateString() === date.toDateString();
+        const isThisYear = today.getFullYear() === date.getFullYear();
+
+
+        if (seconds < 5) {
+            return 'now';
+        } else if (seconds < 60) {
+            return `${seconds} seconds ago`;
+        } else if (seconds < 90) {
+            return 'about a minute ago';
+        } else if (minutes < 60) {
+            return `${minutes} minutes ago`;
+        } else if (isToday) {
+            return getFormattedDate(date, 'Today'); // Today at 10:20
+        } else if (isYesterday) {
+            return getFormattedDate(date, 'Yesterday'); // Yesterday at 10:20
+        } else if (isThisYear) {
+            return getFormattedDate(date, false, true); // 10. January at 10:20
+        }
+
+        return getFormattedDate(date); // 10. January 2017. at 10:20
+    };
+
+
+    /*Message_Notificationas*/
+
+    var Message_Notifications_Check = firebase.database().ref().child("Users/{{this_uid}}/Messages_Notifications");/*current user's account*/
+    Message_Notifications_Check.on('value', function (snapshot) {
+        msg_messages_dropdown(snapshot.val());
+        msg_message_number(snapshot.val());
+    });
+
+    function msg_messages_dropdown(obj) {
+
+
+        var dropdown_item = '';
+        var keys = Object.keys(obj);
+        var counter_check = 0;
+
+
+        for (var i = keys.length - 1; i >= 0; i--) {
+
+            if (obj[keys[i]].ProfilePic != undefined) {
+
+                var display_time = obj[keys[i]].Time;
+                display_time = Number(display_time); // cast it to a Number
+                var ts_display = timeAgo(display_time);
+
+
+                if (counter_check == 0) {
+                    counter_check++;
+
+                    dropdown_item += " <a><div style= \"padding: 2px;\n" +
+                        "            margin: 5px;\n" +
+                        "            border-radius: 4px;\n" +
+                        "            border-width: 5px;\n" +
+                        "            border-color: black;\n" +
+                        "            height: 80px;\n" +
+                        "             margin-left: -20px;\n" +
+                        "            margin-top: 20px  \" class=\"notification-item\">\n" +
+                        "                                <img style=\"margin-top:-12px\" class=\"profile_img\" src=\"" + obj[keys[i]].ProfilePic + "\"/>\n" +
+                        "                                    \n" +
+                        "                                    <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 55px; position:relative\">" + obj[keys[i]].Sender_name + "</h5>\n" +
+                        "                                    <p style=\"font-family: sans-serif; color: black; margin-top: 3px;left: 28px;position:relative; \"> " + obj[keys[i]].text + "</p>\n" +
+                        "                                    <p style=\"font-family:sans-serif;font-style:italic;margin-left: 58px;margin-top:2px; color: grey;font-size:x-small\"><i class= \"fa fa-clock-o \"></i>&nbsp" + ts_display + "</p>\n" +
+                        "                                    <hr style=\"width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px\"/>\n" +
+                        "                                </div>\n" +
+                        "                            </a>";
+
+                } else {
+
+                    dropdown_item += " <a><div style= \"padding: 5px;\n" +
+                        "            margin: 5px;\n" +
+                        "            border-radius: 4px;\n" +
+                        "            border-width: 5px;\n" +
+                        "            border-color: black;\n" +
+                        "            height: 80px;\n" +
+                        "             margin-left: -20px;\n" +
+                        "            margin-top: 20px \" class=\"notification-item\">\n" +
+                        "                                <img style=\"margin-top:-12px\" class=\"profile_img\" src=\"" + obj[keys[i]].ProfilePic + "\"/>\n" +
+                        "                                    \n" +
+                        "                                    <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: -15px; left: 55px; position:relative\">" + obj[keys[i]].Sender_name + "</h5>\n" +
+                        "                                    <p style=\"font-family: sans-serif; color: black; margin-top: 3px;left: 28px;position:relative; \">" + obj[keys[i]].text + "</p>\n" +
+                        "                                    <p style=\"font-family:sans-serif;font-style:italic;margin-left: 58px;margin-top:2px; color: grey;font-size:x-small\"><i class= \"fa fa-clock-o \"></i>&nbsp" + ts_display + "</p>\n" +
+                        "                                    <hr style=\"width: 100%; color: grey; height: 2px; background-color:grey; margin-top: 5px\"/>\n" +
+                        "                                </div>\n" +
+                        "                            </a>";
+                }
+
+            }
+        }
+        $('#Message_dropdown_notifications').html(dropdown_item);
+    }
+
+
+    function msg_message_number(obj) {
+        // var html = '';
+        var countholder = 0;
+        var keys = Object.keys(obj);
+
+        for (var i = 0; i < keys.length; i++) {
+            countholder++;
+        }
+        {% comment %}
+                        countholder--;
+        {% endcomment %}
+
+        {% comment %}database_counter.update({'counter': countholder});
+         /*Creating notification icon*/{% endcomment %}
+
+
+        {% comment %}
+                        html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
+        {% endcomment %}
+
+
+        $('#number_of_msg_notifications').html(countholder);
+
+
+    }
+
+    function removeMessageNotifications() {
+
+        var other = firebase.database().ref().child("Users/" + '{{ this_uid }}');/*Messages*/
+        other.child("Messages_Notifications").remove();
+
+    }
+
+
+    /*Request Notifications*/
+
+    var database_counter = firebase.database().ref().child("Users/{{this_uid}}/RequestsReceived");/*current user's account*/
+
+
+    database_counter.on('value', function (snapshot) {
+        renderCount(snapshot.val());
+        renderUI(snapshot.val());
+        //alert("Connection Request Received");
+
+
+    });
+
+
+    function renderUI(obj) {
+        var html = '';
+        var keys = Object.keys(obj);
+        for (var i = keys.length - 1; i >= 0; i--) {
+            // for (var i = 0; i <= keys.length - 1; i++) {
+
+
+            /* html += "<li><b><i>" + obj[keys[i]].time + "</i></b> girl " + obj[keys[i]].receiver + "</li>";*/
+            /*Creating notification item*/
+
+            if (obj[keys[i]].sender_profilePic != undefined) {
+
+                var display_time = obj[keys[i]].time;
+                display_time = Number(display_time); // cast it to a Number
+                var ts_display = timeAgo(display_time);
+
+                var type_post = obj[keys[i]].Type;
+                var forum_id_id = obj[keys[i]].Forum_ID;
+
+
+                var decision = "true";
+                var opp_decison = "false";
+                html += "<div href=\"#\" class=\"content\" style=\"padding:5px;margin: 5px; border-radius: 4px; border-width: 5px; border-color: black; height: 80px; margin-left: -20px; margin-top: 40px;\"> <div style=\"padding:2px;margin:5px;border-radius:4px;border-width:5px;border-color:black;height:80px;margin-left: -10px\"><img  class=\"profile_img_1\" src=\" " + obj[keys[i]].sender_profilePic + "\"/> <p style=\"margin-left: 155px;font-size: 60%; color: darkgray;text-decoration: none\">" + "" + "&nbsp;&nbsp;</p> <h5 style=\"font-family: sans-serif; font-weight: bold; color: black; margin-top: 0px; top: -20px;left: 25px; position:relative\">" + obj[keys[i]].sender + "</h5> <p style=\"font-family: sans-serif; color: black; margin-top: -25px;left: 28px;position:relative; \">" + obj[keys[i]].message +
+                    "</p> <p style=\"font-family:sans-serif;font-style:italic;margin-left: 55px;margin-top:5px; color: grey;font-size: x-small\"><i class= \"fa fa-clock-o \"></i> " + ts_display + "</p>  <div style=\"margin-top: 10px\"> <button  id=\"dntrigger\" onclick=\"Accept_request(" + "\'" + obj[keys[i]].sender_id + "\'" + "," + "\'" + obj[keys[i]].sender + "\'" + "," + "\'" + obj[keys[i]].post_id + "\'" + "," + "\'" + decision + "\'" + ",\'" + type_post + "\',\'" + forum_id_id + "\' )\" class=\"AcceptDeclinebutton\" style=\" font-size: 85%; position: relative;left: 80px;color: white\">Accept</button> <button id=\"DeclineRemove\" onclick=\"Accept_request(" + "\'" + obj[keys[i]].sender_id + "\'" + "," + "\'" + obj[keys[i]].sender + "\'" + "," + "\'" + obj[keys[i]].post_id + "\'" + "," + opp_decison + ")\" class=\"AcceptDeclinebutton\" style=\"; font-size: 85%;position: relative;left: 80px;color: white \">Decline </button> </div> <hr style=\"width: 100%; color: gray; height: 2px; background-color:grey; margin-top: 5px\"/> </div> </div><br>";
+
+
+            }
+        }
+        $('#comment').html(html);
+    }
+
+    function renderCount(obj) {
+        var html = '';
+        var countholder = 0;
+
+        var keys = Object.keys(obj);
+        for (var i = 0; i < keys.length; i++) {
+            countholder++;
+        }
+        countholder--;
+        database_counter.update({'counter': countholder});
+        /*Creating notification icon*/
+
+
+        html += "<span class=\"glyphicon glyphicon-bell\"></span>&nbsp;<span class=\"label label-default\" style=\"background-color: red;color: white\">" + countholder + "</span></a>";
+
+
+        $('#counter_number_notifications').html(html);
+
+
+    }
+
+    function Accept_request(sender_id, name, post_id, isAccept, typepost, forum_id_id) {
+
+
+        if (String(isAccept).valueOf() == String("true").valueOf()) {
+
+            /*Check Type of Request*/
+
+            firebase.database().ref("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id + "/Type_check").once("value", snapshot => {
+
+                if (snapshot.exists()) {
+
+
+                    if (String(typepost).valueOf() == String("Forum_Request").valueOf()) {
+
+                        var AddtoForum = firebase.database().ref().child("Forums/" + forum_id_id + "/Participants");/*Messages*/
+                        AddtoForum.child(sender_id).set(sender_id);
+
+                        var AddtoForum_Joined = firebase.database().ref().child("Users/" + sender_id + "/ForumsJoined");/*Messages*/
+                        AddtoForum_Joined.child(forum_id_id).set(forum_id_id);
+
+                    } else {
+
+
+                        var AddtoForum = firebase.database().ref().child("Forums/" + sender_id + "/Participants");/*Messages*/
+
+                        AddtoForum.child('{{this_uid}}').set('{{ this_uid }}');
+
+
+                        var AddtoForum_Joined = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/ForumsJoined");/*Messages*/
+
+                        AddtoForum_Joined.child(sender_id).set(sender_id);
+
+
+                        // window.alert("You have joined a new forum!");
+                        var x = document.getElementById("forumJoined");
+                        x.show();
+                    }
+
+
+                }/*Forum Requests*/
+
+                else {
+
+
+                    var AddConnection = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/Connections");/*Messages*/
+                    var AddConnection_other = firebase.database().ref().child("Users/" + sender_id + "/Connections");/*Messages*/
+
+
+                    //AddConnection.child(sender_id).set(name);
+                    var bio;
+                    var propic;
+                    var country;
+                    var html = '';
+                    var getAcceptcon = firebase.database().ref().child("Users/" + sender_id);
+                    getAcceptcon.on("value", function (snapshot) {
+                        bio = snapshot.val().Bio;
+                        propic = snapshot.val().ProfilePic;
+                        country = snapshot.val().Country;
+                    });
+
+                    //var created_id_target = AddConnection.push();
+                    AddConnection.child(sender_id).set({ /*Pushes to receiver*/
+                        Name: name,
+                        Bio: bio,
+                        ProfilePic: propic,
+                        Country: country,
+
+                    });
+
+                    AddConnection_other.child('{{this_uid}}').set({ /*Pushes to receiver*/
+                        Name: '{{ n }}',
+                        Bio: '{{ bio }}',
+                        ProfilePic: '{{ profilePic }}',
+                        Country: '{{ country }}',
+
+                    });
+
+
+                    // window.alert("You are now connected with " + name);
+
+                    html += "You are now connected with " + name;
+                    $('#newconnectionmodal').html(html);
+
+                    var y = document.getElementById("connectedWith");
+                    y.show();
+
+                }/*Friend Reuest*/
+            }); /*Checking Type of Request*/
+        } /*If Accept*/
+
+
+        firebase.database().ref("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id + "/Type").once("value", snapshot => {
+
+            if (snapshot.exists()) {
+
+                var different_name = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id);/*Messages*/
+                different_name.remove();
+
+
+            } else {
+
+                var different_name = firebase.database().ref().child("Users/" + '{{this_uid}}' + "/RequestsReceived/" + post_id);/*Messages*/
+                different_name.remove();
+
+                var removesent = firebase.database().ref().child("Users/" + post_id + "/RequestsSent/" + '{{this_uid}}');/*Messages*/
+                removesent.remove();
+
+
+            }
+
+        });
+
+
+    }
+
+
+</script>
+<!--heading and content-->
+
+<div class="header">
+    {% load staticfiles %}
+    <p><img src="{% static "GC_Auth/help/courses.png" %}" alt="lock" class="image" style="width:10%; height: 10%;">
+        <strong> Courses </strong></p>
+
+</div>
+<!--short intro paragraph in pink strip-->
+<div class="intro">
+    <p style="text-align: center;"> You wouldn't be using GetConnected if you didn't love your GetSmarter experience! So
+        why not use the courses
+        page to find new courses, to keep your brain active... or recommend any courses you've already completed. </p>
+    <br>
+
+</div>
+
+<!--create accordion with different sections -->
+<br>
+<div class=" features">
+    <div class="panel-group text" id="accordion" style="width: 100%;padding-left: 0px;"><!--accordion of details-->
+
+        <!--panel Viewing courses -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseViewingCourses"
+                       style="color:#ce3298">
+                        <strong>
+                            Viewing your Courses
+                        </strong>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseViewingCourses" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    <p>Viewing your Courses</p>
+
+                    <div class="row">
+                        <!--coloumn-->
+                        <div class="col-sm-6" style="background-color:white;">
+                            <!--description-->
+                            <p> Viewing Courses</p>
+                            <h1 style="color:grey;"> The GetConnected platform has a record of all the courses you have
+                                completed with GetSmarter.
+                                Which you can easily view by clicking "Courses" on the navigation bar. Be sure to select
+                                "My Courses"
+                                at the top of the page, to view only your completed courses ( see image on the right) If
+                                you select "All Courses",
+                                all courses offered by GetSmarter can be viewed</h1>
+
+
+                        </div>
+                        <!--coloumn-->
+                        <!--image-->
+                        <div class="col-sm-6" style="background-color:white;">
+                            <br>
+                            {% load staticfiles %}
+                            <img src="{% static "GC_Auth/help/coursetabs.png" %}" alt="lock" class="image"
+                                 style="width:60%; height:60%;border: 1px solid silver;">
+
+
+                        </div>
+
+
+                    </div>
+                    <br>
+
+                </div>
+                <!--row 2nd paragraph on right-->
+
+                <div class="row">
+                    <!--coloumn-->
+                    <div class="col-sm-6" style="background-color:white;">
+
+                        {% load staticfiles %}
+                        <img src="{% static "GC_Auth/help/coursefilters.png" %}" alt="lock" class="image"
+                             style="width:40%; height:40%; border: 1px solid silver;">
+
+
+                    </div>
+                    <!--coloumn-->
+                    <div class="col-sm-6" style="background-color:white;">
+                        <br><br>
+                        <h1 style="color:grey;">You can use the search bar to find a specific course you are looking for
+                            or the filter pane to filter by
+                            Subject, Institution or Recommendation</h1>
+                        <h1>If you click on a course, you will be redirected to the GetSmarter website where you can
+                            read up
+                            additional information on that particular course.</h1>
+
+                    </div>
+
+
+                </div>
+
+                <br>
+            </div><!--end-->
+        </div>
+
+        <!--panel Recommending courses -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseRecommending"
+                       style="color:#ce3298">
+                        <strong>
+                            Recommending Courses
+                        </strong>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseRecommending" class="panel-collapse collapse">
+                <div class="panel-body">
+
+                    <!--row1 Personalising the profile -->
+
+
+                    <div class="row">
+                        <!--coloumn-->
+                        <div class="col-sm-6" style="background-color:white;">
+                            <!--description-->
+                            <p> Recommending Courses </p>
+                            <h1 style="color:grey;"> If you have completed a course, you will have the opportunity to
+                                "like" or recommend it.
+                                All you need to do is click the heart icon see on the right. </h1>
+                            <h1>Once this is clicked, it will show the heart filled in. You can always return at a later
+                                stage to unlike, simply by
+                                clicking on the heart again. The heart will then appear hollow. Courses which have many
+                                hearts, from many different users are
+                                "Highly recommended". </h1>
+
+
+                        </div>
+                        <!--coloumn-->
+                        <!--image-->
+                        <div class="col-sm-6" style="background-color:white;">
+                            <br>
+                            {% load staticfiles %}
+                            <img src="{% static "GC_Auth/help/courseheart.png" %}" alt="lock" class="image"
+                                 style="width:25%; height:25%;">
+
+
+                        </div>
+
+
+                    </div>
+                    <br>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <!--panel FAQ-->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title"><!--panel 1 heading-->
+                    <a data-toggle="collapse" data-parent="#accordion"
+                       href="#collapseFaq" style="color:#ce3298">
+                        <strong>
+                            Frequently Asked Questions
+                        </strong>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseFaq" class="panel-collapse collapse">
+                <!--panel 1 content-->
+                <div class="panel-body">
+
+                    <!--Frequently asked questions section-->
+                    <p style="font-size: 40px;color:gray;text-align: center;"> Frequently Asked Questions</p>
+                    <!--grey block with questions & answers-->
+                    <div class="faq">
+                        <!--question-->
+                        <h1>
+                            <div class="numbercircles">1</div>
+                            <i>
+                                What happens if I do not pass a course?</i></h1>
+                        <!--padding left indents the answer to the right-->
+                        <p style="padding-left: 40px;"> If a course is not passed, it will not show up under "My
+                            Courses" and you will be unable to recommend it.
+                        </p>
+
+                        <!--question-->
+                        <h1>
+                            <div class="numbercircles">2</div>
+                            <i>
+                                Is it possible for me to add my own courses to "My courses"? </i></h1>
+                        <p style="padding-left: 40px;">No, your courses are added automatically once you have completed
+                            them. </p>
+
+                        <!--question-->
+                        <h1>
+                            <div class="numbercircles">3</div>
+                            <i>
+                                How do I view more information about a course? </i></h1>
+                        <p style="padding-left: 40px;">Click on the course's card and you will be redirected to
+                            GetSmarter's website to view more information.</p>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div><!--end panel-->
+
+
+    </div><!--end of accordion-->
+</div>
+
+<!--footer-->
+<footer class="page-footer font-small cyan darken-3" style="background-color: #D3D3D3;">
+
+
+    <div class="container">
+        <br></br>
+        <!-- Call to action -->
+        <ul class="list-unstyled list-inline text-center py-2">
+            <li class="list-inline-item">
+                <!--  <h5 class="mb-1">Log in now: </h5>-->
+            </li>
+            <li class="list-inline-item">
+
+
+                <div class="rowthis"><!--table row-->
+
+                    <div class="col-sm-3" style="text-align:left;padding-right: 100px;">
+                        <br>
+                        {% load staticfiles %}
+                        <img src="{% static "GC_Auth/logotrans.png" %}" alt="lock" class="image">
+                    </div>
+
+
+                    <div class="col-sm-3" style="text-align:left;padding-left: 120px;">
+
+                        <p style="color:#e83e8c;font-size:20px;"><strong>Menu</strong></p>
+                        <a onclick="location.href='{% url 'nav_home' %}'" style="color: white"><p>Home</p></a>
+                        <a onclick="location.href='{% url 'nav_networks' %}'" style="color: white"><p>Connections</p>
+                        </a>
+                        <a onclick="location.href='{% url 'nav_forums' %}'" style="color: white"><p>Forums</p></a>
+                        <a onclick="location.href='{% url 'nav_courses' %}'" style="color: white"><p>Courses</p></a>
+                    </div>
+
+                    <div class="col-sm-3" style="text-align:left;padding-left: 80px;"><!--coloumn-->
+
+                        <p style="color:#e83e8c;font-size:20px;"><strong>Help & FAQs</strong></p>
+
+                        <a onclick="location.href='{% url 'introHelp' %}'" style="color: white"><p>What is
+                            GetConnected?</p></a>
+                        <a onclick="location.href='{% url 'accountHelp' %}'" style="color: white"><p>Your Account</p>
+                        </a>
+                        <a onclick="location.href='{% url 'forumsHelp' %}'" style="color: white"><p>Forums &
+                            Messaging</p></a>
+                        <a onclick="location.href='{% url 'helpconnections' %}'" style="color: white"><p>Connection
+                            Management</p></a>
+                        <a onclick="location.href='{% url 'helpcourses' %}'" style="color: white"><p>Course Help</p></a>
+                        <a href="https://www.getsmarter.com/what-we-do" style="color: white"><p>GetSmarter</p></a>
+
+
+                    </div>
+
+                    <div class="col-sm-3" style="text-align:left;padding-left: 80px;"><!--coloumn-->
+
+                        <p style="color:#e83e8c;font-size:20px;"><strong>Contact Us</strong></p>
+                        <p style="color:white;"><strong>Tel: </strong> 456 4637</p>
+                        <p style="color:white;"><strong>Email: </strong> getConnected@GetSmarter.co.za</p>
+                        <p style="color:white;"><strong>Working Hours:</strong> Mon - Fri, 09:00 - 17:00</p>
+
+
+                    </div>
+
+
+                </div>
+
+                <br>
+                <br>
+
+
+            </li>
+        </ul>
+        <!-- Call to action -->
+
+    </div>
+
+</footer>
+
+
+</body>
+</html>
